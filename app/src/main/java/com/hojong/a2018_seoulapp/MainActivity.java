@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
@@ -17,7 +16,7 @@ public class MainActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		Fragment defaultFragment = new LocationsFragment();
+		Fragment defaultFragment = new LocationListFragment();
 		loadFragment(defaultFragment);
 
 		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -32,10 +31,10 @@ public class MainActivity extends AppCompatActivity
 		switch (item.getItemId())
 		{
 			case R.id.navigation_locations:
-				fragment = new LocationsFragment();
+				fragment = new LocationListFragment();
 				break;
 			case R.id.navigation_favorites:
-				fragment = new FavoritesFragment();
+				fragment = new FavoriteShopListFragment();
 				break;
 			case R.id.navigation_my_page:
 				fragment = new MyPageFragment();
@@ -52,6 +51,7 @@ public class MainActivity extends AppCompatActivity
 					.beginTransaction()
 					.replace(R.id.fragment_container, fragment)
 					.commit();
+
 			return true;
 		}
 		return false;

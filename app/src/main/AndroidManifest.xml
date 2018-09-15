@@ -37,8 +37,10 @@
             android:label="@string/title_activity_main">
         </activity>
         <activity
-            android:name=".ShopsActivity"
-            android:label="@string/title_activity_store">
+            android:name=".ShopListActivity"
+            android:label="@string/title_activity_shop_list">
+        </activity>
+        <activity android:name=".ShopActivity">
         </activity>
     </application>
 
