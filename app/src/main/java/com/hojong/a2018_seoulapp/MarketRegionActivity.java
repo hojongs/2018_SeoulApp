@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class RegionActivity extends AppCompatActivity
+public class MarketRegionActivity extends AppCompatActivity
 {
 
 	private TextView mTextMessage;
@@ -39,7 +39,7 @@ public class RegionActivity extends AppCompatActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_region);
+		setContentView(R.layout.activity_market_region);
 
 		mTextMessage = (TextView) findViewById(R.id.message);
 		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
