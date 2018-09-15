@@ -21,7 +21,7 @@ public class LocationListFragment extends ListFragment
 		adapter.addItem(new Location(ContextCompat.getDrawable(getActivity(), R.drawable.ic_dashboard_black_24dp)));
 		adapter.addItem(new Location(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp)));
 
-		return inflater.inflate(R.layout.fragment_locationlist, null);
+		return inflater.inflate(R.layout.fragment_location_list, null);
 	}
 
 	@Override

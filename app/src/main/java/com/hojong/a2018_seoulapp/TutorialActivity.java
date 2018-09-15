@@ -1,5 +1,6 @@
 package com.hojong.a2018_seoulapp;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TutorialActivity extends AppCompatActivity
@@ -52,19 +55,32 @@ public class TutorialActivity extends AppCompatActivity
 		mViewPager = (ViewPager) findViewById(R.id.container);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
+		// Images left navigation
+		View leftNav = findViewById(R.id.left_nav);
+		leftNav.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int tab = mViewPager.getCurrentItem();
+				if (tab > 0) {
+					tab--;
+					mViewPager.setCurrentItem(tab);
+				} else if (tab == 0) {
+					mViewPager.setCurrentItem(tab);
+				}
+			}
+		});
 
-//		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//		fab.setOnClickListener(new View.OnClickListener()
-//		{
-//			@Override
-//			public void onClick(View view)
-//			{
-//				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//						.setAction("Action", null).show();
-//			}
-//		});
+		// Images right navigatin
+		View rightNav = findViewById(R.id.right_nav);
+		rightNav.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int tab = mViewPager.getCurrentItem();
+				tab++;
+				mViewPager.setCurrentItem(tab);
+			}
+		});
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -101,9 +117,7 @@ public class TutorialActivity extends AppCompatActivity
 		 */
 		private static final String ARG_SECTION_NUMBER = "section_number";
 
-		public PlaceholderFragment()
-		{
-		}
+		public PlaceholderFragment() { }
 
 		/**
 		 * Returns a new instance of this fragment for the given section
@@ -122,9 +136,38 @@ public class TutorialActivity extends AppCompatActivity
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState)
 		{
+			int imgId = R.drawable.ic_chevron_left_black_24dp;
+
 			View rootView = inflater.inflate(R.layout.fragment_tutorial, container, false);
-			TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-			textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+			View startBtn = rootView.findViewById(R.id.startButton);
+			startBtn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getActivity(), MainActivity.class);
+					startActivity(intent);
+					getActivity().finish();
+				}
+			});
+
+			ImageView imageView = rootView.findViewById(R.id.imageView1);
+
+			switch (getArguments().getInt(ARG_SECTION_NUMBER))
+			{
+				case 1:
+					startBtn.setVisibility(View.INVISIBLE);
+					break;
+				case 2:
+					startBtn.setVisibility(View.INVISIBLE);
+					imgId = R.drawable.ic_home_black_24dp;
+					break;
+				case 3:
+					startBtn.setVisibility(View.VISIBLE);
+					imgId = R.drawable.ic_chevron_right_black_24dp;
+					break;
+			}
+			imageView.setImageResource(imgId);
+//			textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 			return rootView;
 		}
 	}
