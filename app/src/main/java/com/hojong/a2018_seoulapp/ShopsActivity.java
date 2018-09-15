@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class StoreActivity extends AppCompatActivity
+public class ShopsActivity extends AppCompatActivity
 {
 
 	private TextView mTextMessage;
@@ -20,14 +20,14 @@ public class StoreActivity extends AppCompatActivity
 		public boolean onNavigationItemSelected(@NonNull MenuItem item)
 		{
 			switch (item.getItemId()) {
-				case R.id.navigation_home:
-					mTextMessage.setText(R.string.title_home);
+				case R.id.navigation_locations:
+					mTextMessage.setText(R.string.location_find);
 					return true;
-				case R.id.navigation_dashboard:
-					mTextMessage.setText(R.string.title_dashboard);
+				case R.id.navigation_favorites:
+					mTextMessage.setText(R.string.favorites);
 					return true;
-				case R.id.navigation_notifications:
-					mTextMessage.setText(R.string.title_notifications);
+				case R.id.navigation_my_page:
+					mTextMessage.setText(R.string.my_page);
 					return true;
 			}
 			return false;

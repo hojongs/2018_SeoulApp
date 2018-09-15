@@ -37,11 +37,7 @@
             android:label="@string/title_activity_main">
         </activity>
         <activity
-            android:name=".MarketRegionActivity"
-            android:label="@string/title_activity_region">
-        </activity>
-        <activity
-            android:name=".StoreActivity"
+            android:name=".ShopsActivity"
             android:label="@string/title_activity_store">
         </activity>
     </application>
