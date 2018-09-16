@@ -1,11 +1,13 @@
 package com.hojong.a2018_seoulapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity
 		implements BottomNavigationView.OnNavigationItemSelectedListener
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity
 		Fragment defaultFragment = new LocationListFragment();
 		loadFragment(defaultFragment);
 
-		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+		BottomNavigationView navigation = findViewById(R.id.navigation);
 		navigation.setOnNavigationItemSelectedListener(this);
 	}
 
