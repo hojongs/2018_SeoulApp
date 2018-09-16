@@ -1,11 +1,14 @@
 package com.hojong.a2018_seoulapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.List;
 public class ShopListAdapter extends BaseAdapter
 {
 	private List<Shop> shopDataList = new ArrayList<>();
+
 
 	@Override
 	public int getCount() {
@@ -26,15 +30,26 @@ public class ShopListAdapter extends BaseAdapter
 		// "listview_item" Layout을 inflate하여 convertView 참조 획득.
 		if (shopView == null) {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			shopView = inflater.inflate(R.layout.shop, parent, false);
+			shopView = inflater.inflate(R.layout.layout_shop_list_item, parent, false);
 		}
 
-		// get view
-		ImageView imageView = shopView.findViewById(R.id.imageView1);
-		// get data
 		Shop shop = shopDataList.get(position);
-		// set data to view
-		imageView.setImageDrawable(shop.icon);
+
+		// set shop image
+		ImageView shopImageView = shopView.findViewById(R.id.shop_img);
+		shopImageView.setImageDrawable(shop.img);
+		// set shop name
+		TextView shopNameView = shopView.findViewById(R.id.shop_name);
+		shopNameView.setText(shop.name);
+
+		// set click listener
+		ImageButton shopFavoriteBtn = shopView.findViewById(R.id.favorite_btn);
+		shopFavoriteBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Log.d("Shop Favorite", "onClick");
+			}
+		});
 
 		return shopView;
 	}

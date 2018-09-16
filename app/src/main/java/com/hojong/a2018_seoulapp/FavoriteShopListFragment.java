@@ -1,24 +1,33 @@
 package com.hojong.a2018_seoulapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-public class FavoriteShopListFragment extends ListFragment
+public class FavoriteShopListFragment extends Fragment
 {
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.fragment_favorite_shop_list, null);
+
+		ListView listView = rootView.findViewById(R.id.favorite_list);
+
 		ShopListAdapter adapter = new ShopListAdapter();
-		setListAdapter(adapter);
+		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(new ShopListItemClickListener());
 
-		adapter.addItem(new Shop(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp)));
-		adapter.addItem(new Shop(ContextCompat.getDrawable(getActivity(), R.drawable.ic_notifications_black_24dp)));
+		adapter.addItem(new Shop(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "즐겨찾기 가게1"));
+		adapter.addItem(new Shop(ContextCompat.getDrawable(getActivity(), R.drawable.ic_notifications_black_24dp), "즐겨찾기 가게2"));
 
-		return inflater.inflate(R.layout.fragment_favorite_shop_list, null);
+		return rootView;
 	}
 }

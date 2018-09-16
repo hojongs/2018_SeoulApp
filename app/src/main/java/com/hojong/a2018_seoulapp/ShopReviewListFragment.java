@@ -9,20 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MyPageFragment extends Fragment {
+public class ShopReviewListFragment extends Fragment {
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_mypage, null);
-
-		View loginBtn = rootView.findViewById(R.id.login_btn);
-		loginBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(getContext(), LoginActivity.class);
-				startActivityForResult(intent, Activity.RESULT_OK);
-			}
-		});
+		View rootView = inflater.inflate(R.layout.fragment_shop_review_list, null);
 
 		return rootView;
 	}

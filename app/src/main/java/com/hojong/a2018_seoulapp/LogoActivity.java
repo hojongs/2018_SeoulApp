@@ -18,8 +18,6 @@ public class LogoActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_logo);
 
-		getSupportActionBar().hide();
-
 		// 일정 시간 후 액티비티 전환
 		new Handler().postDelayed(new Runnable() {
 			@Override

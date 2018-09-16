@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity
-		implements BottomNavigationView.OnNavigationItemSelectedListener
 {
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -22,28 +21,27 @@ public class MainActivity extends AppCompatActivity
 		loadFragment(defaultFragment);
 
 		BottomNavigationView navigation = findViewById(R.id.navigation);
-		navigation.setOnNavigationItemSelectedListener(this);
-	}
+		navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+			@Override
+			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+				Fragment fragment = null;
 
-	@Override
-	public boolean onNavigationItemSelected(@NonNull MenuItem item)
-	{
-		Fragment fragment = null;
+				switch (item.getItemId())
+				{
+					case R.id.nav_locations:
+						fragment = new LocationListFragment();
+						break;
+					case R.id.nav_favorites:
+						fragment = new FavoriteShopListFragment();
+						break;
+					case R.id.nav_my_page:
+						fragment = new MyPageFragment();
+						break;
+				}
 
-		switch (item.getItemId())
-		{
-			case R.id.navigation_locations:
-				fragment = new LocationListFragment();
-				break;
-			case R.id.navigation_favorites:
-				fragment = new FavoriteShopListFragment();
-				break;
-			case R.id.navigation_my_page:
-				fragment = new MyPageFragment();
-				break;
-		}
-
-		return loadFragment(fragment);
+				return loadFragment(fragment);
+			}
+		});
 	}
 
 	private boolean loadFragment(Fragment fragment) {
@@ -57,5 +55,14 @@ public class MainActivity extends AppCompatActivity
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		int loginSuccess = resultCode;
+		if (loginSuccess == RESULT_OK)
+		{
+			// TODO : Update MyPage
+		}
 	}
 }

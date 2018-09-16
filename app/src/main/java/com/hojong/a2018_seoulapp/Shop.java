@@ -4,12 +4,12 @@ import android.graphics.drawable.Drawable;
 
 public class Shop
 {
-	public Drawable icon;
+	public Drawable img;
 	public String name;
-	public String image_path;
 
-	public Shop (Drawable icon)
+	public Shop (Drawable img, String name)
 	{
-		this.icon = icon;
+		this.img = img;
+		this.name = name;
 	}
 }

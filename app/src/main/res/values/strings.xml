@@ -26,4 +26,11 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="shop_filter">필터</string>
+    <string name="filter1">한식</string>
+    <string name="shop_info">정보</string>
+    <string name="shop_position">위치</string>
+    <string name="shop_review_list">후기 및 별점</string>
+    <string name="title_activity_shop">ShopActivity</string>
+    <string name="shop_name">가게명</string>
 </resources>
