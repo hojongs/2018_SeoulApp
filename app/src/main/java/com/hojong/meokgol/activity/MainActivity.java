@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity
 		int loginSuccess = resultCode;
 		if (loginSuccess == RESULT_OK)
 		{
-			// TODO : Update MyPage
+			// TODO : Update MyPage // REST API
 		}
 	}
 }

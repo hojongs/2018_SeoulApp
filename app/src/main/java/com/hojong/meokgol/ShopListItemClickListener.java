@@ -12,7 +12,7 @@ public class ShopListItemClickListener implements AdapterView.OnItemClickListene
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Context context = adapterView.getContext();
         Intent intent = new Intent(context, ShopActivity.class);
-        // TODO : intent.putExtra("");
+        // TODO : intent.putExtra(""); // REST API
         context.startActivity(intent);
     }
 }

@@ -29,7 +29,7 @@ public class LocationListFragment extends Fragment
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 				Intent intent = new Intent(getContext(), ShopListActivity.class);
-				// TODO : intent.putExtra("");
+				// TODO : intent.putExtra(""); // REST API
 				startActivity(intent);
 			}
 		});

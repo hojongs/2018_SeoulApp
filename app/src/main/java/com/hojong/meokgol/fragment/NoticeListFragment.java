@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.adapter.NoticeListAdapter;
 import com.hojong.meokgol.adapter.ShopListAdapter;
 import com.hojong.meokgol.ShopListItemClickListener;
+import com.hojong.meokgol.data_model.Notice;
 import com.hojong.meokgol.data_model.Shop;
 
 public class NoticeListFragment extends Fragment
@@ -23,13 +25,13 @@ public class NoticeListFragment extends Fragment
 
 		ListView listView = rootView.findViewById(R.id.notice_list);
 
-		// TODO
-		ShopListAdapter adapter = new ShopListAdapter();
+		NoticeListAdapter adapter = new NoticeListAdapter();
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new ShopListItemClickListener());
 
-		adapter.addItem(new Shop(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "공지1"));
-		adapter.addItem(new Shop(ContextCompat.getDrawable(getActivity(), R.drawable.ic_notifications_black_24dp), "공지2"));
+		// TODO : Notice
+		adapter.addItem(new Notice(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "공지1"));
+		adapter.addItem(new Notice(ContextCompat.getDrawable(getActivity(), R.drawable.ic_notifications_black_24dp), "공지2"));
 
 		return rootView;
 	}

@@ -51,18 +51,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 	/**
 	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
+	 * TODO: 로그인 백엔드 구현 후
 	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[]{
-			"foo@example.com:hello", "bar@example.com:world"
-	};
+	private static final String[] DUMMY_CREDENTIALS = new String[]{ "guest:guest", };
+
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
 	private UserLoginTask mAuthTask = null;
 
 	// UI references.
-	private AutoCompleteTextView mEmailView;
+	private AutoCompleteTextView mUserIdView;
 	private EditText mPasswordView;
 	private View mProgressView;
 	private View mLoginFormView;
@@ -78,8 +77,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 		actionbar.setDisplayHomeAsUpEnabled(true);
 
 		// Set up the login form.
-		mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-		populateAutoComplete();
+		mUserIdView = (AutoCompleteTextView) findViewById(R.id.user_id);
+//		populateAutoComplete(); // 주소록으로부터 이메일을 가져와 자동완성
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener()
@@ -95,8 +94,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 			}
 		});
 
-		Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-		mEmailSignInButton.setOnClickListener(new OnClickListener()
+		Button mSignInButton = (Button) findViewById(R.id.sign_in_button);
+		mSignInButton.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View view)
@@ -109,6 +108,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 		mProgressView = findViewById(R.id.login_progress);
 	}
 
+	@Deprecated
 	private void populateAutoComplete()
 	{
 		if (!mayRequestContacts()) {
@@ -118,13 +118,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 		getLoaderManager().initLoader(0, null, this);
 	}
 
+	@Deprecated
 	private boolean mayRequestContacts()
 	{
 		if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
 			return true;
 		}
 		if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-			Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+			Snackbar.make(mUserIdView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
 					.setAction(android.R.string.ok, new View.OnClickListener()
 					{
 						@Override
@@ -144,6 +145,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 	/**
 	 * Callback received when a permissions request has been completed.
 	 */
+	@Deprecated
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
 										   @NonNull int[] grantResults)
@@ -168,11 +170,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 		}
 
 		// Reset errors.
-		mEmailView.setError(null);
+		mUserIdView.setError(null);
 		mPasswordView.setError(null);
 
 		// Shop values at the time of the login attempt.
-		String email = mEmailView.getText().toString();
+		String UserId = mUserIdView.getText().toString();
 		String password = mPasswordView.getText().toString();
 
 		boolean cancel = false;
@@ -185,15 +187,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 			cancel = true;
 		}
 
-		// Check for a valid email address.
-		if (TextUtils.isEmpty(email)) {
-			mEmailView.setError(getString(R.string.error_field_required));
-			focusView = mEmailView;
+		// Check for a valid UserId address.
+		if (TextUtils.isEmpty(UserId)) {
+			mUserIdView.setError(getString(R.string.error_field_required));
+			focusView = mUserIdView;
 			cancel = true;
 		}
-		else if (!isEmailValid(email)) {
-			mEmailView.setError(getString(R.string.error_invalid_email));
-			focusView = mEmailView;
+		else if (!isUserIdValid(UserId)) {
+			mUserIdView.setError(getString(R.string.error_invalid_user_id));
+			focusView = mUserIdView;
 			cancel = true;
 		}
 
@@ -206,21 +208,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 			// Show a progress spinner, and kick off a background task to
 			// perform the user login attempt.
 			showProgress(true);
-			mAuthTask = new UserLoginTask(email, password);
+			mAuthTask = new UserLoginTask(UserId, password);
 			mAuthTask.execute((Void) null);
 		}
 	}
 
-	private boolean isEmailValid(String email)
+	private boolean isUserIdValid(String email)
 	{
-		//LAZY_TODO: Replace this with your own logic
-		return true || email.contains("@");
+		// LAZY_TODO: Replace this with your own logic
+//		return email.contains("@");
+		return true;
 	}
 
 	private boolean isPasswordValid(String password)
 	{
-		//LAZY_TODO: Replace this with your own logic
-		return true || password.length() > 4;
+		// LAZY_TODO: Replace this with your own logic
+//		return password.length() > 4;
+		return true;
 	}
 
 	/**
@@ -298,7 +302,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 				new ArrayAdapter<>(LoginActivity.this,
 						android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-		mEmailView.setAdapter(adapter);
+		mUserIdView.setAdapter(adapter);
 	}
 
 
@@ -320,19 +324,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean>
 	{
 
-		private final String mEmail;
+		private final String mUserId;
 		private final String mPassword;
 
-		UserLoginTask(String email, String password)
+		UserLoginTask(String userId, String password)
 		{
-			mEmail = email;
+			mUserId = userId;
 			mPassword = password;
 		}
 
 		@Override
 		protected Boolean doInBackground(Void... params)
 		{
-			// TODO: attempt authentication against a network service.
+			// TODO: 로그인 백엔드 구현 후
 
 			try {
 				// Simulate network access.
@@ -343,14 +347,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 			for (String credential : DUMMY_CREDENTIALS) {
 				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
+				if (pieces[0].equals(mUserId)) {
 					// Account exists, return true if the password matches.
 					return pieces[1].equals(mPassword);
 				}
 			}
 
-			// TODO: register the new account here.
-			return true;
+			return false;
 		}
 
 		@Override

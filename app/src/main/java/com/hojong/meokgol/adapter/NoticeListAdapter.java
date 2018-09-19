@@ -5,41 +5,42 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.Location;
-import com.hojong.meokgol.data_model.ShopReview;
+import com.hojong.meokgol.data_model.Notice;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopReviewListAdapter extends BaseAdapter
+public class NoticeListAdapter extends BaseAdapter
 {
-	private List<ShopReview> shopReviewDataList = new ArrayList<>();
+	private List<Notice> noticeDataList = new ArrayList<>();
 
 	@Override
 	public int getCount() {
-		return shopReviewDataList.size() ;
+		return noticeDataList.size() ;
 	}
 
 	@Override
-	public View getView(int position, View shopReviewView, ViewGroup parent) {
+	public View getView(int position, View noticeView, ViewGroup parent) {
 		final Context context = parent.getContext();
 
-		if (shopReviewView == null) {
+		if (noticeView == null) {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			shopReviewView = inflater.inflate(R.layout.layout_shop_review_list_item, parent, false);
+			noticeView = inflater.inflate(R.layout.layout_notice_list_item, parent, false);
 		}
 
-		// TODO : ShopReview
+		// TODO : Notice
 //		// get view
-//		ImageView imageView = shopReviewView.findViewById(R.id.shop_img);
+//		ImageView imageView = noticeView.findViewById(R.id.shop_img);
 //		// get data
-//		Location location = shopReviewDataList.get(position);
+//		Location location = noticeDataList.get(position);
 //		// set data to view
 //		imageView.setImageDrawable(location.image);
 
-		return shopReviewView;
+		return noticeView;
 	}
 
 	@Override
@@ -49,10 +50,10 @@ public class ShopReviewListAdapter extends BaseAdapter
 	
 	@Override
 	public Object getItem(int position) {
-		return shopReviewDataList.get(position) ;
+		return noticeDataList.get(position) ;
 	}
 
-	public void addItem(ShopReview shopReview) {
-		shopReviewDataList.add(shopReview);
+	public void addItem(Notice notice) {
+		noticeDataList.add(notice);
 	}
 }
