@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.hojong.a2018_seoulapp.R;
-import com.hojong.a2018_seoulapp.ShopListAdapter;
+import com.hojong.a2018_seoulapp.adapter.ShopListAdapter;
 import com.hojong.a2018_seoulapp.ShopListItemClickListener;
 import com.hojong.a2018_seoulapp.data_model.Shop;
 
@@ -31,7 +31,7 @@ public class ShopListActivity extends AppCompatActivity
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 
-		ListView shopListView = findViewById(android.R.id.list);
+		ListView shopListView = findViewById(R.id.shop_list);
 
 		// TODO : get data from REST API
 		ShopListAdapter adapter = new ShopListAdapter();

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.hojong.a2018_seoulapp.LocationListAdapter;
+import com.hojong.a2018_seoulapp.adapter.LocationListAdapter;
 import com.hojong.a2018_seoulapp.R;
 import com.hojong.a2018_seoulapp.activity.ShopListActivity;
 import com.hojong.a2018_seoulapp.data_model.Location;

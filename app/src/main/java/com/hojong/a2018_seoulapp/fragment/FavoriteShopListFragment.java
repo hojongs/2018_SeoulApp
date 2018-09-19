@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.hojong.a2018_seoulapp.R;
-import com.hojong.a2018_seoulapp.ShopListAdapter;
+import com.hojong.a2018_seoulapp.adapter.ShopListAdapter;
 import com.hojong.a2018_seoulapp.ShopListItemClickListener;
 import com.hojong.a2018_seoulapp.data_model.Shop;
 
