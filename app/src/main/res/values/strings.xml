@@ -34,4 +34,6 @@
     <string name="title_activity_shop">ShopActivity</string>
     <string name="shop_name">가게명</string>
     <string name="item_notice_list">공지사항</string>
+    <string name="title_map">위치 정보</string>
+    <string name="title_activity_shop_review">ShopReviewWriteActivity</string>
 </resources>
