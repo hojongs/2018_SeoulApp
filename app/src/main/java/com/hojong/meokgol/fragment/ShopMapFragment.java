@@ -37,30 +37,36 @@ public class ShopMapFragment extends Fragment {
 		mapView.setClientId(CLIENT_ID);// 클라이언트 아이디 설정
 		mMapContext.setupMapView(mapView);
 	}
+
 	@Override
 	public void onStart(){
 		super.onStart();
 		mMapContext.onStart();
 	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
 		mMapContext.onResume();
 	}
+
 	@Override
 	public void onPause() {
 		super.onPause();
 		mMapContext.onPause();
 	}
+
 	@Override
 	public void onStop() {
 		mMapContext.onStop();
 		super.onStop();
 	}
+
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
 	}
+
 	@Override
 	public void onDestroy() {
 		mMapContext.onDestroy();
