@@ -1,4 +1,4 @@
-package com.hojong.a2018_seoulapp;
+package com.hojong.a2018_seoulapp.fragment;
 
 import android.app.Activity;
 import android.content.Intent;

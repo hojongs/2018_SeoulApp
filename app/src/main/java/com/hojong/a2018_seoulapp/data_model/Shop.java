@@ -1,4 +1,4 @@
-package com.hojong.a2018_seoulapp;
+package com.hojong.a2018_seoulapp.data_model;
 
 import android.graphics.drawable.Drawable;
 

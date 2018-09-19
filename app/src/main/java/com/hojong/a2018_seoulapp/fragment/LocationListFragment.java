@@ -1,16 +1,20 @@
-package com.hojong.a2018_seoulapp;
+package com.hojong.a2018_seoulapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.hojong.a2018_seoulapp.LocationListAdapter;
+import com.hojong.a2018_seoulapp.R;
+import com.hojong.a2018_seoulapp.activity.ShopListActivity;
+import com.hojong.a2018_seoulapp.data_model.Location;
 
 public class LocationListFragment extends Fragment
 {

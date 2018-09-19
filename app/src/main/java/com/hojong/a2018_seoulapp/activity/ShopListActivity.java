@@ -1,6 +1,5 @@
-package com.hojong.a2018_seoulapp;
+package com.hojong.a2018_seoulapp.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -9,14 +8,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.hojong.a2018_seoulapp.R;
+import com.hojong.a2018_seoulapp.ShopListAdapter;
+import com.hojong.a2018_seoulapp.ShopListItemClickListener;
+import com.hojong.a2018_seoulapp.data_model.Shop;
 
 public class ShopListActivity extends AppCompatActivity
 {

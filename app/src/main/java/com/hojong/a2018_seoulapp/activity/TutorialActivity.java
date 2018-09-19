@@ -1,4 +1,4 @@
-package com.hojong.a2018_seoulapp;
+package com.hojong.a2018_seoulapp.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
+
+import com.hojong.a2018_seoulapp.R;
 
 public class TutorialActivity extends AppCompatActivity
 {
@@ -49,7 +51,7 @@ public class TutorialActivity extends AppCompatActivity
 		mViewPager = (ViewPager) findViewById(R.id.container);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
-		// Images left navigation
+		// Images left navigation_main
 		View leftNav = findViewById(R.id.left_nav);
 		leftNav.setOnClickListener(new View.OnClickListener() {
 			@Override

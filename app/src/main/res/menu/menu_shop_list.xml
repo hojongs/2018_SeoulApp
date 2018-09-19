@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.hojong.a2018_seoulapp.ShopListActivity">
+      tools:context="com.hojong.a2018_seoulapp.activity.ShopListActivity">
 
     <item android:id="@+id/shop_filter"
         android:title="@string/shop_filter"

@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.hojong.a2018_seoulapp.data_model.Location;
+
 import java.util.ArrayList;
 import java.util.List;
 

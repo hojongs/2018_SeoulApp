@@ -1,4 +1,4 @@
-package com.hojong.a2018_seoulapp;
+package com.hojong.a2018_seoulapp.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -30,6 +30,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.hojong.a2018_seoulapp.R;
 
 import java.util.ArrayList;
 import java.util.List;

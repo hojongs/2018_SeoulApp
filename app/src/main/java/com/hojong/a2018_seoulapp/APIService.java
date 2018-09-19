@@ -1,5 +1,9 @@
 package com.hojong.a2018_seoulapp;
 
+import com.hojong.a2018_seoulapp.data_model.Location;
+import com.hojong.a2018_seoulapp.data_model.LoginCredential;
+import com.hojong.a2018_seoulapp.data_model.Shop;
+
 import java.util.List;
 
 import okhttp3.ResponseBody;

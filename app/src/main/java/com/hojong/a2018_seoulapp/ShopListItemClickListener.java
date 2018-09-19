@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.hojong.a2018_seoulapp.activity.ShopActivity;
+
 public class ShopListItemClickListener implements AdapterView.OnItemClickListener {
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

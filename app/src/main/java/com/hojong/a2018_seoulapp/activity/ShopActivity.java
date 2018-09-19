@@ -1,4 +1,4 @@
-package com.hojong.a2018_seoulapp;
+package com.hojong.a2018_seoulapp.activity;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +7,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.hojong.a2018_seoulapp.R;
+import com.hojong.a2018_seoulapp.fragment.ShopInfoFragment;
+import com.hojong.a2018_seoulapp.fragment.ShopPositionFragment;
+import com.hojong.a2018_seoulapp.fragment.ShopReviewListFragment;
 
 public class ShopActivity extends AppCompatActivity
 {

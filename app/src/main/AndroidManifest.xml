@@ -19,7 +19,7 @@
         android:fullBackupContent="true">
 
         <activity
-            android:name=".LogoActivity"
+            android:name=".activity.LogoActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,23 +29,23 @@
         </activity>
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" />
 
         <activity
-            android:name=".TutorialActivity"
+            android:name=".activity.TutorialActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/title_activity_main" />
 
         <activity
-            android:name=".ShopListActivity"
+            android:name=".activity.ShopListActivity"
             android:label="@string/title_activity_shop_list" />
 
         <activity
-            android:name=".ShopActivity"
+            android:name=".activity.ShopActivity"
             android:label="@string/title_activity_shop"/>
     </application>
 </manifest>

@@ -1,13 +1,13 @@
-package com.hojong.a2018_seoulapp;
+package com.hojong.a2018_seoulapp.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.tv.TvContract;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
+import com.hojong.a2018_seoulapp.R;
 
 public class LogoActivity extends AppCompatActivity
 {
