@@ -1,7 +1,7 @@
 package com.hojong.meokgol;
 
 import com.hojong.meokgol.data_model.Location;
-import com.hojong.meokgol.data_model.LoginCredential;
+import com.hojong.meokgol.data_model.LoginInfo;
 import com.hojong.meokgol.data_model.Shop;
 
 import java.util.List;
@@ -22,5 +22,5 @@ public interface APIService
 	Call<List<Shop>> listStores(@Path("market_region") String marketRegion);
 
 	@POST("login")
-	Call<ResponseBody> loginWithCredential(@Body LoginCredential data);
+	Call<ResponseBody> loginWithCredential(@Body LoginInfo data);
 }

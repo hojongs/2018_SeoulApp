@@ -127,6 +127,9 @@ public class LocationListFragment extends Fragment
 		@Override
 		protected void onPostExecute(final Boolean success)
 		{
+			if (getActivity() == null)
+				return;
+
 			mRequestTask = null;
 			showProgress(false);
 

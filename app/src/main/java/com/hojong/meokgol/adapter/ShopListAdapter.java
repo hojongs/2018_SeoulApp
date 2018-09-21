@@ -50,7 +50,7 @@ public class ShopListAdapter extends BaseAdapter
 		shopFavoriteBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Log.d("Shop Favorite", "onClick");
+				Log.d(this.toString(), "onClick");
 			}
 		});
 

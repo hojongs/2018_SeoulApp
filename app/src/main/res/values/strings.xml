@@ -35,4 +35,5 @@
     <string name="item_notice_list">공지사항</string>
     <string name="title_map">위치 정보</string>
     <string name="title_activity_shop_review">ShopReviewWriteActivity</string>
+    <string name="title_my_page_login">로그인이 필요합니다</string>
 </resources>
