@@ -75,7 +75,7 @@ public class ShopReviewListFragment extends MyFragment {
 
             @Override
             public void onFailure(Call<List<ShopReview>> call, Throwable t) {
-                Log.d(this.toString(), "후기 가져오기 실패");
+                Log.d(this.toString(), "후기 가져오기 실패 " + t.toString());
                 if (getActivity() != null)
                     Toast.makeText(getContext(), "후기 가져오기 실패", Toast.LENGTH_SHORT).show();
                 showProgress(false);

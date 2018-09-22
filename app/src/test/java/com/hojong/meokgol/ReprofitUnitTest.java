@@ -68,12 +68,7 @@ public class ReprofitUnitTest
 	@Test
 	public void writeReview() throws Exception
 	{
-		ShopReview review = new ShopReview();
-		review.review_title = "test_title1";
-		review.review_content = "test_content1";
-		review.review_star = 5;
-		review.user_idx = 1;
-		review.shop_idx = 1;
+		ShopReview review = new ShopReview("test_title1", "test_content1", 5, 1, 1);
 
 		Response<JsonObject> response = service.writeReview(review).execute();
 		assertEquals(200, response.code());

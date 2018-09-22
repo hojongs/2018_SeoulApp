@@ -1,13 +1,9 @@
 package com.hojong.meokgol.data_model;
 
-import android.graphics.drawable.Drawable;
-
 import java.sql.Timestamp;
 
 public class ShopReview
 {
-//	public Drawable img;
-//	public String name;
 	public int review_idx;
 	public String review_title;
 	public String review_content;
@@ -16,11 +12,16 @@ public class ShopReview
 	public int user_idx;
 	public int shop_idx;
 
-//	public ShopReview(Drawable img, String name)
-//	{
-//		this.img = img;
-//		this.name = name;
-//	}
+	public ShopReview() { }
+
+	public ShopReview(String title, String contents, int star, int user_idx, int shop_idx)
+	{
+		this.review_title = title;
+		this.review_content = contents;
+		this.review_star = star;
+		this.user_idx = user_idx;
+		this.shop_idx = shop_idx;
+	}
 
 	@Override
 	public String toString()
