@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.hojong.meokgol.R;
-import com.hojong.meokgol.data_model.Location;
 import com.hojong.meokgol.data_model.ShopReview;
 
 import java.util.ArrayList;
@@ -23,23 +23,26 @@ public class ShopReviewListAdapter extends BaseAdapter
 	}
 
 	@Override
-	public View getView(int position, View shopReviewView, ViewGroup parent) {
+	public View getView(int position, View itemView, ViewGroup parent) {
 		final Context context = parent.getContext();
 
-		if (shopReviewView == null) {
+		if (itemView == null) {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			shopReviewView = inflater.inflate(R.layout.layout_shop_review_list_item, parent, false);
+			itemView = inflater.inflate(R.layout.layout_shop_review_list_item, parent, false);
 		}
 
-		// TODO : ShopReview
-//		// get view
-//		ImageView imageView = shopReviewView.findViewById(R.id.shop_img);
-//		// get data
-//		Location location = shopReviewDataList.get(position);
-//		// set data to view
-//		imageView.setImageDrawable(location.bmp);
+		ShopReview review = shopReviewDataList.get(position);
 
-		return shopReviewView;
+		TextView writerView = itemView.findViewById(R.id.textview_writer);
+		writerView.setText(review.user_idx); // TODO : username
+        TextView scoreView = itemView.findViewById(R.id.textview_score);
+        scoreView.setText("별점 : "+review.review_star);
+        TextView writeDateView = itemView.findViewById(R.id.textview_write_date);
+        writeDateView.setText(review.review_date.toString());
+        TextView contentView = itemView.findViewById(R.id.textview_content);
+        contentView.setText(review.review_content);
+
+		return itemView;
 	}
 
 	@Override
@@ -54,5 +57,10 @@ public class ShopReviewListAdapter extends BaseAdapter
 
 	public void addItem(ShopReview shopReview) {
 		shopReviewDataList.add(shopReview);
+	}
+
+	public void clear()
+	{
+		shopReviewDataList.clear();
 	}
 }

@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,7 +17,6 @@ import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.NoticeClickListener;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.adapter.NoticeListAdapter;
-import com.hojong.meokgol.ShopClickListener;
 import com.hojong.meokgol.data_model.Notice;
 
 import java.util.List;
@@ -48,7 +46,7 @@ public class NoticeListFragment extends MyFragment
 		return rootView;
 	}
 
-	private Callback<List<Notice>> callbackListNotice() {
+	private Callback<List<Notice>> callbackNoticeList() {
 		return new Callback<List<Notice>>() {
 			@Override
 			public void onResponse(Call<List<Notice>> call, Response<List<Notice>> response) {
@@ -104,6 +102,6 @@ public class NoticeListFragment extends MyFragment
 	public void attemptData()
 	{
 	    super.attemptData();
-		APIClient.getService().listNotice().enqueue(callbackListNotice());
+		APIClient.getService().listNotice().enqueue(callbackNoticeList());
 	}
 }
