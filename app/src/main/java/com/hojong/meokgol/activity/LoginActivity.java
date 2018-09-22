@@ -32,10 +32,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.LoginSharedPreference;
 import com.hojong.meokgol.R;
-import com.hojong.meokgol.data_model.LoginInfo;
+import com.hojong.meokgol.data_model.User;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,12 +54,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 	 * Id to identity READ_CONTACTS permission request.
 	 */
 	private static final int REQUEST_READ_CONTACTS = 0;
-
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: 로그인 백엔드 구현 후
-	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[]{ "guest:guest", };
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -84,18 +81,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //		populateAutoComplete(); // 주소록으로부터 이메일을 가져와 자동완성
 
 		mPasswordView = (EditText) findViewById(R.id.password);
-		mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener()
-		{
-			@Override
-			public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent)
-			{
-				if (id == R.id.login || id == EditorInfo.IME_NULL) {
-					attemptLogin();
-					return true;
-				}
-				return false;
-			}
-		});
+//		mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener()
+//		{
+//			@Override
+//			public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent)
+//			{
+//				if (id == R.id.login || id == EditorInfo.IME_NULL) {
+//					attemptLogin();
+//					return true;
+//				}
+//				return false;
+//			}
+//		});
 
 		Button mSignInButton = (Button) findViewById(R.id.sign_in_button);
 		mSignInButton.setOnClickListener(new OnClickListener()
@@ -216,17 +213,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 		}
 	}
 
-	private boolean isUserIdValid(String email)
+	private boolean isUserIdValid(String userId)
 	{
-		// LAZY_TODO: Replace this with your own logic
-//		return email.contains("@");
 		return true;
 	}
 
 	private boolean isPasswordValid(String password)
 	{
-		// LAZY_TODO: Replace this with your own logic
-//		return password.length() > 4;
 		return true;
 	}
 
@@ -339,23 +332,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 		@Override
 		protected Boolean doInBackground(Void... params)
 		{
-			// TODO: 로그인 백엔드 구현 후
+            JsonObject result;
 
 			try {
-				// Simulate network access.
-				Thread.sleep(1500);
-			} catch (InterruptedException e) { return false; }
+                result = APIClient.getService().login(new User(mUserId, mPassword)).execute().body();
+			} catch (IOException e) { return false; }
 
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mUserId) && pieces[1].equals(mPassword)) {
-					// Account exists, the password matches
-					LoginSharedPreference.saveLoginInfo(getApplicationContext(), new LoginInfo(mUserId));
-					return true;
-				}
-			}
+            if (result.get("success").getAsBoolean())
+            {
+                int user_idx = result.get("user_idx").getAsInt();
+                LoginSharedPreference.saveLoginIdx(getApplicationContext(), user_idx);
 
-			return false;
+                return true;
+            }
+            else
+			    return false;
 		}
 
 		@Override

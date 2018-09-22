@@ -23,8 +23,7 @@ public class ShopActivity extends AppCompatActivity
 		setContentView(R.layout.activity_shop);
 
 		// set visible back arrow button
-		ActionBar actionbar = getSupportActionBar();
-		actionbar.setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Fragment defaultFragment = new ShopInfoFragment();
 		loadFragment(defaultFragment);

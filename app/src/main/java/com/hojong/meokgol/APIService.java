@@ -1,26 +1,47 @@
 package com.hojong.meokgol;
 
+import com.google.gson.JsonObject;
 import com.hojong.meokgol.data_model.Location;
-import com.hojong.meokgol.data_model.LoginInfo;
+import com.hojong.meokgol.data_model.Notice;
 import com.hojong.meokgol.data_model.Shop;
+import com.hojong.meokgol.data_model.ShopReview;
+import com.hojong.meokgol.data_model.User;
 
 import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
+import retrofit2.http.*;
 
 public interface APIService
 {
-	@GET("market_regions")
-	Call<List<Location>> listMarketRegions();
+	@POST("/login")
+	Call<JsonObject> login(@Body User user);
 
-	@GET("stores/{market_region}")
-	Call<List<Shop>> listStores(@Path("market_region") String marketRegion);
+	@GET("/{userIdx}/userinfo")
+	Call<User> getUserInfo(@Path("userIdx") int userIdx);
 
-	@POST("login")
-	Call<ResponseBody> loginWithCredential(@Body LoginInfo data);
+	@GET("/location")
+	Call<List<Location>> listLocation();
+
+	@GET("/shops/{locationIdx}")
+	Call<List<Shop>> listShop(@Path("locationIdx") int locationIdx);
+
+	@GET("/shops/{userIdx}") // TODO
+	Call<List<Shop>> listFavoriteShop(@Path("userIdx") int userIdx);
+
+	@GET("/review/test")
+	Call<List<ShopReview>> listReview();
+
+	@POST("/review/write")
+	Call<JsonObject> writeReview(@Body ShopReview data);
+
+	@POST("/review/delete")
+	Call<JsonObject> deleteReview(@Body ShopReview data);
+
+	@GET("/notice")
+	Call<List<Notice>> listNotice();
+
+	@GET
+	Call<ResponseBody> loadImage(@Url String url);
 }

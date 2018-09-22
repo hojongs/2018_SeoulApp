@@ -10,7 +10,7 @@
     tools:context="com.hojong.meokgol.activity.TutorialActivity$PlaceholderFragment">
 
     <ImageView
-        android:id="@+id/shop_img"
+        android:id="@+id/location_img"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"

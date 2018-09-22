@@ -4,12 +4,24 @@ import android.graphics.drawable.Drawable;
 
 public class ShopReview
 {
-	public Drawable img;
-	public String name;
+//	public Drawable img;
+//	public String name;
+	public int review_idx;
+	public String review_title;
+	public String review_content;
+	public int review_star;
+	public int user_idx;
+	public int shop_idx;
 
-	public ShopReview(Drawable img, String name)
+//	public ShopReview(Drawable img, String name)
+//	{
+//		this.img = img;
+//		this.name = name;
+//	}
+
+	@Override
+	public String toString()
 	{
-		this.img = img;
-		this.name = name;
+		return review_idx + ":" + review_title;
 	}
 }

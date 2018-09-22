@@ -39,7 +39,7 @@ public class LogoActivity extends AppCompatActivity
 				}
 
 				// TODO : 구현완료 후
-				intent = new Intent(getApplicationContext(), TutorialActivity.class);
+				intent = new Intent(getApplicationContext(), MainActivity.class);
 				startActivity(intent);
 				finish();
 			}

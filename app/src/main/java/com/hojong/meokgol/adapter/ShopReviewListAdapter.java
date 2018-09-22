@@ -37,7 +37,7 @@ public class ShopReviewListAdapter extends BaseAdapter
 //		// get data
 //		Location location = shopReviewDataList.get(position);
 //		// set data to view
-//		imageView.setImageDrawable(location.image);
+//		imageView.setImageDrawable(location.bmp);
 
 		return shopReviewView;
 	}

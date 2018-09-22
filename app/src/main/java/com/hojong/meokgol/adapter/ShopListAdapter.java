@@ -38,14 +38,15 @@ public class ShopListAdapter extends BaseAdapter
 
 		Shop shop = shopDataList.get(position);
 
-		// set shop image
+		// shop bmp
 		ImageView shopImageView = shopView.findViewById(R.id.shop_img);
-		shopImageView.setImageDrawable(shop.img);
-		// set shop name
+		shopImageView.setImageBitmap(shop.bmp);
+		// shop name
 		TextView shopNameView = shopView.findViewById(R.id.shop_name);
-		shopNameView.setText(shop.name);
-
-		// set click listener
+		shopNameView.setText(shop.shop_name);
+		// TODO : shop score
+        // TODO : review count
+		// click listener
 		ImageButton shopFavoriteBtn = shopView.findViewById(R.id.favorite_btn);
 		shopFavoriteBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -70,4 +71,9 @@ public class ShopListAdapter extends BaseAdapter
 	public void addItem(Shop shop) {
 		shopDataList.add(shop);
 	}
+
+	public void clear()
+    {
+        shopDataList.clear();
+    }
 }

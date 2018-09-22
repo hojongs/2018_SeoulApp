@@ -1,6 +1,7 @@
 package com.hojong.meokgol.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +33,14 @@ public class LocationListAdapter extends BaseAdapter
 		}
 
 		// get view
-		ImageView imageView = locationView.findViewById(R.id.shop_img);
+		ImageView imageView = locationView.findViewById(R.id.location_img);
 		// get data
 		Location location = locationDataList.get(position);
 		// set data to view
-		imageView.setImageDrawable(location.image);
+        if (location.bmp != null) {
+            Log.d(this.toString(), location.bmp.toString());
+            imageView.setImageBitmap(location.bmp);
+        }
 
 		return locationView;
 	}
@@ -54,4 +58,8 @@ public class LocationListAdapter extends BaseAdapter
 	public void addItem(Location location) {
 		locationDataList.add(location);
 	}
+
+	public void clear() {
+	    locationDataList.clear();
+    }
 }

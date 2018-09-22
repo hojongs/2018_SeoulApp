@@ -29,19 +29,13 @@ public class ShopReviewListFragment extends Fragment {
 		ListView shopReviewListView = rootView.findViewById(R.id.shop_review_list);
 		ShopReviewListAdapter adapter = new ShopReviewListAdapter();
 		shopReviewListView.setAdapter(adapter);
-		shopReviewListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-				// LAZY_TODO
-			}
-		});
 
 		// TODO : ShopReview
-		adapter.addItem(new ShopReview(ContextCompat.getDrawable(getActivity(), R.drawable.ic_dashboard_black_24dp), "Review1"));
-		adapter.addItem(new ShopReview(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "Review2"));
-		adapter.addItem(new ShopReview(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "Review3"));
-		adapter.addItem(new ShopReview(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "Review4"));
-		adapter.addItem(new ShopReview(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "Review5"));
+//		adapter.addItem(new ShopReview(ContextCompat.getDrawable(getActivity(), R.drawable.ic_dashboard_black_24dp), "Review1"));
+//		adapter.addItem(new ShopReview(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "Review2"));
+//		adapter.addItem(new ShopReview(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "Review3"));
+//		adapter.addItem(new ShopReview(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "Review4"));
+//		adapter.addItem(new ShopReview(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "Review5"));
 
 		ImageButton reviewWriteBtn = rootView.findViewById(R.id.review_write_btn);
 		reviewWriteBtn.setOnClickListener(new View.OnClickListener() {

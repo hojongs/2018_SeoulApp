@@ -135,7 +135,7 @@ public class TutorialActivity extends AppCompatActivity
 				}
 			});
 
-			ImageView imageView = rootView.findViewById(R.id.shop_img);
+			ImageView imageView = rootView.findViewById(R.id.location_img);
 
 			switch (getArguments().getInt(ARG_SECTION_NUMBER))
 			{

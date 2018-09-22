@@ -1,13 +1,18 @@
 package com.hojong.meokgol.data_model;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 
 public class Location
 {
-	public Drawable image;
+	public Bitmap bmp;
+	public int location_idx;
+	public String location_name;
+	public String location_info;
+	public String location_img;
 
-	public Location (Drawable image)
+	@Override
+	public String toString()
 	{
-		this.image = image;
+		return location_idx+":"+location_name;
 	}
 }

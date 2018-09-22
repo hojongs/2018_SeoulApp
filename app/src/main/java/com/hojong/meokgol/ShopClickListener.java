@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 
 import com.hojong.meokgol.activity.ShopActivity;
 
-public class ShopListItemClickListener implements AdapterView.OnItemClickListener {
+public class ShopClickListener implements AdapterView.OnItemClickListener {
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Context context = adapterView.getContext();

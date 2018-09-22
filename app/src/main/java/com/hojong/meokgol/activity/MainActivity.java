@@ -1,6 +1,5 @@
 package com.hojong.meokgol.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,12 +11,10 @@ import android.view.MenuItem;
 
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.fragment.FavoriteShopListFragment;
+import com.hojong.meokgol.fragment.MyFragment;
 import com.hojong.meokgol.fragment.LocationListFragment;
 import com.hojong.meokgol.fragment.MyPageFragment;
 import com.hojong.meokgol.fragment.NoticeListFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
@@ -28,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		navigation = findViewById(R.id.navigation);
 		navigation.setOnNavigationItemSelectedListener(this);
@@ -92,4 +91,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		for (int i=0;i<menu.size();i++)
 			menu.getItem(i).setIcon(iconList[i]);;
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                MyFragment fragment = (MyFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                fragment.attemptData();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

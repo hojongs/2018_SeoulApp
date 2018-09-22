@@ -1,15 +1,19 @@
 package com.hojong.meokgol.data_model;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 
 public class Shop
 {
-	public Drawable img;
-	public String name;
+    public Bitmap bmp;
+	public int shop_idx;
+	public String shop_name;
+	public String shop_info;
+	public String shop_img;
+	public int location_idx;
 
-	public Shop (Drawable img, String name)
+
+	public Shop (String shop_name)
 	{
-		this.img = img;
-		this.name = name;
-	}
+        this.shop_name = shop_name;
+    }
 }

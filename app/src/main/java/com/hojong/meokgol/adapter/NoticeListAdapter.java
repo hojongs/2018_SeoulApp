@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.Location;
@@ -32,13 +33,12 @@ public class NoticeListAdapter extends BaseAdapter
 			noticeView = inflater.inflate(R.layout.layout_notice_list_item, parent, false);
 		}
 
-		// TODO : Notice
-//		// get view
-//		ImageView imageView = noticeView.findViewById(R.id.shop_img);
-//		// get data
-//		Location location = noticeDataList.get(position);
-//		// set data to view
-//		imageView.setImageDrawable(location.image);
+		// get view
+		TextView titleView = noticeView.findViewById(R.id.view_notice_title);
+		// get data
+		Notice notice = noticeDataList.get(position);
+		// set data to view
+		titleView.setText(notice.notice_title);
 
 		return noticeView;
 	}
@@ -55,5 +55,9 @@ public class NoticeListAdapter extends BaseAdapter
 
 	public void addItem(Notice notice) {
 		noticeDataList.add(notice);
+	}
+
+	public void clear() {
+		noticeDataList.clear();
 	}
 }
