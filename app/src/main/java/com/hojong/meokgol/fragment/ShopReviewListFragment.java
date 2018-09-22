@@ -43,6 +43,7 @@ public class ShopReviewListFragment extends MyFragment {
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_shop_review_list, null);
 
+        mProgressView = rootView.findViewById(R.id.progress_bar);
 		listView = rootView.findViewById(R.id.shop_review_list);
 		adapter = new ShopReviewListAdapter();
 		listView.setAdapter(adapter);
