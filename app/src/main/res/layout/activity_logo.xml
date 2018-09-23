@@ -7,7 +7,7 @@
     tools:context="com.hojong.meokgol.activity.LogoActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logo_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
@@ -16,5 +16,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_logo" />
+        app:srcCompat="@drawable/img_logo"/>
+        <!--app:srcCompat="@drawable/img_logo" />-->
+    <!--android:scaleType="fitXY"-->
 </android.support.constraint.ConstraintLayout>
