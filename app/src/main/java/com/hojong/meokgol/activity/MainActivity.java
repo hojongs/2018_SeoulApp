@@ -1,9 +1,12 @@
 package com.hojong.meokgol.activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		Drawable actionBarBg = ResourcesCompat.getDrawable(getResources(), R.drawable.img_action_bar_background, null);
+		getSupportActionBar().setBackgroundDrawable(actionBarBg);
 
 		navigation = findViewById(R.id.navigation);
 		navigation.setOnNavigationItemSelectedListener(this);
