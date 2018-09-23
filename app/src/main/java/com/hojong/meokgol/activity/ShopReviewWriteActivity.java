@@ -82,7 +82,7 @@ public class ShopReviewWriteActivity extends AppCompatActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    protected void showProgress(final boolean show)
+    public void showProgress(final boolean show)
     {
         int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 

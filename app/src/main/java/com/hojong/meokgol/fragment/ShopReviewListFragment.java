@@ -86,7 +86,7 @@ public class ShopReviewListFragment extends MyFragment {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    protected void showProgress(final boolean show)
+    public void showProgress(final boolean show)
     {
         if (getActivity() == null)
             return;

@@ -43,7 +43,7 @@ public abstract class MyFragment extends Fragment {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    protected abstract void showProgress(final boolean show);
+    public abstract void showProgress(final boolean show);
 
     @CallSuper
     public void attemptData()

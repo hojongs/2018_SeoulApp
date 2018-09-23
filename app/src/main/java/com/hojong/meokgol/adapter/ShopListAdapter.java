@@ -47,8 +47,8 @@ public class ShopListAdapter extends BaseAdapter implements AdapterView.OnItemCl
 		// shop name
 		TextView shopNameView = shopView.findViewById(R.id.shop_name);
 		shopNameView.setText(shop.shop_name);
-		// TODO : shop score
-        // TODO : review count
+		// TODO : shop score (lazy)
+        // TODO : review count (lazy)
 		// click listener
 		ImageButton shopFavoriteBtn = shopView.findViewById(R.id.favorite_btn);
 		shopFavoriteBtn.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +87,7 @@ public class ShopListAdapter extends BaseAdapter implements AdapterView.OnItemCl
         Shop shop = shopDataList.get(i);
         intent.putExtra("shopIdx", shop.shop_idx);
         intent.putExtra("shopImg", shop.shop_img);
+        intent.putExtra("shopInfo", shop.shop_info);
         context.startActivity(intent);
     }
 }

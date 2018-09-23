@@ -16,7 +16,6 @@ import com.hojong.meokgol.fragment.ShopReviewListFragment;
 
 public class ShopActivity extends AppCompatActivity
 {
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -24,7 +23,7 @@ public class ShopActivity extends AppCompatActivity
 		setContentView(R.layout.activity_shop);
 
 		Intent intent = new Intent();
-		// TODO : use it
+		// TODO : use it (lazy)
 		int shopIdx = intent.getIntExtra("shopIdx", -1);
 		String shopImg = intent.getStringExtra("shopImg");
 

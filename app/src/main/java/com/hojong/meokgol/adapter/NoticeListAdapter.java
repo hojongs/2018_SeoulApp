@@ -65,6 +65,6 @@ public class NoticeListAdapter extends BaseAdapter implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Context context = adapterView.getContext();
-        // TODO : Notice click
+        // TODO : Notice click (lazy)
     }
 }

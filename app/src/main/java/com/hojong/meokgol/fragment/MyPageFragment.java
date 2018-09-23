@@ -100,7 +100,7 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
     }
 
     @Override
-    protected void showProgress(final boolean show)
+    public void showProgress(final boolean show)
     {
         Log.d(this.toString(), "show="+show);
         if (mProgressView == null || getActivity() == null)

@@ -101,7 +101,7 @@ public class LocationListFragment extends MyFragment
 	}
 
 	@Override
-	protected void showProgress(final boolean show)
+	public void showProgress(final boolean show)
 	{
 		if (getActivity() == null)
 			return;

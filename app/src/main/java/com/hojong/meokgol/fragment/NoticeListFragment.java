@@ -26,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-// TODO (LAZY) 데이터 유지
+// TODO 데이터 유지 (lazy)
 public class NoticeListFragment extends MyFragment
 {
 	ListView listView;
@@ -72,7 +72,7 @@ public class NoticeListFragment extends MyFragment
 	}
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-	protected void showProgress(final boolean show)
+	public void showProgress(final boolean show)
 	{
 		if (getActivity() == null)
 			return;

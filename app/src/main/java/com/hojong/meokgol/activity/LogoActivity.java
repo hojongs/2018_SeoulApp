@@ -38,7 +38,7 @@ public class LogoActivity extends AppCompatActivity
 					intent = new Intent(getApplicationContext(), MainActivity.class);
 				}
 
-				// TODO : 구현완료 후
+				// TODO : 마지막 구현완료 후 (lazy)
 				intent = new Intent(getApplicationContext(), MainActivity.class);
 				startActivity(intent);
 				finish();
