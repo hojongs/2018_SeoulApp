@@ -25,9 +25,9 @@ public interface APIService
 	Call<List<Location>> listLocation();
 
 	@GET("/shops/{locationIdx}")
-	Call<List<Shop>> listShop(@Path("locationIdx") int locationIdx);
+	Call<List<Shop>> listShop(@Path("locationIdx") int locationIdx, @Query("menu") String menu);
 
-	@GET("/shops/{userIdx}") // TODO
+	@GET("{userIdx}/favoriteshop")
 	Call<List<Shop>> listFavoriteShop(@Path("userIdx") int userIdx);
 
 	@GET("/review/test")

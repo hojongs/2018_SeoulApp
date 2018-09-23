@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.hojong.meokgol.R;
 
+// TODO : Shop Info
 public class ShopInfoFragment extends Fragment {
 	@Nullable
 	@Override

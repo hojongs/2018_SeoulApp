@@ -33,6 +33,8 @@ public class ShopReviewListAdapter extends BaseAdapter
 
 		ShopReview review = shopReviewDataList.get(position);
 
+        TextView titleView = itemView.findViewById(R.id.textview_title);
+        titleView.setText(review.review_title);
 		TextView writerView = itemView.findViewById(R.id.textview_writer);
 		writerView.setText(""+review.user_idx); // TODO : username
         TextView scoreView = itemView.findViewById(R.id.textview_score);

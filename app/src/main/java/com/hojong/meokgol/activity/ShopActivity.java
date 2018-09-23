@@ -1,14 +1,15 @@
 package com.hojong.meokgol.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.fragment.MyFragment;
 import com.hojong.meokgol.fragment.ShopInfoFragment;
 import com.hojong.meokgol.fragment.ShopMapFragment;
 import com.hojong.meokgol.fragment.ShopReviewListFragment;
@@ -21,6 +22,11 @@ public class ShopActivity extends AppCompatActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop);
+
+		Intent intent = new Intent();
+		// TODO : use it
+		int shopIdx = intent.getIntExtra("shopIdx", -1);
+		String shopImg = intent.getStringExtra("shopImg");
 
 		// set visible back arrow button
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -65,13 +71,17 @@ public class ShopActivity extends AppCompatActivity
 		return false;
 	}
 
-	// 뒤로가기 버튼 onClick
+	// 뒤로가기, 새로고침 버튼 onClick
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
 				finish();
 				return true;
+			case R.id.refresh:
+				MyFragment fragment = (MyFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+				fragment.attemptData();
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
-	};
+	}
 }

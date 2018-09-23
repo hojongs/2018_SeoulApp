@@ -22,9 +22,9 @@ import android.widget.Toast;
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.adapter.ShopListAdapter;
-import com.hojong.meokgol.ShopClickListener;
 import com.hojong.meokgol.data_model.Shop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -39,6 +39,7 @@ public class ShopListActivity extends AppCompatActivity
 	private ShopListAdapter adapter;
 	private ListView listView;
 	private View mProgressView;
+	private List<Call> callList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -53,15 +54,13 @@ public class ShopListActivity extends AppCompatActivity
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setDisplayHomeAsUpEnabled(true);
 
-		listView = findViewById(R.id.shop_list);
-
 		// TODO : get data from REST API
 		adapter = new ShopListAdapter();
+        listView = findViewById(R.id.shop_list);
 		listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new ShopClickListener());
-//		adapter.addItem(new Shop(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_home_black_24dp), "가게1"));
-//		adapter.addItem(new Shop(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_notifications_black_24dp), "가게2"));
-        APIClient.getService().listShop(locationIdx).enqueue(callbackShopList());
+        listView.setOnItemClickListener(adapter);
+        mProgressView = findViewById(R.id.progress_bar);
+        callList = new ArrayList<>();
 
 		initDrawer();
 	}
@@ -72,11 +71,14 @@ public class ShopListActivity extends AppCompatActivity
             @Override
             public void onResponse(Call<List<Shop>> call, Response<List<Shop>> response) {
                 Log.d(this.toString(), "response " + response.body());
+                callList.remove(call);
                 adapter.clear();
 		        adapter.addItem(new Shop("가게1")); // TODO : for develop
                 for (Shop i : response.body()) {
                     Log.d(this.toString(), "shop_img="+i.shop_img);
-                    APIClient.getService().loadImage(i.shop_img).enqueue(callbackLoadImage(i));
+                    Call call2 = APIClient.getService().loadImage(i.shop_img);
+                    callList.add(call2);
+                    call2.enqueue(callbackLoadImage(i));
                     adapter.addItem(i);
                 }
                 adapter.notifyDataSetChanged();
@@ -85,13 +87,15 @@ public class ShopListActivity extends AppCompatActivity
 
             @Override
             public void onFailure(Call<List<Shop>> call, Throwable t) {
-                Log.d(this.toString(), "가게 가져오기 실패");
+                Log.d(this.toString(), "가게 가져오기 실패 " + t.toString());
+                callList.remove(call);
                 Toast.makeText(getApplicationContext(), "가게 가져오기 실패", Toast.LENGTH_SHORT).show();
                 showProgress(false);
             }
         };
     }
 
+    // TODO : 중복 코드 (id=4)
     private Callback<ResponseBody> callbackLoadImage(final Shop i)
     {
         return new Callback<ResponseBody>() {
@@ -99,9 +103,10 @@ public class ShopListActivity extends AppCompatActivity
 
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(this.toString(), "response " + response.body());
+                callList.remove(call);
                 Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
                 bmp = Bitmap.createScaledBitmap(bmp, 200, 200, true);
-                Log.d(this.toString(), "response " + response.body() + "," + bmp.getWidth() + "," + bmp.getHeight());
 
                 obj.bmp = bmp;
                 adapter.notifyDataSetChanged();
@@ -111,6 +116,7 @@ public class ShopListActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.d(this.toString(), "이미지 가져오기 실패"+t.toString());
+                callList.remove(call);
                 Toast.makeText(getApplicationContext(), "이미지 가져오기 실패", Toast.LENGTH_SHORT).show();
                 showProgress(false);
             }
@@ -173,6 +179,9 @@ public class ShopListActivity extends AppCompatActivity
 				new NavigationView.OnNavigationItemSelectedListener() {
 					@Override
 					public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+					    String menu = menuItem.getTitle().toString();
+                        Log.d(this.toString(), menu);
+                        attemptData(menu);
 						menuItem.setChecked(true);
 						mDrawerLayout.closeDrawers();
 
@@ -180,4 +189,21 @@ public class ShopListActivity extends AppCompatActivity
 					}
 				});
 	}
+
+	public void attemptData(String menu)
+    {
+        if (callList.size() > 0)
+            return;
+
+        Call call = APIClient.getService().listShop(locationIdx, menu);
+        callList.add(call);
+        call.enqueue(callbackShopList());
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        attemptData(null);
+    }
 }

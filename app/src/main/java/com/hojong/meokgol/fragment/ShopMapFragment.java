@@ -11,6 +11,7 @@ import com.hojong.meokgol.R;
 import com.nhn.android.maps.NMapContext;
 import com.nhn.android.maps.NMapView;
 
+// TODO : Map Position ?
 public class ShopMapFragment extends Fragment {
 	private NMapContext mMapContext;
 	private static final String CLIENT_ID = "xU8vQG7PePFCSD0Qr6M6";// 애플리케이션 클라이언트 아이디 값

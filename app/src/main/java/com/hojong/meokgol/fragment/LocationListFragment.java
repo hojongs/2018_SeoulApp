@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.hojong.meokgol.APIClient;
-import com.hojong.meokgol.LocationClickListener;
 import com.hojong.meokgol.adapter.LocationListAdapter;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.Location;
@@ -26,18 +25,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-// TODO (LAZY) refresh while refreshing (Favorite, Notice) (여러 번 누르면 느려짐)
 public class LocationListFragment extends MyFragment
 {
 	private ListView listView;
 	private LocationListAdapter adapter;
-//	private Call<List<Location>> call;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-//		call = APIClient.getService().listLocation();
-	}
 
 	@Nullable
 	@Override
@@ -46,7 +37,7 @@ public class LocationListFragment extends MyFragment
 		adapter = new LocationListAdapter();
 		listView = rootView.findViewById(R.id.location_list);
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new LocationClickListener());
+		listView.setOnItemClickListener(adapter);
 		mProgressView = rootView.findViewById(R.id.progress_bar);
 
 		return rootView;
@@ -57,10 +48,13 @@ public class LocationListFragment extends MyFragment
 			@Override
 			public void onResponse(Call<List<Location>> call, Response<List<Location>> response) {
 				Log.d(this.toString(), "response " + response.body());
+				callList.remove(call);
 				adapter.clear();
 				for (Location i : response.body()) {
 					Log.d(this.toString(), "location_img="+i.location_img);
-					APIClient.getService().loadImage(i.location_img).enqueue(callbackLoadImage(i));
+					Call call2 = APIClient.getService().loadImage(i.location_img);
+					callList.add(call2);
+					call2.enqueue(callbackLoadImage(i));
 					adapter.addItem(i);
 				}
 				adapter.notifyDataSetChanged();
@@ -69,7 +63,8 @@ public class LocationListFragment extends MyFragment
 
 			@Override
 			public void onFailure(Call<List<Location>> call, Throwable t) {
-				Log.d(this.toString(), "지역 가져오기 실패");
+				Log.d(this.toString(), "지역 가져오기 실패 " + t.toString());
+				callList.remove(call);
 				if (getActivity() != null)
 					Toast.makeText(getContext(), "지역 가져오기 실패", Toast.LENGTH_SHORT).show();
 				showProgress(false);
@@ -84,9 +79,10 @@ public class LocationListFragment extends MyFragment
 
 			@Override
 			public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+				Log.d(this.toString(), "response " + response.body());
+				callList.remove(call);
 				Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
 				bmp = Bitmap.createScaledBitmap(bmp, 200, 200, true);
-				Log.d(this.toString(), "response " + response.body() + "," + bmp.getWidth() + "," + bmp.getHeight());
 
 				obj.bmp = bmp;
 				adapter.notifyDataSetChanged();
@@ -96,6 +92,7 @@ public class LocationListFragment extends MyFragment
 			@Override
 			public void onFailure(Call<ResponseBody> call, Throwable t) {
 				Log.d(this.toString(), "이미지 가져오기 실패"+t.toString());
+				callList.remove(call);
 				if (getActivity() != null)
 					Toast.makeText(getContext(), "이미지 가져오기 실패", Toast.LENGTH_SHORT).show();
 				showProgress(false);
@@ -137,6 +134,9 @@ public class LocationListFragment extends MyFragment
 	public void attemptData()
 	{
 		super.attemptData();
-		APIClient.getService().listLocation().enqueue(callbackListLocation());
+
+		Call call = APIClient.getService().listLocation();
+		callList.add(call);
+		call.enqueue(callbackListLocation());
 	}
 }

@@ -75,6 +75,7 @@ public class ShopReviewWriteActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d(this.toString(), "리뷰 작성 실패 " + t.toString());
                 Toast.makeText(getApplicationContext(), "리뷰 작성 실패", Toast.LENGTH_SHORT).show();
             }
         };
@@ -121,7 +122,7 @@ public class ShopReviewWriteActivity extends AppCompatActivity {
     public void attemptData()
     {
         Intent intent = new Intent();
-        int shopIdx = intent.getIntExtra("shopIdx", -1);
+        int shopIdx = intent.getIntExtra("shopIdx", 1);
         if (shopIdx == -1) {
             Log.d(this.toString(), "wrong shopIdx=-1");
             showProgress(false);

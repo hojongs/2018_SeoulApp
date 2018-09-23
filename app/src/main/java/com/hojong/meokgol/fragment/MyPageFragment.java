@@ -18,6 +18,8 @@ import com.hojong.meokgol.activity.LoginActivity;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.User;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,6 +75,7 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
             public void onResponse(Call<User> call, Response<User> response) {
                 user = response.body();
                 Log.d(this.toString(), user.toString());
+                callList.remove(call);
 
                 fillTextView();
 
@@ -81,7 +84,8 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.d(this.toString(), t.toString());
+                Log.d(this.toString(), "유저 정보 가져오기 실패 " + t.toString());
+                callList.remove(call);
                 if (getActivity() != null)
                     Toast.makeText(getContext(), "유저 정보 가져오기 실패", Toast.LENGTH_SHORT).show();
                 showProgress(false);
@@ -178,6 +182,8 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
             return;
 
         super.attemptData();
-        APIClient.getService().getUserInfo(userIdx).enqueue(callbackUserInfo());
+        Call call = APIClient.getService().getUserInfo(userIdx);
+        callList.add(call);
+        call.enqueue(callbackUserInfo());
     }
 }

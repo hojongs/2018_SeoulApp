@@ -1,20 +1,23 @@
 package com.hojong.meokgol.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.activity.ShopListActivity;
 import com.hojong.meokgol.data_model.Location;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationListAdapter extends BaseAdapter
+public class LocationListAdapter extends BaseAdapter implements AdapterView.OnItemClickListener
 {
 	private List<Location> locationDataList = new ArrayList<>();
 
@@ -61,5 +64,15 @@ public class LocationListAdapter extends BaseAdapter
 
 	public void clear() {
 	    locationDataList.clear();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Context context = adapterView.getContext();
+        Intent intent = new Intent(context, ShopListActivity.class);
+        Location location = locationDataList.get(i);
+        Log.d(this.toString(), "Selected " + location);
+        intent.putExtra("locationIdx", location.location_idx);
+        context.startActivity(intent);
     }
 }

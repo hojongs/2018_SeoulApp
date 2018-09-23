@@ -26,7 +26,10 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="shop_filter">필터</string>
-    <string name="filter1">한식</string>
+    <string name="filter1">밥류</string>
+    <string name="filter2">면류</string>
+    <string name="filter3">튀김류</string>
+    <string name="filter4">야채류</string>
     <string name="shop_info">정보</string>
     <string name="shop_position">위치</string>
     <string name="shop_review_list">후기 및 별점</string>

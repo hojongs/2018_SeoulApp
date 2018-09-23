@@ -16,13 +16,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import retrofit2.Call;
+
 public abstract class MyFragment extends Fragment {
     protected View mProgressView;
+    protected List<Call> callList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        callList = new ArrayList<>();
     }
 
     @Override
@@ -45,6 +49,17 @@ public abstract class MyFragment extends Fragment {
     public void attemptData()
     {
         Log.d(this.toString(), "attemptData");
+        if (callList.size() > 0)
+            return;
+
         showProgress(true);
+    }
+
+    @Override
+    public void onDetach()
+    {
+        super.onDetach();
+        for (Call call : callList)
+            call.cancel();
     }
 }

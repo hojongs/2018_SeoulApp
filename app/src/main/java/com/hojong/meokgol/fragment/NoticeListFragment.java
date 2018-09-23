@@ -3,6 +3,7 @@ package com.hojong.meokgol.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,11 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.hojong.meokgol.APIClient;
-import com.hojong.meokgol.NoticeClickListener;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.adapter.NoticeListAdapter;
 import com.hojong.meokgol.data_model.Notice;
@@ -41,7 +42,7 @@ public class NoticeListFragment extends MyFragment
 
 		adapter = new NoticeListAdapter();
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new NoticeClickListener());
+		listView.setOnItemClickListener(adapter);
 
 		return rootView;
 	}
@@ -51,6 +52,7 @@ public class NoticeListFragment extends MyFragment
 			@Override
 			public void onResponse(Call<List<Notice>> call, Response<List<Notice>> response) {
 				Log.d(this.toString(), "response "+response.body());
+				callList.remove(call);
 				adapter.clear();
 				for (Notice notice : response.body())
 					adapter.addItem(notice);
@@ -60,7 +62,8 @@ public class NoticeListFragment extends MyFragment
 
 			@Override
 			public void onFailure(Call<List<Notice>> call, Throwable t) {
-				Log.d(this.toString(), "공지사항 가져오기 실패");
+				Log.d(this.toString(), "공지사항 가져오기 실패 " + t.toString());
+				callList.remove(call);
 				if (getActivity() != null)
 					Toast.makeText(getContext(), "공지사항 가져오기 실패", Toast.LENGTH_SHORT).show();
 				showProgress(false);
@@ -102,6 +105,8 @@ public class NoticeListFragment extends MyFragment
 	public void attemptData()
 	{
 	    super.attemptData();
-		APIClient.getService().listNotice().enqueue(callbackNoticeList());
+		Call call = APIClient.getService().listNotice();
+		callList.add(call);
+		call.enqueue(callbackNoticeList());
 	}
 }

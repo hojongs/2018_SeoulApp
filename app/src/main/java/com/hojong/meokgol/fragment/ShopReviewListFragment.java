@@ -66,6 +66,7 @@ public class ShopReviewListFragment extends MyFragment {
             @Override
             public void onResponse(Call<List<ShopReview>> call, Response<List<ShopReview>> response) {
                 Log.d(this.toString(), "response "+response.body());
+                callList.remove(call);
                 adapter.clear();
                 for (ShopReview notice : response.body())
                     adapter.addItem(notice);
@@ -76,6 +77,7 @@ public class ShopReviewListFragment extends MyFragment {
             @Override
             public void onFailure(Call<List<ShopReview>> call, Throwable t) {
                 Log.d(this.toString(), "후기 가져오기 실패 " + t.toString());
+                callList.remove(call);
                 if (getActivity() != null)
                     Toast.makeText(getContext(), "후기 가져오기 실패", Toast.LENGTH_SHORT).show();
                 showProgress(false);
@@ -117,6 +119,8 @@ public class ShopReviewListFragment extends MyFragment {
     public void attemptData()
     {
         super.attemptData();
-        APIClient.getService().listReview().enqueue(callbackReviewList());
+        Call call = APIClient.getService().listReview();
+        callList.remove(call);
+        call.enqueue(callbackReviewList());
     }
 }

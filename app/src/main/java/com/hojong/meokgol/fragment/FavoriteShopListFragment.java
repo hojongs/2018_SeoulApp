@@ -17,7 +17,6 @@ import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.LoginSharedPreference;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.adapter.ShopListAdapter;
-import com.hojong.meokgol.ShopClickListener;
 import com.hojong.meokgol.data_model.Shop;
 
 import java.util.List;
@@ -43,7 +42,7 @@ public class FavoriteShopListFragment extends MyFragment
 
 		adapter = new ShopListAdapter();
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new ShopClickListener());
+		listView.setOnItemClickListener(adapter);
 
 		return rootView;
 	}
@@ -83,12 +82,10 @@ public class FavoriteShopListFragment extends MyFragment
     public void attemptData()
     {
         super.attemptData();
-        // TODO : fav shop list
         int userIdx = LoginSharedPreference.getUserIdx(getContext());
-        APIClient.getService().listFavoriteShop(userIdx).enqueue(callbackShopList());
-//        adapter.addItem(new Shop(ContextCompat.getDrawable(getActivity(), R.drawable.ic_home_black_24dp), "즐겨찾기 가게1"));
-//        adapter.addItem(new Shop(ContextCompat.getDrawable(getActivity(), R.drawable.ic_notifications_black_24dp), "즐겨찾기 가게2"));
-//        APIClient.getService().listLocation().enqueue(callbackListLocation());
+        Call call = APIClient.getService().listFavoriteShop(userIdx);
+        callList.add(call);
+        call.enqueue(callbackShopList());
     }
 
     // TODO : 중복코드(id=4)
@@ -98,10 +95,13 @@ public class FavoriteShopListFragment extends MyFragment
             @Override
             public void onResponse(Call<List<Shop>> call, Response<List<Shop>> response) {
                 Log.d(this.toString(), "response " + response.body());
+                callList.remove(call);
                 adapter.clear();
                 for (Shop i : response.body()) {
                     Log.d(this.toString(), "shop_img="+i.shop_img);
-                    APIClient.getService().loadImage(i.shop_img).enqueue(callbackLoadImage(i));
+                    Call call2 = APIClient.getService().loadImage(i.shop_img);
+                    callList.add(call2);
+                    call2.enqueue(callbackLoadImage(i));
                     adapter.addItem(i);
                 }
                 adapter.notifyDataSetChanged();
@@ -110,7 +110,8 @@ public class FavoriteShopListFragment extends MyFragment
 
             @Override
             public void onFailure(Call<List<Shop>> call, Throwable t) {
-                Log.d(this.toString(), "가게 가져오기 실패");
+                Log.d(this.toString(), "가게 가져오기 실패 " + t.toString());
+                callList.remove(call);
                 if (getActivity() != null)
                     Toast.makeText(getContext(), "가게 가져오기 실패", Toast.LENGTH_SHORT).show();
                 showProgress(false);
@@ -126,9 +127,10 @@ public class FavoriteShopListFragment extends MyFragment
 
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(this.toString(), "response " + response.body());
+                callList.remove(call);
                 Bitmap bmp = BitmapFactory.decodeStream(response.body().byteStream());
                 bmp = Bitmap.createScaledBitmap(bmp, 200, 200, true);
-                Log.d(this.toString(), "response " + response.body() + "," + bmp.getWidth() + "," + bmp.getHeight());
 
                 obj.bmp = bmp;
                 adapter.notifyDataSetChanged();
@@ -138,6 +140,7 @@ public class FavoriteShopListFragment extends MyFragment
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.d(this.toString(), "이미지 가져오기 실패"+t.toString());
+                callList.remove(call);
                 if (getActivity() != null)
                     Toast.makeText(getContext(), "이미지 가져오기 실패", Toast.LENGTH_SHORT).show();
                 showProgress(false);

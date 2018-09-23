@@ -1,22 +1,25 @@
 package com.hojong.meokgol.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.activity.ShopActivity;
 import com.hojong.meokgol.data_model.Shop;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopListAdapter extends BaseAdapter
+public class ShopListAdapter extends BaseAdapter implements AdapterView.OnItemClickListener
 {
 	private List<Shop> shopDataList = new ArrayList<>();
 
@@ -75,5 +78,15 @@ public class ShopListAdapter extends BaseAdapter
 	public void clear()
     {
         shopDataList.clear();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Context context = adapterView.getContext();
+        Intent intent = new Intent(context, ShopActivity.class);
+        Shop shop = shopDataList.get(i);
+        intent.putExtra("shopIdx", shop.shop_idx);
+        intent.putExtra("shopImg", shop.shop_img);
+        context.startActivity(intent);
     }
 }
