@@ -48,8 +48,8 @@ public class ShopListActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop_list);
 
-        Intent intent = new Intent();
-        locationIdx = intent.getIntExtra("locationIdx", -1);
+        locationIdx = getIntent().getIntExtra("locationIdx", -1);
+        Log.d(this.toString(), "locationIdx=" + locationIdx);
 
 		// set visible back arrow button
 		ActionBar actionbar = getSupportActionBar();

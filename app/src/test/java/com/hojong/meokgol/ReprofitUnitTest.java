@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import com.google.gson.JsonObject;
 import com.hojong.meokgol.data_model.Location;
 import com.hojong.meokgol.data_model.Notice;
+import com.hojong.meokgol.data_model.Shop;
 import com.hojong.meokgol.data_model.ShopReview;
 import com.hojong.meokgol.data_model.User;
 
@@ -53,6 +54,14 @@ public class ReprofitUnitTest
 	public void listLocation() throws Exception
 	{
 		Response<List<Location>> response = service.listLocation().execute();
+		assertEquals(200, response.code());
+		System.out.println(response.body());
+	}
+
+	@Test
+	public void listShop() throws Exception
+	{
+		Response<List<Shop>> response = service.listShop(1, null).execute();
 		assertEquals(200, response.code());
 		System.out.println(response.body());
 	}

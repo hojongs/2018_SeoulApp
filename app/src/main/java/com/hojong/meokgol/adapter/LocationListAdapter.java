@@ -71,8 +71,8 @@ public class LocationListAdapter extends BaseAdapter implements AdapterView.OnIt
         Context context = adapterView.getContext();
         Intent intent = new Intent(context, ShopListActivity.class);
         Location location = locationDataList.get(i);
-        Log.d(this.toString(), "Selected " + location);
         intent.putExtra("locationIdx", location.location_idx);
+        Log.d(this.toString(), "Selected " + location);
         context.startActivity(intent);
     }
 }

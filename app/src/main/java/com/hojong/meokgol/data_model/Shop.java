@@ -16,4 +16,10 @@ public class Shop
 	{
         this.shop_name = shop_name;
     }
+
+    @Override
+    public String toString()
+    {
+        return shop_idx + ":" + shop_name;
+    }
 }
