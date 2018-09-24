@@ -20,7 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MyCallback {
-    public static Callback<List<Shop>> callbackShopList(final ShopListActivity activity, final MyFragment fragment, final List<Call> callList, final ShopListAdapter adapter)
+    public static Callback<List<Shop>> callbackShopList(final ShopListActivity activity, final MyFragment fragment, final List<Call> callList, final ShopListAdapter adapter, final String failureMsg)
     {
         return new Callback<List<Shop>>() {
             @Override
@@ -41,19 +41,19 @@ public class MyCallback {
 
             @Override
             public void onFailure(Call<List<Shop>> call, Throwable t) {
-                Log.d(this.toString(), "가게 가져오기 실패 " + t.toString());
+                Log.d(this.toString(), failureMsg + t.toString());
                 callList.remove(call);
 
                 boolean show = false;
                 if (activity != null) {
-                    Toast.makeText(activity, "가게 가져오기 실패", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, failureMsg, Toast.LENGTH_SHORT).show();
                     activity.showProgress(show);
                 }
                 else {
                     if (fragment.getActivity() == null)
                         return;
 
-                    Toast.makeText(fragment.getActivity(), "가게 가져오기 실패", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fragment.getActivity(), failureMsg, Toast.LENGTH_SHORT).show();
                     fragment.showProgress(show);
                 }
             }

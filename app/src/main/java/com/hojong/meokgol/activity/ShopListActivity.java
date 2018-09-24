@@ -139,7 +139,7 @@ public class ShopListActivity extends AppCompatActivity
 
         Call call = APIClient.getService().listShop(locationIdx, menu);
         callList.add(call);
-        call.enqueue(MyCallback.callbackShopList(this, null, callList, adapter));
+        call.enqueue(MyCallback.callbackShopList(this, null, callList, adapter, "가게 정보 가져오기 실패"));
     }
 
     @Override
