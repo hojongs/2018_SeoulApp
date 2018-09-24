@@ -3,9 +3,15 @@ package com.hojong.meokgol.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.hojong.meokgol.R;
@@ -39,7 +45,13 @@ public class LogoActivity extends AppCompatActivity
 					intent = new Intent(getApplicationContext(), MainActivity.class);
 				}
 
-				// TODO : 마지막 구현완료 후 (lazy)
+				Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.img_logo);
+                Log.d(this.toString(), "bmp width=" + bmp.getWidth() + ", height=" + bmp.getHeight());
+
+                ImageView logoView = findViewById(R.id.logo_view);
+				Log.d(this.toString(), "view width=" + logoView.getWidth() + ", height=" + logoView.getHeight());
+
+                // TODO : 마지막 구현완료 후 (lazy)
 				intent = new Intent(getApplicationContext(), MainActivity.class);
 				startActivity(intent);
 				finish();
