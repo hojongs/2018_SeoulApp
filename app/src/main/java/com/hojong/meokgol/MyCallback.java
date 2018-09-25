@@ -116,8 +116,7 @@ public class MyCallback {
         return new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                // TODO : if success
-                if (response.code() == 200) // && response.body().get("success"))
+                if (response.code() == 200 && response.body().get("success").getAsBoolean())
                     Toast.makeText(context, "즐겨찾기 추가", Toast.LENGTH_SHORT).show();
                 else
                     Log.d(toString(), "callbackAddFavoriteShop.msg=" + response.message());

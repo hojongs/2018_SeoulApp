@@ -11,7 +11,12 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.*;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface APIService
 {
@@ -39,7 +44,7 @@ public interface APIService
 	@POST("/review/write")
 	Call<JsonObject> writeReview(@Body ShopReview data);
 
-	@POST("/review/delete") // TODO : delete review
+	@POST("/review/delete") // TODO : delete review (lazy)
 	Call<JsonObject> deleteReview(@Body ShopReview data);
 
 	@GET("/notice")
