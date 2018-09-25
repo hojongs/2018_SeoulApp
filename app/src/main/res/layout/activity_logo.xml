@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_logo"/>
-        <!--app:srcCompat="@drawable/img_logo" />-->
+        app:srcCompat="@drawable/logo_bg"/>
+        <!--app:srcCompat="@drawable/logo_bg" />-->
     <!--android:scaleType="fitXY"-->
 </android.support.constraint.ConstraintLayout>

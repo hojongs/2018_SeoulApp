@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -66,6 +64,7 @@ public class LogoActivity extends MyAppCompatActivity implements IShowProgress
                 Intent intent;
                 SharedPreferences pref = getSharedPreferences("isFirst", Activity.MODE_PRIVATE);
                 boolean isFirst = pref.getBoolean("isFirst", false);
+                isFirst = false; // TODO : 마지막 구현완료 후 (lazy)
 
                 if(isFirst)
                 {
@@ -79,14 +78,12 @@ public class LogoActivity extends MyAppCompatActivity implements IShowProgress
                     intent = new Intent(getApplicationContext(), MainActivity.class);
                 }
 
-                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.img_logo);
+                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.logo_bg);
                 Log.d(this.toString(), "bmp width=" + bmp.getWidth() + ", height=" + bmp.getHeight());
 
                 ImageView logoView = findViewById(R.id.logo_view);
                 Log.d(this.toString(), "view width=" + logoView.getWidth() + ", height=" + logoView.getHeight());
 
-                // TODO : 마지막 구현완료 후 (lazy)
-                intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra(Location.INTENT_KEY, (Serializable) locationList);
                 Log.d(LogoActivity.this.toString(), "LocationList=" + intent.getSerializableExtra(Location.INTENT_KEY).toString());
                 startActivity(intent);

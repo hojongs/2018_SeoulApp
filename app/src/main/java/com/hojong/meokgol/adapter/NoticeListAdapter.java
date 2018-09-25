@@ -33,12 +33,12 @@ public class NoticeListAdapter extends BaseAdapter implements AdapterView.OnItem
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			noticeView = inflater.inflate(R.layout.layout_notice_list_item, parent, false);
 		}
+        Notice notice = noticeDataList.get(position);
 
-		// get view
-		TextView titleView = noticeView.findViewById(R.id.view_notice_title);
-		// get data
-		Notice notice = noticeDataList.get(position);
-		// set data to view
+		TextView writeDateView = noticeView.findViewById(R.id.notice_write_date_view);
+		writeDateView.setText(notice.notice_date.toString());
+
+        TextView titleView = noticeView.findViewById(R.id.notice_title_view);
 		titleView.setText(notice.notice_title);
 
 		return noticeView;

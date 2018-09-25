@@ -1,12 +1,9 @@
 package com.hojong.meokgol.activity;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -39,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             Log.d(toString(), "NullLocationList");
 		locationListBundle.putSerializable(Location.INTENT_KEY, locationList);
 
-		Drawable actionBarBg = ResourcesCompat.getDrawable(getResources(), R.drawable.img_action_bar_background, null);
-		getSupportActionBar().setBackgroundDrawable(actionBarBg);
+//		Drawable actionBarBg = ResourcesCompat.getDrawable(getResources(), R.drawable.action_bar_bg, null);
+//		getSupportActionBar().setBackgroundDrawable(actionBarBg);
 
 		navigation = findViewById(R.id.navigation);
 		navigation.setOnNavigationItemSelectedListener(this);
@@ -48,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		Fragment defaultFragment = new LocationListFragment();
         defaultFragment.setArguments(locationListBundle); // TODO : 중복(id=5)
         Log.d(toString(), "bundle=" + defaultFragment.getArguments());
-		enableNavIcon(0, R.drawable.ic_location_list_selected);
+		enableNavIcon(0, R.drawable.nav_location_list_selected);
 		loadFragment(defaultFragment);
 	}
 
@@ -76,19 +73,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 				fragment = new LocationListFragment();
                 fragment.setArguments(locationListBundle); // TODO : 중복(id=5)
                 Log.d(toString(), "bundle=" + fragment.getArguments());
-				enableNavIcon(0, R.drawable.ic_location_list_selected);
+				enableNavIcon(0, R.drawable.nav_location_list_selected);
 				break;
 			case R.id.nav_favorites:
 				fragment = new FavoriteShopListFragment();
-				enableNavIcon(1, R.drawable.ic_favorites_selected);
+				enableNavIcon(1, R.drawable.nav_favorites_selected);
 				break;
 			case R.id.nav_notices:
 				fragment = new NoticeListFragment();
-				enableNavIcon(2, R.drawable.ic_notices_events_selected);
+				enableNavIcon(2, R.drawable.nav_notices_events_selected);
 				break;
 			case R.id.nav_my_page:
 				fragment = new MyPageFragment();
-				enableNavIcon(3, R.drawable.ic_my_page_selected);
+				enableNavIcon(3, R.drawable.nav_my_page_selected);
 				break;
 		}
 
@@ -98,10 +95,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 	private void enableNavIcon(int index, int drawableID)
 	{
 		int[] iconList = {
-				R.drawable.ic_location_list,
-				R.drawable.ic_favorites,
-				R.drawable.ic_notices_events,
-				R.drawable.ic_my_page,
+				R.drawable.nav_location_list,
+				R.drawable.nav_favorites,
+				R.drawable.nav_notices_events,
+				R.drawable.nav_my_page,
 		};
 		iconList[index] = drawableID;
 
