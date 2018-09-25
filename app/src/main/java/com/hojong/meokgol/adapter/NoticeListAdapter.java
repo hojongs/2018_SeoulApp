@@ -1,16 +1,15 @@
 package com.hojong.meokgol.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hojong.meokgol.R;
-import com.hojong.meokgol.data_model.Location;
 import com.hojong.meokgol.data_model.Notice;
 
 import java.util.ArrayList;
@@ -66,5 +65,6 @@ public class NoticeListAdapter extends BaseAdapter implements AdapterView.OnItem
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Context context = adapterView.getContext();
         // TODO : Notice click (lazy)
+        Log.d(toString(), "onClick");
     }
 }
