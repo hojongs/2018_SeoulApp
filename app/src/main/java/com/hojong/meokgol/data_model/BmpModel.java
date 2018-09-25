@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 
@@ -16,7 +15,7 @@ public abstract class BmpModel implements Serializable {
     {
         Log.d(toString(), "imgExtension=" + imgExtension);
         Bitmap bmp = BitmapFactory.decodeStream(bmpStream);
-        bmp = Bitmap.createScaledBitmap(bmp, 200, 200, true);
+//        bmp = Bitmap.createScaledBitmap(bmp, 200, 200, true);
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Bitmap.CompressFormat fmt = null;

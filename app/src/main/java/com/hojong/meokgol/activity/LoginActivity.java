@@ -3,22 +3,20 @@ package com.hojong.meokgol.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -27,7 +25,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -81,18 +78,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 //		populateAutoComplete(); // 주소록으로부터 이메일을 가져와 자동완성
 
 		mPasswordView = (EditText) findViewById(R.id.password);
-//		mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener()
-//		{
-//			@Override
-//			public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent)
-//			{
-//				if (id == R.id.login || id == EditorInfo.IME_NULL) {
-//					attemptLogin();
-//					return true;
-//				}
-//				return false;
-//			}
-//		});
+		mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener()
+		{
+			@Override
+			public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent)
+			{
+				if (id == R.integer.sign_in || id == EditorInfo.IME_NULL) {
+					attemptLogin();
+					return true;
+				}
+				return false;
+			}
+		});
 
 		Button mSignInButton = (Button) findViewById(R.id.sign_in_button);
 		mSignInButton.setOnClickListener(new OnClickListener()

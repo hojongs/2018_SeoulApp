@@ -1,9 +1,5 @@
 package com.hojong.meokgol.fragment;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,20 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.hojong.meokgol.APIClient;
-import com.hojong.meokgol.MyCallback;
-import com.hojong.meokgol.adapter.LocationListAdapter;
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.adapter.LocationListAdapter;
 import com.hojong.meokgol.data_model.Location;
 
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LocationListFragment extends Fragment
 {
