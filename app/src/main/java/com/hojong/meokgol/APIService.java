@@ -27,8 +27,11 @@ public interface APIService
 	@GET("/shops/{locationIdx}")
 	Call<List<Shop>> listShop(@Path("locationIdx") int locationIdx, @Query("menu") String menu);
 
-	@GET("{userIdx}/favoriteshop")
+	@GET("/{userIdx}/favoriteshop")
 	Call<List<Shop>> listFavoriteShop(@Path("userIdx") int userIdx);
+
+	@POST("/{userIdx}/favoriteshop")
+    Call<JsonObject> addFavoriteShop(@Query("shop_idx") int shopIdx);
 
 	@GET("/review/test")
 	Call<List<ShopReview>> listReview();
@@ -36,7 +39,7 @@ public interface APIService
 	@POST("/review/write")
 	Call<JsonObject> writeReview(@Body ShopReview data);
 
-	@POST("/review/delete")
+	@POST("/review/delete") // TODO : delete review
 	Call<JsonObject> deleteReview(@Body ShopReview data);
 
 	@GET("/notice")

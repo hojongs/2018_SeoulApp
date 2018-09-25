@@ -10,8 +10,12 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
+import com.hojong.meokgol.APIClient;
+import com.hojong.meokgol.MyCallback;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.activity.ShopActivity;
 import com.hojong.meokgol.data_model.Shop;
@@ -19,10 +23,13 @@ import com.hojong.meokgol.data_model.Shop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItemClickListener
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItemClickListener, View.OnClickListener
 {
 	private List<Shop> shopDataList = new ArrayList<>();
-
 
 	@Override
 	public int getCount() {
@@ -51,12 +58,7 @@ public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItem
         // TODO : review count (lazy)
 		// click listener
 		ImageButton shopFavoriteBtn = shopView.findViewById(R.id.favorite_btn);
-		shopFavoriteBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Log.d(this.toString(), "onClick");
-			}
-		});
+		shopFavoriteBtn.setOnClickListener(this);
 
 		return shopView;
 	}
@@ -88,5 +90,15 @@ public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItem
         Log.d(toString(), "shop="+shop);
         intent.putExtra(Shop.INTENT_KEY, shop);
         context.startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View view) {
+        ViewGroup listView = (ViewGroup) view.getParent().getParent();
+        View itemView = (View) view.getParent();
+        int idx = listView.indexOfChild(itemView);
+        Log.d(toString(), "onClick.item="+shopDataList.get(idx));
+
+        APIClient.getService().addFavoriteShop(idx).enqueue(MyCallback.callbackAddFavoriteShop(listView.getContext()));
     }
 }

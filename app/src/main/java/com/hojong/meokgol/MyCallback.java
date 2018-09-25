@@ -1,11 +1,13 @@
 package com.hojong.meokgol;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.hojong.meokgol.adapter.MyListAdapter;
 import com.hojong.meokgol.data_model.BmpModel;
 import com.hojong.meokgol.data_model.Location;
@@ -106,6 +108,26 @@ public class MyCallback {
 
                 Toast.makeText(fragment.getContext(), "이미지 가져오기 실패", Toast.LENGTH_SHORT).show();
                 fragment.showProgress(false);
+            }
+        };
+    }
+
+    public static Callback<JsonObject> callbackAddFavoriteShop(final Context context)
+    {
+        return new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                // TODO : if success
+                if (response.code() == 200) // && response.body().get("success"))
+                    Toast.makeText(context, "즐겨찾기 추가", Toast.LENGTH_SHORT).show();
+                else
+                    Log.d(toString(), "callbackAddFavoriteShop.msg=" + response.message());
+                    Toast.makeText(context, "즐겨찾기 추가 실패", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Toast.makeText(context, "즐겨찾기 추가 실패", Toast.LENGTH_SHORT).show();
             }
         };
     }
