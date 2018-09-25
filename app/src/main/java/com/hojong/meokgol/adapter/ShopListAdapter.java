@@ -7,13 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.MyCallback;
 import com.hojong.meokgol.R;
@@ -22,10 +19,6 @@ import com.hojong.meokgol.data_model.Shop;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItemClickListener, View.OnClickListener
 {
@@ -49,7 +42,7 @@ public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItem
 		Shop shop = shopDataList.get(position);
 
 		// shop bmp
-		ImageView shopImageView = shopView.findViewById(R.id.shop_img);
+		ImageView shopImageView = shopView.findViewById(R.id.location_img);
 		shopImageView.setImageBitmap(shop.getBmp());
 		// shop name
 		TextView shopNameView = shopView.findViewById(R.id.shop_name);

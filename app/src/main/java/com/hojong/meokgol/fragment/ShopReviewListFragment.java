@@ -7,13 +7,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,8 +19,6 @@ import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.activity.ShopReviewWriteActivity;
 import com.hojong.meokgol.adapter.ShopReviewListAdapter;
-import com.hojong.meokgol.data_model.Location;
-import com.hojong.meokgol.data_model.Notice;
 import com.hojong.meokgol.data_model.Shop;
 import com.hojong.meokgol.data_model.ShopReview;
 
@@ -61,6 +56,8 @@ public class ShopReviewListFragment extends MyFragment {
 		});
 
         shop = (Shop) getArguments().getSerializable(Shop.INTENT_KEY);
+
+        attemptData();
 
 		return rootView;
 	}

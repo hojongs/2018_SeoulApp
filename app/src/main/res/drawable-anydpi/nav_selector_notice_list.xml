@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/nav_notices_events_selected" android:state_selected="true" />
+    <item android:drawable="@drawable/nav_notices_events" android:state_selected="false" />
+</selector>

@@ -52,6 +52,7 @@ public class ShopListActivity extends MyAppCompatActivity implements IShowProgre
         mProgressView = findViewById(R.id.progress_bar);
 
 		initDrawer();
+        attemptData(null);
 	}
 
     public void showProgress(final boolean show)
@@ -141,12 +142,5 @@ public class ShopListActivity extends MyAppCompatActivity implements IShowProgre
         Call call = APIClient.getService().listShop(location.location_idx, menu);
         callList.add(call);
         call.enqueue(MyCallback.callbackShopList(this, callList, adapter, "가게 정보 가져오기 실패"));
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        attemptData(null);
     }
 }

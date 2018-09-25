@@ -1,7 +1,6 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="actionBarStyle">@style/Widget.AppTheme.ActionBar</item>
-        <item name="android:layout_height">100dp</item>
         <!--<item name="actionBarTheme">@style/ThemeOverlay.AppTheme.ActionBar</item>-->
         <!--<item name="actionBarPopupTheme">@style/ThemeOverlay.AppTheme.PopupMenu</item>-->
     </style>
@@ -12,7 +11,7 @@
         <!-- action bar background - without android prefix -->
         <item name="background">@drawable/action_bar_bg</item>
         <!-- action bar elevation - without android prefix -->
-        <item name="elevation">40dp</item>
+        <item name="elevation">4dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar" />

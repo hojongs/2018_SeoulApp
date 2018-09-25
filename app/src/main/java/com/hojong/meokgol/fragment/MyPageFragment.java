@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.LoginSharedPreference;
-import com.hojong.meokgol.activity.LoginActivity;
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.activity.LoginActivity;
 import com.hojong.meokgol.data_model.User;
 
 import retrofit2.Call;
@@ -62,6 +62,8 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
 
             mProgressView = rootView.findViewById(R.id.progress_bar);
 		}
+
+        attemptData();
 
 		return rootView;
 	}

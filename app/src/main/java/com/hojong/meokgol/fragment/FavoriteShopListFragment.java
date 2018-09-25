@@ -35,6 +35,8 @@ public class FavoriteShopListFragment extends MyFragment
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(adapter);
 
+        attemptData();
+
 		return rootView;
 	}
 

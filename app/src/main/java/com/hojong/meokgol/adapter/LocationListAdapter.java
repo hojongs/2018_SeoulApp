@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.hojong.meokgol.R;
@@ -43,6 +42,7 @@ public class LocationListAdapter extends MyListAdapter implements AdapterView.On
         if (location.getBmp() != null) {
             Log.d(this.toString(), location.getBmp().toString());
             imageView.setImageBitmap(location.getBmp());
+//            imageView.setBackground(new BitmapDrawable(parent.getResources(), location.getBmp()));
         }
 
 		return locationView;

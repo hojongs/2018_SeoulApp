@@ -1,7 +1,5 @@
 package com.hojong.meokgol.fragment;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.v4.app.Fragment;
@@ -14,7 +12,6 @@ import com.hojong.meokgol.IShowProgress;
 import com.hojong.meokgol.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,13 +31,6 @@ public abstract class MyFragment extends Fragment implements IShowProgress {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_refresh, menu);
         super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        attemptData();
     }
 
     @CallSuper

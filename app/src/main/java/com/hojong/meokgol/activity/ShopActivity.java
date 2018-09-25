@@ -1,13 +1,13 @@
 package com.hojong.meokgol.activity;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.Shop;
@@ -15,8 +15,10 @@ import com.hojong.meokgol.fragment.MyFragment;
 import com.hojong.meokgol.fragment.ShopInfoFragment;
 import com.hojong.meokgol.fragment.ShopMapFragment;
 import com.hojong.meokgol.fragment.ShopReviewListFragment;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
-public class ShopActivity extends AppCompatActivity
+public class ShopActivity extends AppCompatActivity implements OnTabSelectListener, View.OnClickListener
 {
     private Bundle bundle;
     private Shop shop;
@@ -33,43 +35,31 @@ public class ShopActivity extends AppCompatActivity
             shop = new Shop("");
         bundle = new Bundle();
         bundle.putSerializable(Shop.INTENT_KEY, shop);
-        // TODO : load and set shop image
 
 		// set visible back arrow button
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		Fragment defaultFragment = new ShopInfoFragment();
-        defaultFragment.setArguments(bundle);
-		loadFragment(defaultFragment);
+        ImageView shopImgView = findViewById(R.id.shop_img);
+        shopImgView.setImageBitmap(shop.getBmp());
 
-		BottomNavigationView navigation = findViewById(R.id.navigation_shop);
-		navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-			@Override
-			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-				Fragment fragment = null;
+        ImageButton orderBtn = findViewById(R.id.order_btn);
+        orderBtn.setOnClickListener(this);
 
-				switch (item.getItemId())
-				{
-					case R.id.nav_shop_info:
-						fragment = new ShopInfoFragment();
-						break;
-					case R.id.nav_shop_position:
-						fragment = new ShopMapFragment();
-						break;
-					case R.id.nav_shop_review_list:
-						fragment = new ShopReviewListFragment();
-						break;
-				}
+        BottomBar bottomBar = findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(this);
+        onTabSelected(R.id.nav_shop_info); // default fragment
+    }
 
-				fragment.setArguments(bundle);
-				return loadFragment(fragment);
-			}
-		});
-	}
+    @Override
+    public void onClick(View v) {
+        // TODO : order btn click
+    }
 
 	private boolean loadFragment(Fragment fragment) {
 		//switching fragment
 		if (fragment != null) {
+            fragment.setArguments(bundle);
+
 			getSupportFragmentManager()
 					.beginTransaction()
 					.replace(R.id.fragment_container, fragment)
@@ -93,4 +83,24 @@ public class ShopActivity extends AppCompatActivity
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+    @Override
+    public void onTabSelected(int tabId) {
+        Fragment fragment = null;
+
+        switch (tabId)
+        {
+            case R.id.nav_shop_info:
+                fragment = new ShopInfoFragment();
+                break;
+            case R.id.nav_shop_position:
+                fragment = new ShopMapFragment();
+                break;
+            case R.id.nav_shop_review_list:
+                fragment = new ShopReviewListFragment();
+                break;
+        }
+
+        loadFragment(fragment);
+    }
 }

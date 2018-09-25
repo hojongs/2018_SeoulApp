@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/nav_shop_info"
+        barColorWhenSelected="#5D4037"
+        icon="@drawable/ic_home_black_24dp" />
+        <!--title="@string/shop_info"/>-->
+    <tab
+        id="@+id/nav_shop_position"
+        barColorWhenSelected="#5D4037"
+        icon="@drawable/ic_dashboard_black_24dp" />
+        <!--title="@string/shop_position" />-->
+    <tab
+        id="@+id/nav_shop_review_list"
+        barColorWhenSelected="#5D4037"
+        icon="@drawable/ic_notifications_black_24dp" />
+        <!--title="@string/shop_review_list"/>-->
+</tabs>
