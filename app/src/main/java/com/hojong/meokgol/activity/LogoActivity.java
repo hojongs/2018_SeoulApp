@@ -1,61 +1,104 @@
 package com.hojong.meokgol.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.hojong.meokgol.APIClient;
+import com.hojong.meokgol.IShowProgress;
+import com.hojong.meokgol.MyCallback;
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.adapter.MyListAdapter;
+import com.hojong.meokgol.data_model.Location;
 
-public class LogoActivity extends AppCompatActivity
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+
+public class LogoActivity extends MyAppCompatActivity implements IShowProgress
 {
-	final int WAIT_TIME_MSEC = 1500;
+	private List<Location> locationList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_logo);
 
-		// 일정 시간 후 액티비티 전환
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				Intent intent;
-				SharedPreferences pref = getSharedPreferences("isFirst", Activity.MODE_PRIVATE);
-				boolean isFirst = pref.getBoolean("isFirst", false);
+        locationList = new ArrayList<>();
+        attemptData();
+	}
 
-				if(isFirst)
-				{
-					SharedPreferences.Editor editor = pref.edit();
-					editor.putBoolean("isFirst",true);
-					editor.apply();
+    public void attemptData()
+    {
+        Call call = APIClient.getService().listLocation();
+        callList.add(call);
+        call.enqueue(MyCallback.callbackListLocation(this, callList, new MyListAdapter() {
+            @Override
+            public void clear() { locationList.clear(); }
+            @Override
+            public void addItem(Object i) { locationList.add((Location)i); }
+            @Override
+            public int getCount() { return 0; }
+            @Override
+            public Object getItem(int position) { return null; }
+            @Override
+            public long getItemId(int position) { return 0; }
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) { return null; }
+            @Override
+            public void notifyDataSetChanged() {
+                if (callList.size() > 0)
+                    return;
 
-					intent = new Intent(getApplicationContext(), TutorialActivity.class);
-				}
-				else {
-					intent = new Intent(getApplicationContext(), MainActivity.class);
-				}
+                // 이미지까지 모두 로드되면 다음 액티비티로 전환
+                Intent intent;
+                SharedPreferences pref = getSharedPreferences("isFirst", Activity.MODE_PRIVATE);
+                boolean isFirst = pref.getBoolean("isFirst", false);
 
-				Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.img_logo);
+                if(isFirst)
+                {
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putBoolean("isFirst",true);
+                    editor.apply();
+
+                    intent = new Intent(getApplicationContext(), TutorialActivity.class);
+                }
+                else {
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                }
+
+                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.img_logo);
                 Log.d(this.toString(), "bmp width=" + bmp.getWidth() + ", height=" + bmp.getHeight());
 
                 ImageView logoView = findViewById(R.id.logo_view);
-				Log.d(this.toString(), "view width=" + logoView.getWidth() + ", height=" + logoView.getHeight());
+                Log.d(this.toString(), "view width=" + logoView.getWidth() + ", height=" + logoView.getHeight());
 
                 // TODO : 마지막 구현완료 후 (lazy)
-				intent = new Intent(getApplicationContext(), MainActivity.class);
-				startActivity(intent);
-				finish();
-			}
-		}, WAIT_TIME_MSEC);
-	}
+                intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra(Location.INTENT_KEY, (Serializable) locationList);
+                Log.d(LogoActivity.this.toString(), "LocationList=" + intent.getSerializableExtra(Location.INTENT_KEY).toString());
+                startActivity(intent);
+                finish();
+            }
+        }));
+    }
+
+    @Override
+    public void showProgress(boolean show) { }
+    @Override
+    public Activity getActivity() { return this; }
+    @Override
+    public Context getContext() { return getApplicationContext(); }
 }

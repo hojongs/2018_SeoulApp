@@ -13,21 +13,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.data_model.Location;
 import com.hojong.meokgol.fragment.FavoriteShopListFragment;
 import com.hojong.meokgol.fragment.MyFragment;
 import com.hojong.meokgol.fragment.LocationListFragment;
 import com.hojong.meokgol.fragment.MyPageFragment;
 import com.hojong.meokgol.fragment.NoticeListFragment;
 
+import java.io.Serializable;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
 	public BottomNavigationView navigation;
+	private Bundle locationListBundle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		locationListBundle = new Bundle();
+        Serializable locationList = getIntent().getSerializableExtra(Location.INTENT_KEY);
+        if (locationList == null)
+            Log.d(toString(), "NullLocationList");
+		locationListBundle.putSerializable(Location.INTENT_KEY, locationList);
 
 		Drawable actionBarBg = ResourcesCompat.getDrawable(getResources(), R.drawable.img_action_bar_background, null);
 		getSupportActionBar().setBackgroundDrawable(actionBarBg);
@@ -36,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		navigation.setOnNavigationItemSelectedListener(this);
 
 		Fragment defaultFragment = new LocationListFragment();
+        defaultFragment.setArguments(locationListBundle); // TODO : 중복(id=5)
+        Log.d(toString(), "bundle=" + defaultFragment.getArguments());
 		enableNavIcon(0, R.drawable.ic_location_list_selected);
 		loadFragment(defaultFragment);
 	}
@@ -62,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 		{
 			case R.id.nav_locations:
 				fragment = new LocationListFragment();
+                fragment.setArguments(locationListBundle); // TODO : 중복(id=5)
+                Log.d(toString(), "bundle=" + fragment.getArguments());
 				enableNavIcon(0, R.drawable.ic_location_list_selected);
 				break;
 			case R.id.nav_favorites:

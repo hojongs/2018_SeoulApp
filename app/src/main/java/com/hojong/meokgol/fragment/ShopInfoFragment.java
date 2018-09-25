@@ -10,16 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.data_model.Shop;
 
 public class ShopInfoFragment extends Fragment {
-	@Nullable
+    @Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_shop_info, null);
 
-		Intent intent = new Intent();
-        String shopInfo = intent.getStringExtra("shopInfo");
-        Log.d(this.toString(), "shopInfo=" + shopInfo); // TODO : 더미 데이터 후 (Frst)
+		Shop shop = (Shop) getArguments().getSerializable(Shop.INTENT_KEY);
+        Log.d(this.toString(), "shopInfo=" + shop.shop_info);
+		// TODO : setText shop info
 
 		return rootView;
 	}

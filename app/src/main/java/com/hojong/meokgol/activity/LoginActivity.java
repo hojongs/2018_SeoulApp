@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 	private UserLoginTask mAuthTask = null;
 
 	// UI references.
-	private AutoCompleteTextView mUserIdView;
+	private EditText mUserIdView;
 	private EditText mPasswordView;
 	private View mProgressView;
 	private View mLoginFormView;
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 		actionbar.setDisplayHomeAsUpEnabled(true);
 
 		// Set up the login form.
-		mUserIdView = (AutoCompleteTextView) findViewById(R.id.user_id);
+		mUserIdView = (EditText) findViewById(R.id.user_id);
 //		populateAutoComplete(); // 주소록으로부터 이메일을 가져와 자동완성
 
 		mPasswordView = (EditText) findViewById(R.id.password);
@@ -298,7 +298,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 				new ArrayAdapter<>(LoginActivity.this,
 						android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-		mUserIdView.setAdapter(adapter);
+//		mUserIdView.setAdapter(adapter);
 	}
 
 

@@ -18,6 +18,7 @@ import com.google.gson.JsonObject;
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.LoginSharedPreference;
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.data_model.Shop;
 import com.hojong.meokgol.data_model.ShopReview;
 
 import retrofit2.Call;
@@ -121,15 +122,14 @@ public class ShopReviewWriteActivity extends AppCompatActivity {
     
     public void attemptData()
     {
-        Intent intent = new Intent();
-        int shopIdx = intent.getIntExtra("shopIdx", 1);
-        if (shopIdx == -1) {
+        Shop shop = (Shop) getIntent().getSerializableExtra(Shop.INTENT_KEY);
+        if (shop.shop_idx == -1) {
             Log.d(this.toString(), "wrong shopIdx=-1");
             showProgress(false);
             return;
         }
 
-        ShopReview review = new ShopReview(titleView.getText().toString(), contentsView.getText().toString(), 5, LoginSharedPreference.getUserIdx(getApplicationContext()), shopIdx);
+        ShopReview review = new ShopReview(titleView.getText().toString(), contentsView.getText().toString(), 5, LoginSharedPreference.getUserIdx(getApplicationContext()), shop.shop_idx);
 
         showProgress(true);
         APIClient.getService().writeReview(review).enqueue(callbackWriteReview());

@@ -24,6 +24,7 @@ import com.hojong.meokgol.activity.ShopReviewWriteActivity;
 import com.hojong.meokgol.adapter.ShopReviewListAdapter;
 import com.hojong.meokgol.data_model.Location;
 import com.hojong.meokgol.data_model.Notice;
+import com.hojong.meokgol.data_model.Shop;
 import com.hojong.meokgol.data_model.ShopReview;
 
 import java.util.List;
@@ -37,6 +38,7 @@ import static android.app.Activity.RESULT_OK;
 public class ShopReviewListFragment extends MyFragment {
     ListView listView;
     ShopReviewListAdapter adapter;
+    Shop shop;
 
 	@Nullable
 	@Override
@@ -53,9 +55,12 @@ public class ShopReviewListFragment extends MyFragment {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(getContext(), ShopReviewWriteActivity.class);
+				intent.putExtra(Shop.INTENT_KEY, shop);
 				startActivityForResult(intent, RESULT_OK);
 			}
 		});
+
+        shop = (Shop) getArguments().getSerializable(Shop.INTENT_KEY);
 
 		return rootView;
 	}

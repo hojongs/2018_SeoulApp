@@ -85,6 +85,6 @@ public class FavoriteShopListFragment extends MyFragment
         int userIdx = LoginSharedPreference.getUserIdx(getContext());
         Call call = APIClient.getService().listFavoriteShop(userIdx); // TODO : 서버 측 미구현
         callList.add(call);
-        call.enqueue(MyCallback.callbackShopList(null, this, callList, adapter, "즐겨찾기 가져오기 실패"));
+        call.enqueue(MyCallback.callbackShopList(this, callList, adapter, "즐겨찾기 가져오기 실패"));
     }
 }

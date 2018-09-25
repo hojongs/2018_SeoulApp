@@ -43,14 +43,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <AutoCompleteTextView
+                <EditText
                     android:id="@+id/user_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_user_id"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:nextFocusDown="@id/password" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -68,7 +69,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true" />
-                <!--android:imeActionId="@+id/login"-->
+                <!--android:imeActionId="@+id/sign_in_button"-->
 
             </android.support.design.widget.TextInputLayout>
 

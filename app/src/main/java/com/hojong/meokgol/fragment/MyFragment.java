@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 
+import com.hojong.meokgol.IShowProgress;
 import com.hojong.meokgol.R;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public abstract class MyFragment extends Fragment {
+public abstract class MyFragment extends Fragment implements IShowProgress {
     protected View mProgressView;
     protected List<Call> callList;
 
@@ -41,9 +42,6 @@ public abstract class MyFragment extends Fragment {
         super.onResume();
         attemptData();
     }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    public abstract void showProgress(final boolean show);
 
     @CallSuper
     public void attemptData()

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.data_model.Location;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class TutorialActivity extends AppCompatActivity
 {
@@ -33,12 +38,15 @@ public class TutorialActivity extends AppCompatActivity
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	private ViewPager mViewPager;
+	public Serializable locationList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tutorial);
+
+		locationList = getIntent().getSerializableExtra(Location.INTENT_KEY);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
@@ -130,6 +138,10 @@ public class TutorialActivity extends AppCompatActivity
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(getActivity(), MainActivity.class);
+
+					Serializable locationList = getArguments().getSerializable(Location.INTENT_KEY);
+					intent.putExtra(Location.INTENT_KEY, locationList);
+
 					startActivity(intent);
 					getActivity().finish();
 				}
@@ -174,7 +186,13 @@ public class TutorialActivity extends AppCompatActivity
 		{
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a PlaceholderFragment (defined as a static inner class below).
-			return PlaceholderFragment.newInstance(position + 1);
+            Fragment fragment = PlaceholderFragment.newInstance(position + 1);
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(Location.INTENT_KEY, locationList);
+            fragment.setArguments(bundle);
+
+			return fragment;
 		}
 
 		@Override

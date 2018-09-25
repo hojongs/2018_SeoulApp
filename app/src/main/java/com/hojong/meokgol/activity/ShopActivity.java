@@ -6,9 +6,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.data_model.Shop;
 import com.hojong.meokgol.fragment.MyFragment;
 import com.hojong.meokgol.fragment.ShopInfoFragment;
 import com.hojong.meokgol.fragment.ShopMapFragment;
@@ -16,21 +18,28 @@ import com.hojong.meokgol.fragment.ShopReviewListFragment;
 
 public class ShopActivity extends AppCompatActivity
 {
+    private Bundle bundle;
+    private Shop shop;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop);
 
-		Intent intent = new Intent();
-		// TODO : use it (lazy)
-		int shopIdx = intent.getIntExtra("shopIdx", -1);
-		String shopImg = intent.getStringExtra("shopImg");
+        shop = (Shop) getIntent().getSerializableExtra(Shop.INTENT_KEY);
+        Log.d(toString(), "shop=" + shop);
+        if (shop == null)
+            shop = new Shop("");
+        bundle = new Bundle();
+        bundle.putSerializable(Shop.INTENT_KEY, shop);
+        // TODO : load and set shop image
 
 		// set visible back arrow button
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Fragment defaultFragment = new ShopInfoFragment();
+        defaultFragment.setArguments(bundle);
 		loadFragment(defaultFragment);
 
 		BottomNavigationView navigation = findViewById(R.id.navigation_shop);
@@ -52,6 +61,7 @@ public class ShopActivity extends AppCompatActivity
 						break;
 				}
 
+				fragment.setArguments(bundle);
 				return loadFragment(fragment);
 			}
 		});

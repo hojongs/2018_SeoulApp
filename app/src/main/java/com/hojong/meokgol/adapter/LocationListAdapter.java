@@ -17,7 +17,7 @@ import com.hojong.meokgol.data_model.Location;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocationListAdapter extends BaseAdapter implements AdapterView.OnItemClickListener
+public class LocationListAdapter extends MyListAdapter implements AdapterView.OnItemClickListener
 {
 	private List<Location> locationDataList = new ArrayList<>();
 
@@ -40,9 +40,9 @@ public class LocationListAdapter extends BaseAdapter implements AdapterView.OnIt
 		// get data
 		Location location = locationDataList.get(position);
 		// set data to view
-        if (location.bmp != null) {
-            Log.d(this.toString(), location.bmp.toString());
-            imageView.setImageBitmap(location.bmp);
+        if (location.getBmp() != null) {
+            Log.d(this.toString(), location.getBmp().toString());
+            imageView.setImageBitmap(location.getBmp());
         }
 
 		return locationView;
@@ -58,8 +58,8 @@ public class LocationListAdapter extends BaseAdapter implements AdapterView.OnIt
 		return locationDataList.get(position) ;
 	}
 
-	public void addItem(Location location) {
-		locationDataList.add(location);
+	public void addItem(Object location) {
+		locationDataList.add((Location) location);
 	}
 
 	public void clear() {
@@ -71,7 +71,7 @@ public class LocationListAdapter extends BaseAdapter implements AdapterView.OnIt
         Context context = adapterView.getContext();
         Intent intent = new Intent(context, ShopListActivity.class);
         Location location = locationDataList.get(i);
-        intent.putExtra("locationIdx", location.location_idx);
+        intent.putExtra(Location.INTENT_KEY, location);
         Log.d(this.toString(), "Selected " + location);
         context.startActivity(intent);
     }

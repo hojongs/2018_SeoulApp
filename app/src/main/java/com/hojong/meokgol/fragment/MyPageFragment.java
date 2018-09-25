@@ -18,8 +18,6 @@ import com.hojong.meokgol.activity.LoginActivity;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.User;
 
-import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

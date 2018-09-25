@@ -19,7 +19,7 @@ import com.hojong.meokgol.data_model.Shop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopListAdapter extends BaseAdapter implements AdapterView.OnItemClickListener
+public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItemClickListener
 {
 	private List<Shop> shopDataList = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class ShopListAdapter extends BaseAdapter implements AdapterView.OnItemCl
 
 		// shop bmp
 		ImageView shopImageView = shopView.findViewById(R.id.shop_img);
-		shopImageView.setImageBitmap(shop.bmp);
+		shopImageView.setImageBitmap(shop.getBmp());
 		// shop name
 		TextView shopNameView = shopView.findViewById(R.id.shop_name);
 		shopNameView.setText(shop.shop_name);
@@ -71,8 +71,8 @@ public class ShopListAdapter extends BaseAdapter implements AdapterView.OnItemCl
 		return shopDataList.get(position) ;
 	}
 
-	public void addItem(Shop shop) {
-		shopDataList.add(shop);
+	public void addItem(Object shop) {
+		shopDataList.add((Shop) shop);
 	}
 
 	public void clear()
@@ -85,9 +85,8 @@ public class ShopListAdapter extends BaseAdapter implements AdapterView.OnItemCl
         Context context = adapterView.getContext();
         Intent intent = new Intent(context, ShopActivity.class);
         Shop shop = shopDataList.get(i);
-        intent.putExtra("shopIdx", shop.shop_idx);
-        intent.putExtra("shopImg", shop.shop_img);
-        intent.putExtra("shopInfo", shop.shop_info);
+        Log.d(toString(), "shop="+shop);
+        intent.putExtra(Shop.INTENT_KEY, shop);
         context.startActivity(intent);
     }
 }

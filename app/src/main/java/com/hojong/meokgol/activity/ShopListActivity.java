@@ -2,6 +2,8 @@ package com.hojong.meokgol.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,9 +22,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.hojong.meokgol.APIClient;
+import com.hojong.meokgol.IShowProgress;
 import com.hojong.meokgol.MyCallback;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.adapter.ShopListAdapter;
+import com.hojong.meokgol.data_model.Location;
 import com.hojong.meokgol.data_model.Shop;
 
 import java.util.ArrayList;
@@ -33,14 +37,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShopListActivity extends AppCompatActivity
+public class ShopListActivity extends MyAppCompatActivity implements IShowProgress
 {
+    protected ListView listView;
+    protected View mProgressView;
 	private DrawerLayout mDrawerLayout;
-	private int locationIdx;
+	private Location location;
 	private ShopListAdapter adapter;
-	private ListView listView;
-	private View mProgressView;
-	private List<Call> callList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -48,19 +51,18 @@ public class ShopListActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop_list);
 
-        locationIdx = getIntent().getIntExtra("locationIdx", -1);
-        Log.d(this.toString(), "locationIdx=" + locationIdx);
+        location = (Location) getIntent().getSerializableExtra(Location.INTENT_KEY);
+        Log.d(this.toString(), "locationIdx=" + location.location_idx);
 
 		// set visible back arrow button
-		ActionBar actionbar = getSupportActionBar();
-		actionbar.setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		adapter = new ShopListAdapter();
         listView = findViewById(R.id.shop_list);
 		listView.setAdapter(adapter);
         listView.setOnItemClickListener(adapter);
+
         mProgressView = findViewById(R.id.progress_bar);
-        callList = new ArrayList<>();
 
 		initDrawer();
 	}
@@ -74,10 +76,7 @@ public class ShopListActivity extends AppCompatActivity
                 show ? 0 : 1).setListener(new AnimatorListenerAdapter()
         {
             @Override
-            public void onAnimationEnd(Animator animation)
-            {
-                listView.setVisibility(show ? View.GONE : View.VISIBLE);
-            }
+            public void onAnimationEnd(Animator animation) { listView.setVisibility(show ? View.GONE : View.VISIBLE); }
         });
 
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
@@ -92,6 +91,17 @@ public class ShopListActivity extends AppCompatActivity
         });
     }
 
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
+
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
+    }
+
+    // 필터 버튼 생성
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_shop_filter, menu);
@@ -106,12 +116,16 @@ public class ShopListActivity extends AppCompatActivity
 				finish();
 				return true;
 			case R.id.shop_filter:
-				mDrawerLayout.openDrawer(GravityCompat.END);
+                if (!mDrawerLayout.isDrawerOpen(GravityCompat.END))
+				    mDrawerLayout.openDrawer(GravityCompat.END);
+				else
+				    mDrawerLayout.closeDrawer(GravityCompat.END);
 				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	// 필터 drawer
 	protected void initDrawer()
 	{
 		mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -137,9 +151,9 @@ public class ShopListActivity extends AppCompatActivity
         if (callList.size() > 0)
             return;
 
-        Call call = APIClient.getService().listShop(locationIdx, menu);
+        Call call = APIClient.getService().listShop(location.location_idx, menu);
         callList.add(call);
-        call.enqueue(MyCallback.callbackShopList(this, null, callList, adapter, "가게 정보 가져오기 실패"));
+        call.enqueue(MyCallback.callbackShopList(this, callList, adapter, "가게 정보 가져오기 실패"));
     }
 
     @Override

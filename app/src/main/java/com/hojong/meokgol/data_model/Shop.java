@@ -1,10 +1,10 @@
 package com.hojong.meokgol.data_model;
 
-import android.graphics.Bitmap;
+import java.io.Serializable;
 
-public class Shop
+public class Shop extends BmpModel implements Serializable
 {
-    public Bitmap bmp;
+    public static final String INTENT_KEY = "shop";
 	public int shop_idx;
 	public String shop_name;
 	public String shop_info;
