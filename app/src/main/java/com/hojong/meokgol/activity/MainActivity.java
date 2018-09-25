@@ -2,22 +2,30 @@ package com.hojong.meokgol.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.Location;
 import com.hojong.meokgol.fragment.FavoriteShopListFragment;
-import com.hojong.meokgol.fragment.MyFragment;
 import com.hojong.meokgol.fragment.LocationListFragment;
+import com.hojong.meokgol.fragment.MyFragment;
 import com.hojong.meokgol.fragment.MyPageFragment;
 import com.hojong.meokgol.fragment.NoticeListFragment;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
 {
@@ -41,8 +49,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 		navigation = findViewById(R.id.navigation);
 		navigation.setOnNavigationItemSelectedListener(this);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+        BottomNavigationViewHelper.centerMenuIcon(navigation);
 
-		Fragment defaultFragment = new LocationListFragment();
+        Fragment defaultFragment = new LocationListFragment();
         defaultFragment.setArguments(locationListBundle); // TODO : 중복(id=5)
         Log.d(toString(), "bundle=" + defaultFragment.getArguments());
 		enableNavIcon(0, R.drawable.nav_location_list_selected);
@@ -121,5 +131,45 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private static class BottomNavigationViewHelper {
+        static void centerMenuIcon(BottomNavigationView view) {
+            BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+            if (menuView != null) {
+                for (int i = 0; i < menuView.getChildCount(); i++) {
+                    BottomNavigationItemView menuItemView = (BottomNavigationItemView) menuView.getChildAt(i);
+                    TextView smallText = (TextView) menuItemView.findViewById(R.id.smallLabel);
+                    smallText.setVisibility(View.INVISIBLE);
+                    //TextView largeText = (TextView) menuItemView.findViewById(R.id.largeLabel);
+                    ImageView icon = (ImageView) menuItemView.findViewById(R.id.icon);
+                    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) icon.getLayoutParams();
+                    params.gravity = Gravity.CENTER;
+                    menuItemView.setShiftingMode(true);
+                }
+            }
+        }
+
+        static void disableShiftMode(BottomNavigationView view) {
+            BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+            try {
+                Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+                shiftingMode.setAccessible(true);
+                shiftingMode.setBoolean(menuView, false);
+                shiftingMode.setAccessible(false);
+                for (int i = 0; i < menuView.getChildCount(); i++) {
+                    BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                    //noinspection RestrictedApi
+                    item.setShiftingMode(false);
+                    // set once again checked value, so view will be updated
+                    //noinspection RestrictedApi
+                    item.setChecked(item.getItemData().isChecked());
+                }
+            } catch (NoSuchFieldException e) {
+                Log.e("BNVHelper", "Unable to get shift mode field", e);
+            } catch (IllegalAccessException e) {
+                Log.e("BNVHelper", "Unable to change value of shift mode", e);
+            }
+        }
     }
 }

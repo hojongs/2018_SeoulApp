@@ -1,8 +1,6 @@
 package com.hojong.meokgol;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
@@ -90,11 +88,12 @@ public class MyCallback {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d(this.toString(), "callbackLoadImage " + response.body());
                 callList.remove(call);
-                String url = call.request().url().toString();
-                i.setBmp(response.body().byteStream(), url.substring(url.length() - 3));
+                if (response.code() == 200) {
+                    String url = call.request().url().toString();
+                    i.setBmp(response.body().byteStream(), url.substring(url.length() - 3));
 
+                }
                 adapter.notifyDataSetChanged();
-
                 fragment.showProgress(false);
             }
 
