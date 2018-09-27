@@ -2,7 +2,6 @@ package com.hojong.meokgol.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.hojong.meokgol.APIClient;
-import com.hojong.meokgol.IShowProgress;
-import com.hojong.meokgol.ImageLoadHelper;
+import com.hojong.meokgol.IShowableProgress;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.activity.ShopListActivity;
 import com.hojong.meokgol.data_model.Location;
@@ -29,21 +27,21 @@ public class LocationListAdapter extends MyListAdapter implements AdapterView.On
 {
 	private List<Location> locationDataList = new ArrayList<>();
 
-    public static Callback<List<Location>> callbackListLocation(final IShowProgress fragment, final List<Call> callList, @Nullable final MyListAdapter adapter) {
+    public Callback<List<Location>> callbackListLocation(final IShowableProgress fragment, final List<Call> callList) {
         return new Callback<List<Location>>() {
             @Override
             public void onResponse(Call<List<Location>> call, Response<List<Location>> response) {
                 Log.d(this.toString(), "callbackListLocation " + response.body());
                 callList.remove(call);
-                adapter.clear();
+                clear();
                 for (Location i : response.body()) {
                     Log.d(this.toString(), "location_img="+i.location_img);
                     Call call2 = APIClient.getService().loadImage(i.location_img);
                     callList.add(call2);
-                    call2.enqueue(ImageLoadHelper.callbackLoadImage(i, fragment, callList, adapter));
-                    adapter.addItem(i);
+                    call2.enqueue(callbackLoadImage(i, fragment, callList));
+                    addItem(i);
                 }
-                adapter.notifyDataSetChanged();
+                notifyDataSetChanged();
 //				showProgress(false);
             }
 

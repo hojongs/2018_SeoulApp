@@ -4,19 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.hojong.meokgol.APIClient;
-import com.hojong.meokgol.IShowProgress;
+import com.hojong.meokgol.IShowableProgress;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.adapter.LocationListAdapter;
-import com.hojong.meokgol.adapter.MyListAdapter;
 import com.hojong.meokgol.data_model.Location;
 
 import java.io.Serializable;
@@ -25,7 +21,7 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public class LogoActivity extends MyAppCompatActivity implements IShowProgress
+public class LogoActivity extends MyAppCompatActivity implements IShowableProgress
 {
 	private List<Location> locationList;
 
@@ -42,7 +38,8 @@ public class LogoActivity extends MyAppCompatActivity implements IShowProgress
     {
         Call call = APIClient.getService().listLocation();
         callList.add(call);
-        call.enqueue(LocationListAdapter.callbackListLocation(this, callList, new MyListAdapter() {
+
+        LocationListAdapter adapter = new LocationListAdapter() {
             @Override
             public void clear() { locationList.clear(); }
             @Override
@@ -57,10 +54,11 @@ public class LogoActivity extends MyAppCompatActivity implements IShowProgress
             public View getView(int position, View convertView, ViewGroup parent) { return null; }
             @Override
             public void notifyDataSetChanged() {
+                Log.d(toString(), String.format("notifyDataSetChanged callList.size=%s", callList.size()));
                 if (callList.size() > 0)
                     return;
 
-                // 이미지까지 모두 로드되면 다음 액티비티로 전환
+                // is first check, init intent
                 Intent intent;
                 SharedPreferences pref = getSharedPreferences("isFirst", Activity.MODE_PRIVATE);
                 boolean isFirst = pref.getBoolean("isFirst", false);
@@ -78,18 +76,21 @@ public class LogoActivity extends MyAppCompatActivity implements IShowProgress
                     intent = new Intent(getApplicationContext(), MainActivity.class);
                 }
 
-                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.logo_bg);
-                Log.d(this.toString(), "bmp width=" + bmp.getWidth() + ", height=" + bmp.getHeight());
-
-                ImageView logoView = findViewById(R.id.logo_view);
-                Log.d(this.toString(), "view width=" + logoView.getWidth() + ", height=" + logoView.getHeight());
-
+                // start activity
                 intent.putExtra(Location.INTENT_KEY, (Serializable) locationList);
-                Log.d(LogoActivity.this.toString(), "LocationList=" + intent.getSerializableExtra(Location.INTENT_KEY).toString());
+                Log.d(this.toString(), "LocationList=" + intent.getSerializableExtra(Location.INTENT_KEY).toString());
                 startActivity(intent);
                 finish();
+
+//                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.logo_bg);
+//                Log.d(this.toString(), "bmp width=" + bmp.getWidth() + ", height=" + bmp.getHeight());
+
+//                ImageView logoView = findViewById(R.id.logo_view);
+//                Log.d(this.toString(), "view width=" + logoView.getWidth() + ", height=" + logoView.getHeight());
             }
-        }));
+        };
+
+        call.enqueue(adapter.callbackListLocation(this, callList));
     }
 
     @Override

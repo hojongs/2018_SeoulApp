@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 
-import com.hojong.meokgol.IShowProgress;
+import com.hojong.meokgol.IShowableProgress;
 import com.hojong.meokgol.R;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public abstract class MyFragment extends Fragment implements IShowProgress {
+public abstract class MyFragment extends Fragment implements IShowableProgress {
     protected View mProgressView;
     protected List<Call> callList;
 

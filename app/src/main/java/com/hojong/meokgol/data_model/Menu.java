@@ -1,6 +1,9 @@
 package com.hojong.meokgol.data_model;
 
-public class Menu {
+import java.io.Serializable;
+
+public class Menu implements Serializable
+{
     public String menu_name;
     public int menu_price;
     public String menu_img;

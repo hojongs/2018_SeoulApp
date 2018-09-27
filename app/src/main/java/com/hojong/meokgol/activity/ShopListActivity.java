@@ -13,17 +13,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.hojong.meokgol.APIClient;
-import com.hojong.meokgol.IShowProgress;
+import com.hojong.meokgol.IShowableProgress;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.adapter.ShopListAdapter;
 import com.hojong.meokgol.data_model.Location;
+import com.hojong.meokgol.data_model.Shop;
 
 import retrofit2.Call;
 
-public class ShopListActivity extends MyAppCompatActivity implements IShowProgress
+public class ShopListActivity extends MyAppCompatActivity implements IShowableProgress, AdapterView.OnItemClickListener
 {
     protected ListView listView;
     protected View mProgressView;
@@ -46,12 +48,21 @@ public class ShopListActivity extends MyAppCompatActivity implements IShowProgre
 		adapter = new ShopListAdapter();
         listView = findViewById(R.id.shop_list);
 		listView.setAdapter(adapter);
-        listView.setOnItemClickListener(adapter);
+        listView.setOnItemClickListener(this);
 
         mProgressView = findViewById(R.id.progress_bar);
 
 		initDrawer();
         attemptData(null);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+		// list item click
+		Shop shop = (Shop) adapter.getItem(i);
+
+		showProgress(true);
+		APIClient.getService().getShopInfo(shop.shop_idx).enqueue(adapter.callbackShopInfo(shop, this, adapterView.getContext()));
 	}
 
     public void showProgress(final boolean show)
@@ -140,6 +151,6 @@ public class ShopListActivity extends MyAppCompatActivity implements IShowProgre
 
         Call call = APIClient.getService().listShop(location.location_idx, null); // TODO
         callList.add(call);
-        call.enqueue(ShopListAdapter.callbackShopList(this, callList, adapter, "가게 정보 가져오기 실패"));
+        call.enqueue(adapter.callbackShopList(this, callList, "가게 정보 가져오기 실패"));
     }
 }

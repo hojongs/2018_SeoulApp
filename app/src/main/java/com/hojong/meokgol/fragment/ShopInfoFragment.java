@@ -7,11 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hojong.meokgol.R;
-import com.hojong.meokgol.adapter.NoticeListAdapter;
 import com.hojong.meokgol.data_model.Shop;
 
 public class ShopInfoFragment extends Fragment {
@@ -27,6 +25,7 @@ public class ShopInfoFragment extends Fragment {
         shopInfoView.setText(shop.shop_info); // TODO : 가독성 (lazy)
 
         // TODO : menu list
+		Log.d(toString(), "menuList=" + shop.menu_list);
 
 		return rootView;
 	}

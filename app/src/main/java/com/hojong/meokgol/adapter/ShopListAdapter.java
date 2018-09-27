@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,9 +13,7 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.hojong.meokgol.APIClient;
-import com.hojong.meokgol.APIService;
-import com.hojong.meokgol.IShowProgress;
-import com.hojong.meokgol.ImageLoadHelper;
+import com.hojong.meokgol.IShowableProgress;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.activity.ShopActivity;
 import com.hojong.meokgol.data_model.Shop;
@@ -29,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItemClickListener, View.OnClickListener
+public class ShopListAdapter extends MyListAdapter implements View.OnClickListener
 {
 	private List<Shop> shopDataList = new ArrayList<>();
 
@@ -82,23 +79,9 @@ public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItem
 		shopDataList.add((Shop) shop);
 	}
 
-	public void clear()
+    public void clear()
     {
         shopDataList.clear();
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-	    // list item click
-        Context context = adapterView.getContext();
-        Shop shop = shopDataList.get(i);
-
-        // TODO : APIClient.getService().getShopInfo(shop.shop_idx).enqueue();
-
-        Intent intent = new Intent(context, ShopActivity.class);
-        Log.d(toString(), "shop="+shop);
-        intent.putExtra(Shop.INTENT_KEY, shop);
-        context.startActivity(intent);
     }
 
     @Override
@@ -115,7 +98,7 @@ public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItem
         APIClient.getService().addFavoriteShop(userIdx, shop.shop_idx).enqueue(callbackAddFavoriteShop(listView.getContext()));
     }
 
-    public static Callback<List<Shop>> callbackShopList(final IShowProgress fragment, final List<Call> callList, final MyListAdapter adapter, final String failureMsg)
+    public Callback<List<Shop>> callbackShopList(final IShowableProgress showableProgress, final List<Call> callList, final String failureMsg)
     {
         return new Callback<List<Shop>>() {
             @Override
@@ -123,15 +106,15 @@ public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItem
                 Log.d(this.toString(), String.format("callbackShopList msg=%s,shopList=%s", response.message(), response.body()));
                 if (response.code() == 200) {
                     callList.remove(call);
-                    adapter.clear();
+                    clear();
                     for (Shop i : response.body()) {
                         Log.d(this.toString(), "shop_img=" + i.shop_img);
                         Call call2 = APIClient.getService().loadImage(i.shop_img);
                         callList.add(call2);
-                        call2.enqueue(ImageLoadHelper.callbackLoadImage(i, fragment, callList, adapter));
-                        adapter.addItem(i);
+                        call2.enqueue(callbackLoadImage(i, showableProgress, callList));
+                        addItem(i);
                     }
-                    adapter.notifyDataSetChanged();
+                    notifyDataSetChanged();
 //				    showProgress(false);
                 }
             }
@@ -141,11 +124,41 @@ public class ShopListAdapter extends MyListAdapter implements AdapterView.OnItem
                 Log.d(this.toString(), failureMsg + t.toString());
                 callList.remove(call);
 
-                if (fragment.getActivity() == null)
+                if (showableProgress.getActivity() == null)
                     return;
 
-                Toast.makeText(fragment.getActivity(), failureMsg, Toast.LENGTH_SHORT).show();
-                fragment.showProgress(false);
+                Toast.makeText(showableProgress.getActivity(), failureMsg, Toast.LENGTH_SHORT).show();
+                showableProgress.showProgress(false);
+            }
+        };
+    }
+
+    public Callback<Shop> callbackShopInfo(final Shop shop, final IShowableProgress showableProgress, final Context context)
+    {
+        return new Callback<Shop>() {
+            @Override
+            public void onResponse(Call<Shop> call, Response<Shop> response) {
+                Log.d(this.toString(), String.format("callbackShopInfo msg=%s,shopList=%s", response.message(), response.body()));
+                if (response.code() == 200) {
+                    shop.menu_list = response.body().menu_list;
+				    showableProgress.showProgress(false);
+
+                    Intent intent = new Intent(context, ShopActivity.class);
+                    Log.d(toString(), "shop="+shop);
+                    intent.putExtra(Shop.INTENT_KEY, shop);
+                    context.startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Shop> call, Throwable t) {
+                Log.d(this.toString(), "가게 정보 가져오기 실패" + t.toString());
+
+                if (showableProgress.getActivity() == null)
+                    return;
+
+                Toast.makeText(showableProgress.getActivity(), "가게 정보 가져오기 실패", Toast.LENGTH_SHORT).show();
+                showableProgress.showProgress(false);
             }
         };
     }

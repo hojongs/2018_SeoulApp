@@ -1,8 +1,9 @@
 package com.hojong.meokgol.data_model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class ShopReview
+public class ShopReview implements Serializable
 {
 	public int review_idx;
 	public String review_title;

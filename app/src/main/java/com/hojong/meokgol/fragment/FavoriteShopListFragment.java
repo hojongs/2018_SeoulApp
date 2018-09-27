@@ -7,16 +7,18 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.LoginSharedPreference;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.adapter.ShopListAdapter;
+import com.hojong.meokgol.data_model.Shop;
 
 import retrofit2.Call;
 
-public class FavoriteShopListFragment extends MyFragment
+public class FavoriteShopListFragment extends MyFragment implements AdapterView.OnItemClickListener
 {
     ListView listView;
     ShopListAdapter adapter;
@@ -32,12 +34,21 @@ public class FavoriteShopListFragment extends MyFragment
 
 		adapter = new ShopListAdapter();
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(adapter);
+		listView.setOnItemClickListener(this);
 
         attemptData();
 
 		return rootView;
 	}
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        // list item click
+        Shop shop = (Shop) adapter.getItem(i);
+
+        showProgress(true);
+        APIClient.getService().getShopInfo(shop.shop_idx).enqueue(adapter.callbackShopInfo(shop, this, adapterView.getContext()));
+    }
 
     @Override
     public void showProgress(final boolean show)
@@ -76,6 +87,6 @@ public class FavoriteShopListFragment extends MyFragment
         int userIdx = LoginSharedPreference.getUserIdx(getContext());
         Call call = APIClient.getService().listFavoriteShop(userIdx); // TODO : 서버 측 미구현
         callList.add(call);
-        call.enqueue(ShopListAdapter.callbackShopList(this, callList, adapter, "즐겨찾기 가져오기 실패"));
+        call.enqueue(adapter.callbackShopList(this, callList, "즐겨찾기 가져오기 실패"));
     }
 }

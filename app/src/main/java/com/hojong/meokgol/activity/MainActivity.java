@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Log.d(toString(), "onCreate");
 
 		locationListBundle = new Bundle();
         Serializable locationList = getIntent().getSerializableExtra(Location.INTENT_KEY);
