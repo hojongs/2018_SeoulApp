@@ -1,5 +1,7 @@
 package com.hojong.meokgol.data_model;
 
+import android.view.Menu;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class Shop extends BmpModel implements Serializable
 	public String shop_info;
 	public String shop_img;
 	public int location_idx;
-	public List<Menu> menu_list;
+	public List<ShopMenu> menu_list;
 
 	public Shop (String shop_name)
 	{

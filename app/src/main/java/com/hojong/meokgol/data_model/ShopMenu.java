@@ -2,7 +2,7 @@ package com.hojong.meokgol.data_model;
 
 import java.io.Serializable;
 
-public class Menu implements Serializable
+public class ShopMenu implements Serializable
 {
     public String menu_name;
     public int menu_price;
