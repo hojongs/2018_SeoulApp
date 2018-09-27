@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.Shop;
 import com.hojong.meokgol.fragment.MyFragment;
@@ -41,7 +42,7 @@ public class ShopActivity extends AppCompatActivity implements OnTabSelectListen
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ImageView shopImgView = findViewById(R.id.shop_img);
-        shopImgView.setImageBitmap(shop.getBmp());
+        Glide.with(getApplicationContext()).load(shop.shop_img).into(shopImgView);
 
         ImageButton orderBtn = findViewById(R.id.order_btn);
         orderBtn.setOnClickListener(this);

@@ -11,6 +11,7 @@ public class ShopReview implements Serializable
 	public int review_star;
 	public Timestamp review_date;
 	public int user_idx;
+	public String user_name;
 	public int shop_idx;
 
 	public ShopReview() { }

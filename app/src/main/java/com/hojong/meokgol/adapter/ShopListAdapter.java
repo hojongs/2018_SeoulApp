@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.IShowableProgress;
@@ -49,7 +50,8 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
 
 		// shop bmp
 		ImageView shopImageView = shopView.findViewById(R.id.location_img);
-		shopImageView.setImageBitmap(shop.getBmp());
+        Glide.with(context).load(shop.shop_img).into(shopImageView);
+//		shopImageView.setImageBitmap(shop.getBmp());
 		// shop name
 		TextView shopNameView = shopView.findViewById(R.id.shop_name);
 		shopNameView.setText(shop.shop_name);
@@ -94,8 +96,15 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
         Shop shop = shopDataList.get(listView.indexOfChild(itemView));
         Log.d(toString(), "onClick.item="+shop);
 
-        Log.d(toString(), String.format("addFavorite userIdx=%s,shopIdx=%s", userIdx, shop.shop_idx));
-        APIClient.getService().addFavoriteShop(userIdx, shop.shop_idx).enqueue(callbackAddFavoriteShop(listView.getContext()));
+
+        if (true) { // TODO : isFavorite
+            Log.d(toString(), String.format("addFavorite userIdx=%s,shopIdx=%s", userIdx, shop.shop_idx));
+            APIClient.getService().addFavoriteShop(userIdx, shop.shop_idx).enqueue(callbackAddFavoriteShop(listView.getContext()));
+        }
+        else
+        {
+            APIClient.getService().removeFavoriteShop(userIdx, shop.shop_idx).enqueue(callbackAddFavoriteShop(listView.getContext()));
+        }
     }
 
     public Callback<List<Shop>> callbackShopList(final IShowableProgress showableProgress, final List<Call> callList, final String failureMsg)
@@ -109,9 +118,6 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
                     clear();
                     for (Shop i : response.body()) {
                         Log.d(this.toString(), "shop_img=" + i.shop_img);
-                        Call call2 = APIClient.getService().loadImage(i.shop_img);
-                        callList.add(call2);
-                        call2.enqueue(callbackLoadImage(i, showableProgress, callList));
                         addItem(i);
                     }
                     notifyDataSetChanged();
@@ -141,10 +147,12 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
                 Log.d(this.toString(), String.format("callbackShopInfo msg=%s,shopList=%s", response.message(), response.body()));
                 if (response.code() == 200) {
                     shop.menu_list = response.body().menu_list;
+                    shop.shop_phone = response.body().shop_phone;
+
 				    showableProgress.showProgress(false);
 
                     Intent intent = new Intent(context, ShopActivity.class);
-                    Log.d(toString(), "shop="+shop);
+                    Log.d(toString(), String.format("shop=%s,phone=%s", shop, shop.shop_phone));
                     intent.putExtra(Shop.INTENT_KEY, shop);
                     context.startActivity(intent);
                 }

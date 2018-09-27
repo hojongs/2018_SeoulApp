@@ -2,7 +2,7 @@ package com.hojong.meokgol.data_model;
 
 import java.io.Serializable;
 
-public class Location extends BmpModel implements Serializable
+public class Location implements Serializable
 {
 	public static final String INTENT_KEY = "location";
 	public int location_idx;
@@ -11,5 +11,5 @@ public class Location extends BmpModel implements Serializable
 	public String location_img;
 
 	@Override
-	public String toString() { return String.format("%s:%s,bmpBytes=%s", location_idx, location_name, mBmpByteArr); }
+	public String toString() { return String.format("%s:%s", location_idx, location_name); }
 }

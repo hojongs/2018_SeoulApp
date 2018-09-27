@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.ShopMenu;
 
@@ -23,21 +25,24 @@ public class ShopMenuListAdapter extends BaseAdapter
 	}
 
 	@Override
-	public View getView(int position, View noticeView, ViewGroup parent) {
+	public View getView(int position, View shopMenuView, ViewGroup parent) {
 		final Context context = parent.getContext();
 
-		if (noticeView == null) {
+		if (shopMenuView == null) {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			noticeView = inflater.inflate(R.layout.layout_menu_list_item, parent, false);
+			shopMenuView = inflater.inflate(R.layout.layout_menu_list_item, parent, false);
 		}
-        ShopMenu menu = menuDataList.get(position);
+        ShopMenu shopMenu = menuDataList.get(position);
 
-		TextView nameView = noticeView.findViewById(R.id.menu_name_view);
-		nameView.setText(menu.menu_name);
+		ImageView imgView = shopMenuView.findViewById(R.id.menu_img_view);
+		Glide.with(context).load(shopMenu.menu_img).into(imgView);
+
+		TextView nameView = shopMenuView.findViewById(R.id.menu_name_view);
+		nameView.setText(shopMenu.menu_name);
 
 		// TODO : menu list view
 
-		return noticeView;
+		return shopMenuView;
 	}
 
 	@Override

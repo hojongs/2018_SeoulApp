@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.hojong.meokgol.APIClient;
+import com.bumptech.glide.Glide;
 import com.hojong.meokgol.IShowableProgress;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.activity.ShopListActivity;
@@ -36,9 +36,6 @@ public class LocationListAdapter extends MyListAdapter implements AdapterView.On
                 clear();
                 for (Location i : response.body()) {
                     Log.d(this.toString(), "location_img="+i.location_img);
-                    Call call2 = APIClient.getService().loadImage(i.location_img);
-                    callList.add(call2);
-                    call2.enqueue(callbackLoadImage(i, fragment, callList));
                     addItem(i);
                 }
                 notifyDataSetChanged();
@@ -52,6 +49,7 @@ public class LocationListAdapter extends MyListAdapter implements AdapterView.On
                 if (fragment.getActivity() != null)
                     Toast.makeText(fragment.getContext(), "지역 가져오기 실패", Toast.LENGTH_SHORT).show();
                 fragment.showProgress(false);
+                // finish?
             }
         };
     }
@@ -75,11 +73,13 @@ public class LocationListAdapter extends MyListAdapter implements AdapterView.On
 		// get data
 		Location location = locationDataList.get(position);
 		// set data to view
-        if (location.getBmp() != null) {
-            Log.d(this.toString(), location.getBmp().toString());
-            imageView.setImageBitmap(location.getBmp());
+        Glide.with(context).load(location.location_img).into(imageView);
+
+//        if (location.getBmp() != null) {
+//            Log.d(this.toString(), location.getBmp().toString());
+//            imageView.setImageBitmap(location.getBmp());
 //            imageView.setBackground(new BitmapDrawable(parent.getResources(), location.getBmp()));
-        }
+//        }
 
 		return locationView;
 	}

@@ -9,14 +9,13 @@ import com.hojong.meokgol.data_model.User;
 
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 public interface APIService
 {
@@ -41,6 +40,9 @@ public interface APIService
 	@POST("/{userIdx}/favoriteshop")
     Call<JsonObject> addFavoriteShop(@Path("userIdx") int userIdx, @Query("shop_idx") int shopIdx);
 
+	@DELETE("/{userIdx}/favoriteshop")
+	Call<JsonObject> removeFavoriteShop(@Path("userIdx") int userIdx, @Query("shop_idx") int shopIdx);
+
 	@GET("/{shopIdx}/review")
 	Call<List<ShopReview>> listReview(@Path("shopIdx") int shopIdx);
 
@@ -52,7 +54,4 @@ public interface APIService
 
 	@GET("/notice")
 	Call<List<Notice>> listNotice();
-
-	@GET
-	Call<ResponseBody> loadImage(@Url String url);
 }

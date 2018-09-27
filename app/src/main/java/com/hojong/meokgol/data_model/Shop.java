@@ -3,7 +3,7 @@ package com.hojong.meokgol.data_model;
 import java.io.Serializable;
 import java.util.List;
 
-public class Shop extends BmpModel implements Serializable
+public class Shop implements Serializable
 {
     public static final String INTENT_KEY = "shop";
 	public int shop_idx;
@@ -12,7 +12,7 @@ public class Shop extends BmpModel implements Serializable
 	public String shop_img;
 	public int location_idx;
 	public List<ShopMenu> menu_list;
-	public String phone_number;
+	public String shop_phone;
 
 	public Shop (String shop_name)
 	{

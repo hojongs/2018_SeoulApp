@@ -19,21 +19,48 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.droidsonroids.gif.AnimationListener;
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Call;
 
-public class LogoActivity extends MyAppCompatActivity implements IShowableProgress
+public class LogoActivity extends MyAppCompatActivity implements IShowableProgress, AnimationListener
 {
 	private List<Location> locationList;
+	Intent intent;
+	boolean animDone;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_logo);
 
+        animDone = false;
+
         locationList = new ArrayList<>();
         attemptData();
 
-//        LottieAnimationView logoView = findViewById(R.id.logo_view);
+        final GifImageView logoView = findViewById(R.id.logo_view);
+        GifDrawable logoDrawable = (GifDrawable) logoView.getDrawable();
+        logoDrawable.addAnimationListener(this);
+
+
+        // is first check, init intent
+        SharedPreferences pref = getSharedPreferences("isFirst", Activity.MODE_PRIVATE);
+        boolean isFirst = pref.getBoolean("isFirst", false);
+        isFirst = false; // TODO : 마지막 구현완료 후 (lazy)
+
+        if(isFirst)
+        {
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("isFirst",true);
+            editor.apply();
+
+            intent = new Intent(getApplicationContext(), TutorialActivity.class);
+        }
+        else {
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+        }
 	}
 
     public void attemptData()
@@ -56,39 +83,14 @@ public class LogoActivity extends MyAppCompatActivity implements IShowableProgre
             public View getView(int position, View convertView, ViewGroup parent) { return null; }
             @Override
             public void notifyDataSetChanged() {
-                Log.d(toString(), String.format("notifyDataSetChanged callList.size=%s", callList.size()));
-                if (callList.size() > 0)
-                    return;
-
-                // is first check, init intent
-                Intent intent;
-                SharedPreferences pref = getSharedPreferences("isFirst", Activity.MODE_PRIVATE);
-                boolean isFirst = pref.getBoolean("isFirst", false);
-                isFirst = false; // TODO : 마지막 구현완료 후 (lazy)
-
-                if(isFirst)
-                {
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean("isFirst",true);
-                    editor.apply();
-
-                    intent = new Intent(getApplicationContext(), TutorialActivity.class);
-                }
-                else {
-                    intent = new Intent(getApplicationContext(), MainActivity.class);
-                }
-
                 // start activity
                 intent.putExtra(Location.INTENT_KEY, (Serializable) locationList);
                 Log.d(this.toString(), "LocationList=" + intent.getSerializableExtra(Location.INTENT_KEY).toString());
-                startActivity(intent);
-                finish();
 
-//                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.logo_bg);
-//                Log.d(this.toString(), "bmp width=" + bmp.getWidth() + ", height=" + bmp.getHeight());
-
-//                ImageView logoView = findViewById(R.id.logo_view);
-//                Log.d(this.toString(), "view width=" + logoView.getWidth() + ", height=" + logoView.getHeight());
+                if (animDone) {
+                    startActivity(intent);
+                    finish();
+                }
             }
         };
 
@@ -101,4 +103,14 @@ public class LogoActivity extends MyAppCompatActivity implements IShowableProgre
     public Activity getActivity() { return this; }
     @Override
     public Context getContext() { return getApplicationContext(); }
+
+    @Override
+    public void onAnimationCompleted(int loopNumber) {
+        animDone = true;
+
+        if (locationList.size() > 0) {
+            startActivity(intent);
+            finish();
+        }
+    }
 }
