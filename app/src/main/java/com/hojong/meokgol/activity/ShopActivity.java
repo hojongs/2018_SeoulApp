@@ -1,5 +1,6 @@
 package com.hojong.meokgol.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -52,7 +53,11 @@ public class ShopActivity extends AppCompatActivity implements OnTabSelectListen
 
     @Override
     public void onClick(View v) {
-        // TODO : order btn click
+        // order btn click
+        Log.d(toString(), "put menuList=" + shop.menu_list);
+        Intent intent = new Intent(getApplicationContext(), OrderActivity.class);
+        intent.putExtra(Shop.INTENT_KEY, shop);
+        startActivity(intent);
     }
 
 	private boolean loadFragment(Fragment fragment) {

@@ -1,19 +1,14 @@
 package com.hojong.meokgol.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.hojong.meokgol.NoticeActivity;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.ShopMenu;
-import com.hojong.meokgol.data_model.Notice;
 
 import java.util.ArrayList;
 import java.util.List;

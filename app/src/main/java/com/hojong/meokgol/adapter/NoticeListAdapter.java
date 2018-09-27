@@ -10,8 +10,8 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.hojong.meokgol.NoticeActivity;
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.activity.NoticeActivity;
 import com.hojong.meokgol.data_model.Notice;
 
 import java.util.ArrayList;

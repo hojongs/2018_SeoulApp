@@ -52,10 +52,13 @@
         <activity
             android:name=".activity.ShopReviewWriteActivity"
             android:label="@string/title_activity_shop_review"
-            android:theme="@style/AppTheme.Dialog"></activity>
+            android:theme="@style/AppTheme.Dialog" />
         <activity
-            android:name=".NoticeActivity"
-            android:theme="@style/AppTheme.Dialog"></activity>
+            android:name=".activity.NoticeActivity"
+            android:theme="@style/AppTheme.Dialog" />
+        <activity
+            android:name=".activity.OrderActivity"
+            android:theme="@style/AppTheme.Dialog" />
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class ShopMenu implements Serializable
 {
+    public static final String INTENT_KEY = "menu";
     public String menu_name;
     public int menu_price;
     public String menu_img;

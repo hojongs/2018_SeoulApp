@@ -32,6 +32,8 @@ public class LogoActivity extends MyAppCompatActivity implements IShowableProgre
 
         locationList = new ArrayList<>();
         attemptData();
+
+//        LottieAnimationView logoView = findViewById(R.id.logo_view);
 	}
 
     public void attemptData()

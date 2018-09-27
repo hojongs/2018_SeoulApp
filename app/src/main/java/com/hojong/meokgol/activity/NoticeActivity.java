@@ -1,9 +1,10 @@
-package com.hojong.meokgol;
+package com.hojong.meokgol.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.Notice;
 
 public class NoticeActivity extends AppCompatActivity {
