@@ -17,7 +17,6 @@ import android.widget.ListView;
 
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.IShowProgress;
-import com.hojong.meokgol.MyCallback;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.adapter.ShopListAdapter;
 import com.hojong.meokgol.data_model.Location;
@@ -139,8 +138,8 @@ public class ShopListActivity extends MyAppCompatActivity implements IShowProgre
         if (callList.size() > 0)
             return;
 
-        Call call = APIClient.getService().listShop(location.location_idx, menu);
+        Call call = APIClient.getService().listShop(location.location_idx, null); // TODO
         callList.add(call);
-        call.enqueue(MyCallback.callbackShopList(this, callList, adapter, "가게 정보 가져오기 실패"));
+        call.enqueue(ShopListAdapter.callbackShopList(this, callList, adapter, "가게 정보 가져오기 실패"));
     }
 }

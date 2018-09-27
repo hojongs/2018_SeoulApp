@@ -12,6 +12,8 @@ import com.hojong.meokgol.data_model.User;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -61,15 +63,35 @@ public class ReprofitUnitTest
 	@Test
 	public void listShop() throws Exception
 	{
-		Response<List<Shop>> response = service.listShop(1, null).execute();
+		List<String> menuList = new ArrayList<>();
+//		menu.add("면류");
+//		menu.add("밥류");
+		Response<List<Shop>> response = service.listShop(1, menuList).execute();
 		assertEquals(200, response.code());
 		System.out.println(response.body());
 	}
 
 	@Test
+	public void getShopInfo() throws Exception
+	{
+		Response<Shop> response = service.getShopInfo(1).execute();
+		assertEquals(200, response.code());
+		System.out.println(response.body());
+	}
+
+	@Test
+	public void addFavoriteShop() throws Exception
+	{
+		Response<JsonObject> response = service.addFavoriteShop(3, 1).execute();
+		assertEquals(200, response.code());
+		System.out.println(response.body());
+		assertEquals(true, response.body().get("success").getAsBoolean());
+	}
+
+	@Test
 	public void listReview() throws Exception
 	{
-		Response<List<ShopReview>> response = service.listReview().execute();
+		Response<List<ShopReview>> response = service.listReview(1).execute();
 		assertEquals(200, response.code());
 		System.out.println(response.body());
 	}

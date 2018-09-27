@@ -2,10 +2,12 @@ package com.hojong.meokgol.data_model;
 
 import android.graphics.drawable.Drawable;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Notice
+public class Notice implements Serializable
 {
+	public static final String INTENT_KEY = "notice";
 	public int notice_idx;
 	public String notice_title;
 	public String notice_content;

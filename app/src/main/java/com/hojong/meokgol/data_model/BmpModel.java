@@ -17,11 +17,12 @@ public abstract class BmpModel implements Serializable {
         Bitmap bmp = BitmapFactory.decodeStream(bmpStream);
 //        bmp = Bitmap.createScaledBitmap(bmp, 200, 200, true);
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        // compress
         Bitmap.CompressFormat fmt = null;
-        switch (imgExtension)
+        switch (imgExtension.toLowerCase())
         {
             case "jpg":
+            case "jpeg":
                 fmt = Bitmap.CompressFormat.JPEG;
                 break;
             case "png":
@@ -29,6 +30,7 @@ public abstract class BmpModel implements Serializable {
                 break;
         }
 
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bmp.compress(fmt, 90, stream);
         mBmpByteArr = stream.toByteArray();
     }

@@ -17,7 +17,7 @@ import com.hojong.meokgol.data_model.Notice;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoticeListAdapter extends BaseAdapter implements AdapterView.OnItemClickListener
+public class MenuListAdapter extends BaseAdapter implements AdapterView.OnItemClickListener
 {
 	private List<Notice> noticeDataList = new ArrayList<>();
 

@@ -1,6 +1,7 @@
 package com.hojong.meokgol.data_model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Shop extends BmpModel implements Serializable
 {
@@ -10,16 +11,17 @@ public class Shop extends BmpModel implements Serializable
 	public String shop_info;
 	public String shop_img;
 	public int location_idx;
-
+	public List<Menu> menu_list;
 
 	public Shop (String shop_name)
 	{
+	    shop_idx = 1;
         this.shop_name = shop_name;
     }
 
     @Override
     public String toString()
     {
-        return shop_idx + ":" + shop_name;
+        return String.format("%s:%s/menuList=%s", shop_idx, shop_name, menu_list);
     }
 }

@@ -11,7 +11,6 @@ import android.widget.ListView;
 
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.LoginSharedPreference;
-import com.hojong.meokgol.MyCallback;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.adapter.ShopListAdapter;
 
@@ -77,6 +76,6 @@ public class FavoriteShopListFragment extends MyFragment
         int userIdx = LoginSharedPreference.getUserIdx(getContext());
         Call call = APIClient.getService().listFavoriteShop(userIdx); // TODO : 서버 측 미구현
         callList.add(call);
-        call.enqueue(MyCallback.callbackShopList(this, callList, adapter, "즐겨찾기 가져오기 실패"));
+        call.enqueue(ShopListAdapter.callbackShopList(this, callList, adapter, "즐겨찾기 가져오기 실패"));
     }
 }

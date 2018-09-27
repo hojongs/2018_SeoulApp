@@ -16,6 +16,12 @@
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar" />
 
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+
     <!--<style name="ThemeOverlay.AppTheme.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">-->
         <!--&lt;!&ndash; title text color &ndash;&gt;-->
         <!--<item name="android:textColorPrimary">?android:colorPrimary</item>-->

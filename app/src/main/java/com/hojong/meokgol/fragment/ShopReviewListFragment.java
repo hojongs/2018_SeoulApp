@@ -121,7 +121,7 @@ public class ShopReviewListFragment extends MyFragment {
     public void attemptData()
     {
         super.attemptData();
-        Call call = APIClient.getService().listReview();
+        Call call = APIClient.getService().listReview(shop.shop_idx);
         callList.remove(call);
         call.enqueue(callbackReviewList());
     }

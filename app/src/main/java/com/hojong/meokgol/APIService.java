@@ -29,17 +29,20 @@ public interface APIService
 	@GET("/location")
 	Call<List<Location>> listLocation();
 
-	@GET("/shops/{locationIdx}")
-	Call<List<Shop>> listShop(@Path("locationIdx") int locationIdx, @Query("menu") String menu);
+	@GET("/{locationIdx}/shops")
+	Call<List<Shop>> listShop(@Path("locationIdx") int locationIdx, @Query("menu_kind") List<String> menu);
+
+    @GET("/{shopIdx}/shopinfo")
+    Call<Shop> getShopInfo(@Path("shopIdx") int shopIdx);
 
 	@GET("/{userIdx}/favoriteshop")
 	Call<List<Shop>> listFavoriteShop(@Path("userIdx") int userIdx);
 
 	@POST("/{userIdx}/favoriteshop")
-    Call<JsonObject> addFavoriteShop(@Query("shop_idx") int shopIdx);
+    Call<JsonObject> addFavoriteShop(@Path("userIdx") int userIdx, @Query("shop_idx") int shopIdx);
 
-	@GET("/review/test")
-	Call<List<ShopReview>> listReview();
+	@GET("/{shopIdx}/review")
+	Call<List<ShopReview>> listReview(@Path("shopIdx") int shopIdx);
 
 	@POST("/review/write")
 	Call<JsonObject> writeReview(@Body ShopReview data);

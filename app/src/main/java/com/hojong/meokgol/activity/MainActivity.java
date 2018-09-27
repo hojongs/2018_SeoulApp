@@ -22,6 +22,7 @@ import java.io.Serializable;
 public class MainActivity extends AppCompatActivity implements OnTabSelectListener
 {
 	private Bundle locationListBundle;
+	private MyPageFragment myPageFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
         if (locationList == null)
             Log.d(toString(), "NullLocationList");
 		locationListBundle.putSerializable(Location.INTENT_KEY, locationList);
+
+        myPageFragment = new MyPageFragment();
+        myPageFragment.appContext = getApplicationContext();
+        myPageFragment.attemptData();
 
 		BottomBar bottomBar = findViewById(R.id.bottomBar);
 		bottomBar.setOnTabSelectListener(this);
@@ -58,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
                 fragment = new NoticeListFragment();
                 break;
             case R.id.nav_my_page:
-                fragment = new MyPageFragment();
+                fragment = myPageFragment;
                 break;
         }
 

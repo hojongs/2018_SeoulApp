@@ -14,8 +14,8 @@ import android.widget.ImageView;
 
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.IShowProgress;
-import com.hojong.meokgol.MyCallback;
 import com.hojong.meokgol.R;
+import com.hojong.meokgol.adapter.LocationListAdapter;
 import com.hojong.meokgol.adapter.MyListAdapter;
 import com.hojong.meokgol.data_model.Location;
 
@@ -42,7 +42,7 @@ public class LogoActivity extends MyAppCompatActivity implements IShowProgress
     {
         Call call = APIClient.getService().listLocation();
         callList.add(call);
-        call.enqueue(MyCallback.callbackListLocation(this, callList, new MyListAdapter() {
+        call.enqueue(LocationListAdapter.callbackListLocation(this, callList, new MyListAdapter() {
             @Override
             public void clear() { locationList.clear(); }
             @Override

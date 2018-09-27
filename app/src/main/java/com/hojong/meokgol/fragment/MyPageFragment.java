@@ -2,6 +2,8 @@ package com.hojong.meokgol.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,6 +28,7 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
 {
 	public static final int LOGIN_SUCCESS = 0;
     public static User user = null;
+    public Context appContext;
 	View loginBtn;
 
 	View contentView;
@@ -63,17 +66,16 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
             mProgressView = rootView.findViewById(R.id.progress_bar);
 		}
 
-        attemptData();
-
 		return rootView;
 	}
 
-	public Callback<User> callbackUserInfo()
+	public Callback<User> callbackUserInfo(final int userIdx)
     {
         return new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 user = response.body();
+                user.user_idx = userIdx;
                 Log.d(this.toString(), user.toString());
                 callList.remove(call);
 
@@ -95,6 +97,9 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
 
     private void fillTextView()
     {
+        if (userNameView == null || userIdView == null)
+            return;
+
         userNameView.setText(user.user_name);
         userIdView.setText(user.user_id);
     }
@@ -177,13 +182,15 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
 	@Override
     public void attemptData()
     {
-        int userIdx = LoginSharedPreference.getUserIdx(getContext());
+        Context context = appContext;
+
+        int userIdx = LoginSharedPreference.getUserIdx(context);
         if (userIdx == -1 || user != null)
             return;
 
         super.attemptData();
         Call call = APIClient.getService().getUserInfo(userIdx);
         callList.add(call);
-        call.enqueue(callbackUserInfo());
+        call.enqueue(callbackUserInfo(userIdx));
     }
 }

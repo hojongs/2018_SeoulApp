@@ -2,7 +2,7 @@ package com.hojong.meokgol.data_model;
 
 public class User
 {
-    public Integer user_idx;
+    public int user_idx;
     public String user_id;
     public String user_name;
     public String user_passwd;
@@ -16,6 +16,6 @@ public class User
     @Override
     public String toString()
     {
-        return user_idx + ":" + user_id + "," + user_name;
+        return String.format("User(%s:%s,%s)", user_idx, user_id, user_name);
     }
 }

@@ -42,8 +42,8 @@ public class ShopReviewWriteActivity extends AppCompatActivity {
         mProgressView = findViewById(R.id.progress_bar);
 
         // set visible back arrow button
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
+//        ActionBar actionbar = getSupportActionBar();
+//        actionbar.setDisplayHomeAsUpEnabled(true);
 
         View writeBtn = findViewById(R.id.writeBtn);
         writeBtn.setOnClickListener(new View.OnClickListener() {

@@ -20,11 +20,15 @@ public abstract class MyFragment extends Fragment implements IShowProgress {
     protected View mProgressView;
     protected List<Call> callList;
 
+    public MyFragment()
+    {
+        callList = new ArrayList<>();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        callList = new ArrayList<>();
     }
 
     @Override
