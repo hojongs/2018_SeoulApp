@@ -71,7 +71,14 @@ public class ReprofitUnitTest
 		Response<Shop> response = service.getShopInfo(1).execute();
 		assertEquals(200, response.code());
 		System.out.println(response.body());
-		System.out.println(response.body().shop_phone);
+	}
+
+	@Test
+	public void listFavorite() throws Exception
+	{
+		Response<List<Shop>> response = service.listFavoriteShop(3).execute();
+		assertEquals(200, response.code());
+		System.out.println(response.body());
 	}
 
 	@Test

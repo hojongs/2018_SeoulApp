@@ -121,7 +121,7 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
                         addItem(i);
                     }
                     notifyDataSetChanged();
-//				    showProgress(false);
+				    showableProgress.showProgress(false);
                 }
             }
 
