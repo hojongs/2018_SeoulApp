@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.IShowableProgress;
+import com.hojong.meokgol.LoginSharedPreference;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.adapter.ShopListAdapter;
 import com.hojong.meokgol.data_model.Location;
@@ -149,7 +150,8 @@ public class ShopListActivity extends MyAppCompatActivity implements IShowablePr
         if (callList.size() > 0)
             return;
 
-        Call call = APIClient.getService().listShop(location.location_idx, null); // TODO
+		int userIdx = LoginSharedPreference.getUserIdx(getContext());
+        Call call = APIClient.getService().listShop(location.location_idx, null, userIdx); // TODO
         callList.add(call);
         call.enqueue(adapter.callbackShopList(this, callList, "가게 정보 가져오기 실패"));
     }

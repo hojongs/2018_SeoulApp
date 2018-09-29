@@ -3,7 +3,6 @@
         <item name="actionBarStyle">@style/Widget.AppTheme.ActionBar</item>
         <!--<item name="actionBarTheme">@style/ThemeOverlay.AppTheme.ActionBar</item>-->
         <!--<item name="actionBarPopupTheme">@style/ThemeOverlay.AppTheme.PopupMenu</item>-->
-        <item name="android:height">40dp</item>
     </style>
 
     <style name="Widget.AppTheme.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
@@ -13,6 +12,7 @@
         <item name="background">@drawable/action_bar_bg</item>
         <!-- action bar elevation - without android prefix -->
         <item name="elevation">4dp</item>
+        <item name="height">45dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar" />

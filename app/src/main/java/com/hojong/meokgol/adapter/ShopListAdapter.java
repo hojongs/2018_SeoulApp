@@ -15,10 +15,10 @@ import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.IShowableProgress;
+import com.hojong.meokgol.LoginSharedPreference;
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.activity.ShopActivity;
 import com.hojong.meokgol.data_model.Shop;
-import com.hojong.meokgol.fragment.MyPageFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +92,9 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
         ViewGroup listView = (ViewGroup) view.getParent().getParent();
         View itemView = (View) view.getParent();
 
-        int userIdx = MyPageFragment.user.user_idx; // TODO : dirty code
+        // int userIdx = MyPageFragment.user.user_idx; // TODO : dirty code
+        int userIdx = LoginSharedPreference.getUserIdx(view.getContext()); // TODO : test
+
         Shop shop = shopDataList.get(listView.indexOfChild(itemView));
         Log.d(toString(), "onClick.item="+shop);
 

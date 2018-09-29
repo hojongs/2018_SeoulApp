@@ -60,7 +60,7 @@ public class ReprofitUnitTest
 		List<String> menuList = new ArrayList<>();
 //		menu.add("면류");
 //		menu.add("밥류");
-		Response<List<Shop>> response = service.listShop(1, menuList).execute();
+		Response<List<Shop>> response = service.listShop(1, menuList, 3).execute();
 		assertEquals(200, response.code());
 		System.out.println(response.body());
 	}
