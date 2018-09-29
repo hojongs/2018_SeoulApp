@@ -21,6 +21,8 @@
         android:id="@+id/order_btn"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@android:color/background_light"
+        android:src="@drawable/bottom_reservation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -28,30 +30,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.39999998" />
 
-    <com.roughike.bottombar.BottomBar
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        app:bb_activeTabColor="#000000"
-        app:bb_inActiveTabColor="#000000"
-        app:bb_tabXmlResource="@xml/nav_shop"
-        app:bb_showShadow="false"
-        app:layout_constraintTop_toBottomOf="@+id/order_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
-
     <!--<android.support.design.widget.BottomNavigationView-->
-        <!--android:id="@+id/navigation_shop"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/order_btn"-->
-        <!--app:menu="@xml/nav_shop" />-->
+    <!--android:id="@+id/navigation_shop"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.0"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/order_btn"-->
+    <!--app:menu="@xml/nav_shop" />-->
 
 
     <FrameLayout
@@ -65,5 +53,20 @@
         app:layout_constraintTop_toBottomOf="@+id/bottomBar">
 
     </FrameLayout>
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="384dp"
+        android:layout_height="93dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="8dp"
+        app:bb_activeTabColor="#000000"
+        app:bb_inActiveTabColor="#000000"
+        app:bb_showShadow="false"
+        app:bb_tabXmlResource="@xml/nav_shop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_btn" />
 
 </android.support.constraint.ConstraintLayout>
