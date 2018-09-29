@@ -36,6 +36,8 @@ public class TutorialActivity extends AppCompatActivity
 	private ViewPager mViewPager;
 	public Serializable locationList;
 
+	boolean back;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -77,6 +79,8 @@ public class TutorialActivity extends AppCompatActivity
 				mViewPager.setCurrentItem(tab);
 			}
 		});
+
+		back = getIntent().getBooleanExtra("back", false);
 	}
 
 //	@Override
@@ -123,7 +127,7 @@ public class TutorialActivity extends AppCompatActivity
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-								 Bundle savedInstanceState)
+								 final Bundle savedInstanceState)
 		{
 			int imgId = R.drawable.ic_chevron_left_black_24dp;
 
@@ -133,12 +137,17 @@ public class TutorialActivity extends AppCompatActivity
 			startBtn.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(getActivity(), MainActivity.class);
+					boolean back = getArguments().getBoolean("back", false);
 
-					Serializable locationList = getArguments().getSerializable(Location.INTENT_KEY);
-					intent.putExtra(Location.INTENT_KEY, locationList);
+					if (!back) {
+						Intent intent = new Intent(getActivity(), MainActivity.class);
 
-					startActivity(intent);
+						Serializable locationList = getArguments().getSerializable(Location.INTENT_KEY);
+						intent.putExtra(Location.INTENT_KEY, locationList);
+
+						startActivity(intent);
+					}
+
 					getActivity().finish();
 				}
 			});
@@ -186,6 +195,7 @@ public class TutorialActivity extends AppCompatActivity
 
             Bundle bundle = new Bundle();
             bundle.putSerializable(Location.INTENT_KEY, locationList);
+            bundle.putBoolean("back", back);
             fragment.setArguments(bundle);
 
 			return fragment;

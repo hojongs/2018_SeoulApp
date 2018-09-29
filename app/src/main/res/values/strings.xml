@@ -40,4 +40,6 @@
     <string name="title_activity_shop_review">ShopReviewWriteActivity</string>
     <string name="title_my_page_login">로그인이 필요합니다</string>
     <string name="refresh">새로고침</string>
+    <string name="filter0">모두</string>
+    <string name="tutorial">튜토리얼</string>
 </resources>

@@ -5,7 +5,7 @@
 
     <item android:id="@+id/shop_filter"
         android:title="@string/shop_filter"
-        android:icon="@drawable/ic_menu_black_24dp"
+        android:icon="@drawable/ic_shop_filter"
         app:showAsAction="collapseActionView|ifRoom" />
         <!--app:actionViewClass="android.widget.SearchView" />-->
 

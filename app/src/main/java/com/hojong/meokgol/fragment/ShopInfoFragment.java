@@ -47,12 +47,8 @@ public class ShopInfoFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        // TODO : menu item click
+        // TODO : menu item click (lazy)
         Context context = adapterView.getContext();
         Log.d(toString(), "onClick");
-
-//        Intent intent = new Intent(context, NoticeActivity.class);
-//        intent.putExtra(Notice.INTENT_KEY, menuDataList.get(i));
-//        context.startActivity(intent);
     }
 }

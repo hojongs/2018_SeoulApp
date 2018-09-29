@@ -12,7 +12,7 @@
         <item name="background">@drawable/action_bar_bg</item>
         <!-- action bar elevation - without android prefix -->
         <item name="elevation">4dp</item>
-        <item name="height">45dp</item>
+        <item name="height">50dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar" />

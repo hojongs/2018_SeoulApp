@@ -1,5 +1,6 @@
 package com.hojong.meokgol.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -92,6 +93,11 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+			case R.id.tutorial:
+				Intent intent = new Intent(getApplicationContext(), TutorialActivity.class);
+				intent.putExtra("back", true);
+				startActivity(intent);
+				return true;
             case R.id.refresh:
                 MyFragment fragment = (MyFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
                 fragment.attemptData();

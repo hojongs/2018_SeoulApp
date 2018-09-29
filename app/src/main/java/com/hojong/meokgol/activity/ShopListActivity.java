@@ -24,9 +24,12 @@ import com.hojong.meokgol.adapter.ShopListAdapter;
 import com.hojong.meokgol.data_model.Location;
 import com.hojong.meokgol.data_model.Shop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 
-public class ShopListActivity extends MyAppCompatActivity implements IShowableProgress, AdapterView.OnItemClickListener
+public class ShopListActivity extends MyAppCompatActivity implements IShowableProgress, AdapterView.OnItemClickListener, NavigationView.OnNavigationItemSelectedListener
 {
     protected ListView listView;
     protected View mProgressView;
@@ -130,29 +133,39 @@ public class ShopListActivity extends MyAppCompatActivity implements IShowablePr
 		mDrawerLayout = findViewById(R.id.drawer_layout);
 
 		NavigationView navigationView = findViewById(R.id.nav_view);
-		navigationView.setNavigationItemSelectedListener(
-				new NavigationView.OnNavigationItemSelectedListener() {
-					@Override
-					public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-					    String menu = menuItem.getTitle().toString();
-                        Log.d(this.toString(), menu);
-                        attemptData(menu);
-						menuItem.setChecked(true);
-						mDrawerLayout.closeDrawers();
-
-						return true;
-					}
-				});
+		navigationView.setNavigationItemSelectedListener(this);
 	}
 
-	public void attemptData(String menu)
+	public void attemptData(List menuKindList)
     {
         if (callList.size() > 0)
             return;
 
 		int userIdx = LoginSharedPreference.getUserIdx(getContext());
-        Call call = APIClient.getService().listShop(location.location_idx, null, userIdx); // TODO
+        Call call = APIClient.getService().listShop(location.location_idx, menuKindList, userIdx);
         callList.add(call);
         call.enqueue(adapter.callbackShopList(this, callList, "가게 정보 가져오기 실패"));
     }
+
+	@Override
+	public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+		// filter menu select
+		String menu = menuItem.getTitle().toString();
+		Log.d(toString(), menu);
+
+		if (menu.equals("모두"))
+		{
+			attemptData(null);
+		}
+		else {
+			List<String> menuKindList = new ArrayList<>();
+			menuKindList.add(menu);
+
+			attemptData(menuKindList);
+		}
+
+		menuItem.setChecked(true);
+		mDrawerLayout.closeDrawers();
+		return true;
+	}
 }

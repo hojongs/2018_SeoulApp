@@ -40,7 +40,8 @@ public class ShopMenuListAdapter extends BaseAdapter
 		TextView nameView = shopMenuView.findViewById(R.id.menu_name_view);
 		nameView.setText(shopMenu.menu_name);
 
-		// TODO : menu list view
+		TextView priceView = shopMenuView.findViewById(R.id.menu_price_view);
+		priceView.setText(shopMenu.menu_price+"원");
 
 		return shopMenuView;
 	}

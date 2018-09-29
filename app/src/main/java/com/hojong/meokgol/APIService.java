@@ -29,7 +29,7 @@ public interface APIService
 	Call<List<Location>> listLocation();
 
 	@GET("/{locationIdx}/shops")
-	Call<List<Shop>> listShop(@Path("locationIdx") int locationIdx, @Query("menu_kind") List<String> menu, @Query("user_idx") int userIdx);
+	Call<List<Shop>> listShop(@Path("locationIdx") int locationIdx, @Query("menu_kind") List<String> menuKindList, @Query("user_idx") int userIdx);
 
     @GET("/{shopIdx}/shopinfo")
     Call<Shop> getShopInfo(@Path("shopIdx") int shopIdx);

@@ -2,6 +2,7 @@ package com.hojong.meokgol.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.hojong.meokgol.data_model.Shop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +31,8 @@ import retrofit2.Response;
 
 public class ShopListAdapter extends MyListAdapter implements View.OnClickListener
 {
+	public static final int ADD_FAV = 1;
+	public static final int RM_FAV = 0;
 	private List<Shop> shopDataList = new ArrayList<>();
 
 	@Override
@@ -51,17 +55,20 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
 		// shop bmp
 		ImageView shopImageView = shopView.findViewById(R.id.location_img);
         Glide.with(context).load(shop.shop_img).into(shopImageView);
-//		shopImageView.setImageBitmap(shop.getBmp());
 		// shop name
 		TextView shopNameView = shopView.findViewById(R.id.shop_name);
 		shopNameView.setText(shop.shop_name);
 
-		// TODO : shop score
-        // TODO : review count
-        // TODO : favorite checked
+		// TODO : shop score to image (lazy)
+		TextView shopScoreView = shopView.findViewById(R.id.score_view);
+		shopScoreView.setText(String.format(Locale.KOREA, "별점 : %.2f", shop.review_avg));
+		TextView reviewCntView = shopView.findViewById(R.id.review_cnt_view);
+		reviewCntView.setText("후기 수 : " + shop.review_count + "개");
 
 		// click listener
 		ImageButton shopFavoriteBtn = shopView.findViewById(R.id.favorite_btn);
+		if (shop.favorite == 1)
+			shopFavoriteBtn.setBackground(ContextCompat.getDrawable(context, R.drawable.shop_fav_on));
 		shopFavoriteBtn.setOnClickListener(this);
 
 		return shopView;
@@ -78,6 +85,7 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
 	}
 
 	public void addItem(Object shop) {
+		Log.d(toString(), "addItem " + shop);
 		shopDataList.add((Shop) shop);
 	}
 
@@ -88,24 +96,27 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-	    // add fav shop
+	    // add/rm fav shop button
         ViewGroup listView = (ViewGroup) view.getParent().getParent();
         View itemView = (View) view.getParent();
 
-        // int userIdx = MyPageFragment.user.user_idx; // TODO : dirty code
-        int userIdx = LoginSharedPreference.getUserIdx(view.getContext()); // TODO : test
+        int userIdx = LoginSharedPreference.getUserIdx(view.getContext());
+        if (userIdx == -1) {
+			Toast.makeText(view.getContext(), "즐겨찾기는 로그인이 필요합니다", Toast.LENGTH_SHORT).show();
+			return;
+		}
 
         Shop shop = shopDataList.get(listView.indexOfChild(itemView));
         Log.d(toString(), "onClick.item="+shop);
 
-
-        if (true) { // TODO : isFavorite
-            Log.d(toString(), String.format("addFavorite userIdx=%s,shopIdx=%s", userIdx, shop.shop_idx));
-            APIClient.getService().addFavoriteShop(userIdx, shop.shop_idx).enqueue(callbackAddFavoriteShop(listView.getContext()));
+        if (shop.favorite == 0) { // add
+			Log.d(toString(), String.format("addFavorite userIdx=%s,shopIdx=%s", userIdx, shop.shop_idx));
+            APIClient.getService().addFavoriteShop(userIdx, shop.shop_idx).enqueue(callbackFavoriteShop(ADD_FAV, (ImageButton) view, shop, listView.getContext()));
         }
-        else
+        else // remove
         {
-            APIClient.getService().removeFavoriteShop(userIdx, shop.shop_idx).enqueue(callbackAddFavoriteShop(listView.getContext()));
+			Log.d(toString(), String.format("rmFavorite userIdx=%s,shopIdx=%s", userIdx, shop.shop_idx));
+            APIClient.getService().removeFavoriteShop(userIdx, shop.shop_idx).enqueue(callbackFavoriteShop(RM_FAV, (ImageButton) view, shop, listView.getContext()));
         }
     }
 
@@ -148,8 +159,8 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
             public void onResponse(Call<Shop> call, Response<Shop> response) {
                 Log.d(this.toString(), String.format("callbackShopInfo msg=%s,shopList=%s", response.message(), response.body()));
                 if (response.code() == 200) {
-                    shop.menu_list = response.body().menu_list;
-                    shop.shop_phone = response.body().shop_phone;
+                	Shop recv_shop = response.body();
+                	shop.merge(recv_shop);
 
 				    showableProgress.showProgress(false);
 
@@ -173,21 +184,45 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
         };
     }
 
-    public static Callback<JsonObject> callbackAddFavoriteShop(final Context context)
+    public Callback<JsonObject> callbackFavoriteShop(final int type, final ImageButton view, final Shop shop, final Context context)
     {
+    	final ShopListAdapter adapter = this;
+
         return new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if (response.code() == 200 && response.body().get("success").getAsBoolean())
-                    Toast.makeText(context, "즐겨찾기 추가", Toast.LENGTH_SHORT).show();
-                else
-                    Log.d(toString(), "callbackAddFavoriteShop.msg=" + response.message());
-                Toast.makeText(context, "즐겨찾기 추가 실패", Toast.LENGTH_SHORT).show();
+                if (response.code() == 200 && response.body().get("success").getAsBoolean()) {
+                	if (type == ADD_FAV) {
+						Toast.makeText(context, "즐겨찾기 추가 완료", Toast.LENGTH_SHORT).show();
+						view.setBackground(ContextCompat.getDrawable(context, R.drawable.shop_fav_on));
+						shop.favorite = 1;
+					}
+					else if (type == RM_FAV) {
+						Toast.makeText(context, "즐겨찾기 취소 완료", Toast.LENGTH_SHORT).show();
+						view.setBackground(ContextCompat.getDrawable(context, R.drawable.shop_fav_off));
+						shop.favorite = 0;
+					}
+				}
+                else {
+					Log.d(toString(), "callbackAddFavoriteShop.msg=" + response.message());
+					if (type == ADD_FAV) {
+						Toast.makeText(context, "즐겨찾기 추가 실패", Toast.LENGTH_SHORT).show();
+					}
+					else if (type == RM_FAV) {
+						Toast.makeText(context, "즐겨찾기 취소 실패", Toast.LENGTH_SHORT).show();
+					}
+				}
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(context, "즐겨찾기 추가 실패", Toast.LENGTH_SHORT).show();
+				Log.d(toString(), t.getMessage());
+				if (type == ADD_FAV) {
+					Toast.makeText(context, "즐겨찾기 추가 실패", Toast.LENGTH_SHORT).show();
+				}
+				else if (type == RM_FAV) {
+					Toast.makeText(context, "즐겨찾기 취소 실패", Toast.LENGTH_SHORT).show();
+				}
             }
         };
     }

@@ -7,6 +7,7 @@ public class User implements Serializable
     public int user_idx;
     public String user_id;
     public String user_name;
+    public String user_email;
     public String user_passwd;
 
     public User(String user_id, String user_passwd)

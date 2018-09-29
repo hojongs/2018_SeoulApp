@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -19,6 +21,12 @@ public class LocationListFragment extends Fragment
 {
 	private ListView listView;
 	private LocationListAdapter adapter;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true); // tutorial button
+	}
 
 	@Nullable
 	@Override
@@ -39,5 +47,11 @@ public class LocationListFragment extends Fragment
 		adapter.notifyDataSetChanged();
 
 		return rootView;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.menu_tutorial, menu);
+		super.onCreateOptionsMenu(menu, inflater);
 	}
 }

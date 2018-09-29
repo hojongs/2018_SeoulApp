@@ -2,7 +2,6 @@ package com.hojong.meokgol.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +33,7 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
 	View contentView;
 	TextView userNameView;
     TextView userIdView;
+    TextView userEmailView;
 	View logoutBtn;
 
 	@Nullable
@@ -52,9 +52,9 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
 		{
 			rootView = inflater.inflate(R.layout.fragment_my_page, null);
             contentView = rootView.findViewById(R.id.content_view);
-
             userNameView = rootView.findViewById(R.id.user_name);
             userIdView = rootView.findViewById(R.id.user_id);
+            userEmailView = rootView.findViewById(R.id.user_email);
 			logoutBtn = rootView.findViewById(R.id.logout_btn);
 			logoutBtn.setOnClickListener(this);
 
@@ -102,6 +102,7 @@ public class MyPageFragment extends MyFragment implements View.OnClickListener
 
         userNameView.setText(user.user_name);
         userIdView.setText(user.user_id);
+		userEmailView.setText(user.user_email);
     }
 
     @Override

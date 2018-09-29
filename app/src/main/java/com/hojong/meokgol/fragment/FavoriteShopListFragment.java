@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.hojong.meokgol.APIClient;
 import com.hojong.meokgol.LoginSharedPreference;
@@ -26,7 +27,6 @@ public class FavoriteShopListFragment extends MyFragment implements AdapterView.
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
 		View rootView = inflater.inflate(R.layout.fragment_favorite_shop_list, null);
 
 		listView = rootView.findViewById(R.id.favorite_list);
@@ -83,10 +83,15 @@ public class FavoriteShopListFragment extends MyFragment implements AdapterView.
 
     public void attemptData()
     {
-        super.attemptData();
-        int userIdx = LoginSharedPreference.getUserIdx(getContext());
-        Call call = APIClient.getService().listFavoriteShop(userIdx);
-        callList.add(call);
-        call.enqueue(adapter.callbackShopList(this, callList, "즐겨찾기 가져오기 실패"));
+		int userIdx = LoginSharedPreference.getUserIdx(getContext());
+		if (userIdx == -1) {
+			Toast.makeText(getContext(), "즐겨찾기는 로그인이 필요합니다", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		super.attemptData();
+		Call call = APIClient.getService().listFavoriteShop(userIdx);
+		callList.add(call);
+		call.enqueue(adapter.callbackShopList(this, callList, "즐겨찾기 가져오기 실패"));
     }
 }

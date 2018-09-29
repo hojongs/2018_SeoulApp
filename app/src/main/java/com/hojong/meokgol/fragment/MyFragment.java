@@ -28,7 +28,7 @@ public abstract class MyFragment extends Fragment implements IShowableProgress {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true); // refresh button
     }
 
     @Override

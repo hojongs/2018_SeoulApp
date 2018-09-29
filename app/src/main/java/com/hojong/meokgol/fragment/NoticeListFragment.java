@@ -29,6 +29,7 @@ public class NoticeListFragment extends MyFragment
 {
 	ListView listView;
 	NoticeListAdapter adapter;
+	View contentView;
 
 	@Nullable
 	@Override
@@ -42,6 +43,8 @@ public class NoticeListFragment extends MyFragment
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(adapter);
 
+		contentView = rootView.findViewById(R.id.content_view);
+
 		attemptData();
 
 		return rootView;
@@ -54,9 +57,12 @@ public class NoticeListFragment extends MyFragment
 				Log.d(this.toString(), "response "+response.body());
 				callList.remove(call);
 				adapter.clear();
-				for (Notice notice : response.body())
-					adapter.addItem(notice);
-				adapter.notifyDataSetChanged();
+
+				if (response.body() != null) {
+					for (Notice notice : response.body())
+						adapter.addItem(notice);
+					adapter.notifyDataSetChanged();
+				}
 				showProgress(false);
 			}
 
@@ -79,14 +85,14 @@ public class NoticeListFragment extends MyFragment
 
 		int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-		listView.setVisibility(show ? View.GONE : View.VISIBLE);
-		listView.animate().setDuration(shortAnimTime).alpha(
+		contentView.setVisibility(show ? View.GONE : View.VISIBLE);
+		contentView.animate().setDuration(shortAnimTime).alpha(
 				show ? 0 : 1).setListener(new AnimatorListenerAdapter()
 		{
 			@Override
 			public void onAnimationEnd(Animator animation)
 			{
-				listView.setVisibility(show ? View.GONE : View.VISIBLE);
+				contentView.setVisibility(show ? View.GONE : View.VISIBLE);
 			}
 		});
 

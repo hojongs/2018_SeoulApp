@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -30,7 +29,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/my_page_top"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,55 +37,36 @@
             app:layout_constraintTop_toTopOf="@+id/content_view"
             app:srcCompat="@drawable/mypage_top" />
 
-        <ImageView
-            android:id="@+id/coupon_subtitle"
-            android:layout_width="0dp"
-            android:layout_height="34dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inner1"
-            app:srcCompat="@drawable/mypage_coupon_subtitle" />
-
-        <ImageView
-            android:id="@+id/dev_info"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/coupon_subtitle"
-            app:srcCompat="@drawable/mypage_devinfo" />
-
         <android.support.constraint.ConstraintLayout
             android:id="@+id/inner1"
             android:layout_width="0dp"
-            android:layout_height="115dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4">
+            app:layout_constraintTop_toBottomOf="@+id/my_page_top">
 
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="98dp"
-                android:layout_height="99dp"
+                android:id="@+id/user_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/user_img" />
+                app:srcCompat="@drawable/user_img"/>
 
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="userName"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/user_img"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/user_id"
@@ -95,8 +75,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="3dp"
                 android:text="uesrId"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/user_name" />
+                app:layout_constraintStart_toEndOf="@+id/user_img"
+                app:layout_constraintTop_toBottomOf="@+id/user_name"/>
 
             <TextView
                 android:id="@+id/user_email"
@@ -105,58 +85,86 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="3dp"
                 android:text="useremail"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/user_id" />
+                app:layout_constraintStart_toEndOf="@+id/user_img"
+                app:layout_constraintTop_toBottomOf="@+id/user_id"/>
 
             <ImageButton
                 android:id="@+id/logout_btn"
-                android:layout_width="64dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="81dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/withdraw_btn"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/mypage_logout" />
+                app:srcCompat="@drawable/mypage_logout"/>
 
             <ImageButton
                 android:id="@+id/withdraw_btn"
-                android:layout_width="67dp"
-                android:layout_height="29dp"
-                android:layout_marginTop="80dp"
-                android:layout_marginEnd="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/mypage_memberout" />
+                app:srcCompat="@drawable/mypage_memberout"/>
 
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/inner2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inner1">
+
+            <ImageView
+                android:id="@+id/coupon_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/mypage_coupon_subtitle"/>
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/inner3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dev_info">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inner2">
+
+            <ImageView
+                android:id="@+id/dev_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/mypage_devinfo"/>
 
             <TextView
                 android:id="@+id/contact_number"
-                android:layout_width="wrap_content"
-                android:layout_height="21dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:text="문의 번호"
-                app:layout_constraintBaseline_toBaselineOf="@+id/contact_email"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dev_info"/>
 
             <TextView
                 android:id="@+id/contact_email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="문의 메일"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/contact_number" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/contact_number" />
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
