@@ -3,6 +3,11 @@
         <item name="actionBarStyle">@style/Widget.AppTheme.ActionBar</item>
         <!--<item name="actionBarTheme">@style/ThemeOverlay.AppTheme.ActionBar</item>-->
         <!--<item name="actionBarPopupTheme">@style/ThemeOverlay.AppTheme.PopupMenu</item>-->
+
+        <!--BottomBar-->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
     </style>
 
     <style name="Widget.AppTheme.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">

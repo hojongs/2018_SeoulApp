@@ -2,6 +2,7 @@ package com.hojong.meokgol.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,12 +33,14 @@ public class NoticeActivity extends AppCompatActivity implements View.OnClickLis
         contentView.setText(notice.notice_content);
 
         backBtn = findViewById(R.id.back_btn);
+        backBtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view)
     {
         // back
+        Log.d(toString(), "onClick");
         finish();
     }
 }

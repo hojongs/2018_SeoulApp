@@ -16,8 +16,8 @@ public class Shop implements Serializable
 	public double review_avg;
 	public int review_count;
 	public int favorite;
-	public double latitude; // 위도
-	public double longitude; // 경도
+	public int shop_latitude; // 위도
+	public int shop_longitude; // 경도
 
 	public Shop (String shop_name)
 	{
@@ -33,8 +33,8 @@ public class Shop implements Serializable
 		menu_list = recv_shop.menu_list;
 		shop_phone = recv_shop.shop_phone;
 
-		latitude = recv_shop.latitude;
-		longitude = recv_shop.longitude;
+		shop_latitude = recv_shop.shop_latitude;
+		shop_longitude = recv_shop.shop_longitude;
 	}
 
     @Override

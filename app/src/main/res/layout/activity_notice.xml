@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@id/notice_top">
 
         <TextView
-            android:id="@+id/date_view"
+            android:id="@+id/notice_write_date_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -54,7 +54,7 @@
             android:text="공지 제목"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date_view"/>
+            app:layout_constraintTop_toBottomOf="@+id/notice_write_date_view"/>
 
         <ImageView
             android:id="@+id/line_view"

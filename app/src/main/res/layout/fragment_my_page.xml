@@ -134,7 +134,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/inner3"
             android:layout_width="0dp"
-            android:layout_height="128dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inner2">
@@ -146,7 +146,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/mypage_devinfo" />
+                app:srcCompat="@drawable/mypage_devinfo"/>
 
             <TextView
                 android:id="@+id/dev_info_text"
@@ -155,18 +155,16 @@
                 android:text="앱 개발김명길, 이창호, 전종호 앱 디자인 한제우  앱 버전 : v1.0.0 사용 폰트 : 네이버 나눔 스퀘어 문의사항 : hojong.jjh@gmail.com"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dev_info" />
+                app:layout_constraintTop_toBottomOf="@id/dev_info"/>
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/by_sa_img"
                 android:layout_width="0dp"
-                android:layout_height="400dp"
-                android:scaleType="fitXY"
-                app:layout_constraintDimensionRatio="16:9"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dev_info_text"
-                app:srcCompat="@drawable/by-sa" />
+                app:srcCompat="@drawable/by_sa"/>
 
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>

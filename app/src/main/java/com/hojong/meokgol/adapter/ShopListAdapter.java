@@ -160,6 +160,7 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
                 Log.d(this.toString(), String.format("callbackShopInfo msg=%s,shopList=%s", response.message(), response.body()));
                 if (response.code() == 200) {
                 	Shop recv_shop = response.body();
+//					Log.d(toString(), String.format("recv_shop shop_longitude=%s, shop_latitude=%s", recv_shop.shop_longitude, recv_shop.shop_latitude));
                 	shop.merge(recv_shop);
 
 				    showableProgress.showProgress(false);
