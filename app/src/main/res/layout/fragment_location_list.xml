@@ -22,7 +22,7 @@
     <ImageView
         android:id="@+id/location_list_top"
         android:layout_width="0dp"
-        android:layout_height="47dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/location_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
