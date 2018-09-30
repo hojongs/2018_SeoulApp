@@ -20,6 +20,7 @@ public class Shop implements Serializable
 	public int favorite;
 	public int shop_latitude; // 위도
 	public int shop_longitude; // 경도
+	public String menu_kind1;
 
 	public Shop (String shop_name)
 	{

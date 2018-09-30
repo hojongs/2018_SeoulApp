@@ -49,7 +49,7 @@ public interface APIService
 	@POST("/review/write")
 	Call<JsonObject> writeReview(@Body ShopReview data);
 
-	@POST("/review/delete") // TODO : delete review (lazy)
+	@POST("/review/delete")
 	Call<JsonObject> deleteReview(@Body ShopReview data);
 
 	@GET("/notice")

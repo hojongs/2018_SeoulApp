@@ -22,6 +22,7 @@ import com.hojong.meokgol.activity.ShopActivity;
 import com.hojong.meokgol.data_model.Shop;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -64,6 +65,32 @@ public class ShopListAdapter extends MyListAdapter implements View.OnClickListen
 		shopScoreView.setText(String.format(Locale.KOREA, "별점 : %.2f", shop.review_avg));
 		TextView reviewCntView = shopView.findViewById(R.id.review_cnt_view);
 		reviewCntView.setText("후기 수 : " + shop.review_count + "개");
+
+        List<String> kindList = Arrays.asList(shop.menu_kind1.split(","));
+
+		ImageView kindFriedView = shopView.findViewById(R.id.kind_fried_view);
+		if (kindList.contains("튀김류"))
+		    kindFriedView.setVisibility(View.VISIBLE);
+		else
+            kindFriedView.setVisibility(View.GONE);
+
+        ImageView kindNoodleView = shopView.findViewById(R.id.kind_noodle_view);
+        if (kindList.contains("면류"))
+            kindNoodleView.setVisibility(View.VISIBLE);
+        else
+            kindNoodleView.setVisibility(View.GONE);
+
+        ImageView kindRiceView = shopView.findViewById(R.id.kind_rice_view);
+        if (kindList.contains("밥류"))
+            kindRiceView.setVisibility(View.VISIBLE);
+        else
+            kindRiceView.setVisibility(View.GONE);
+
+        ImageView kindVegetableView = shopView.findViewById(R.id.kind_vegetable_view);
+        if (kindList.contains("야채류"))
+            kindVegetableView.setVisibility(View.VISIBLE);
+        else
+            kindVegetableView.setVisibility(View.GONE);
 
 		// click listener
 		ImageButton shopFavoriteBtn = shopView.findViewById(R.id.favorite_btn);

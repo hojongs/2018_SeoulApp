@@ -58,11 +58,14 @@ public class ReprofitUnitTest
 	public void listShop() throws Exception
 	{
 		List<String> menuList = new ArrayList<>();
-//		menu.add("면류");
-//		menu.add("밥류");
+//		menuList.add("면류");
+		menuList.add("밥류");
 		Response<List<Shop>> response = service.listShop(1, menuList, 3).execute();
 		assertEquals(200, response.code());
+
 		System.out.println(response.body());
+		for (Shop shop : response.body())
+		    System.out.println(shop.menu_kind1);
 	}
 
 	@Test

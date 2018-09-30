@@ -48,7 +48,6 @@ public class LogoActivity extends MyAppCompatActivity implements IShowableProgre
         // is first check, init intent
         SharedPreferences pref = getSharedPreferences("isFirst", Activity.MODE_PRIVATE);
         boolean isFirst = pref.getBoolean("isFirst", false);
-        isFirst = false; // TODO : last
 
         if(isFirst)
         {

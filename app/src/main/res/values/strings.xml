@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">0먹거리골목 먹골</string> <!-- TODO : 앱 이름 (lazy) -->
+    <string name="app_name">먹골 - 먹거리골목</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -45,4 +45,5 @@
     <string name="dev_info">앱 개발 : 김명길, 이창호, 전종호\n앱 디자인 : 한제우\n앱 버전 : v1.0.0\n사용 폰트 : 네이버 나눔 스퀘어\n문의사항 : hojong.jjh@gmail.com</string>
     <string name="debug_info">평가용 아이디 : guest\n비밀번호 : guest</string>
     <string name="shop_favorite">즐겨찾기</string>
+    <string name="filter_etc">기타</string>
 </resources>

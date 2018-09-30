@@ -21,5 +21,9 @@
             android:id="@+id/nav_filter_vegetable"
             android:icon="@drawable/shop_filter_vegetable"
             android:title="@string/filter_vegetable" />
+        <item
+            android:id="@+id/nav_filter_etc"
+            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:title="@string/filter_etc" />
     </group>
 </menu>
