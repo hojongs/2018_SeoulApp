@@ -26,10 +26,10 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="shop_filter">필터</string>
-    <string name="filter1">밥류</string>
-    <string name="filter2">면류</string>
-    <string name="filter3">튀김류</string>
-    <string name="filter4">야채류</string>
+    <string name="filter_fried">튀김류</string>
+    <string name="filter_noodle">면류</string>
+    <string name="filter_rice">밥류</string>
+    <string name="filter_vegetable">야채류</string>
     <string name="shop_info">정보</string>
     <string name="shop_position">위치</string>
     <string name="shop_review_list">후기 및 별점</string>
@@ -40,6 +40,6 @@
     <string name="title_activity_shop_review">ShopReviewWriteActivity</string>
     <string name="title_my_page_login">로그인이 필요합니다</string>
     <string name="refresh">새로고침</string>
-    <string name="filter0">모두</string>
+    <string name="filter_all">모두</string>
     <string name="tutorial">튜토리얼</string>
 </resources>

@@ -21,20 +21,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="55dp"/>
+        app:layout_constraintGuide_end="50dp" />
 
-        <com.roughike.bottombar.BottomBar
-            android:id="@+id/bottomBar"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_alignParentBottom="true"
-            app:bb_tabXmlResource="@xml/nav_main"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:bb_activeTabColor="#00FFFFFF"
-            app:bb_inActiveTabColor="#00FFFFFF" />
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
+        app:bb_activeTabColor="#00FFFFFF"
+        app:bb_inActiveTabColor="#00FFFFFF"
+        app:bb_tabXmlResource="@xml/nav_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
 
 </android.support.constraint.ConstraintLayout>

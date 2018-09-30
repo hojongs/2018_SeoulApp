@@ -7,15 +7,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.Location;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class TutorialActivity extends AppCompatActivity
 {
@@ -53,6 +58,7 @@ public class TutorialActivity extends AppCompatActivity
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.container);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(mSectionsPagerAdapter);
 
 		// Images left nav_main
 		View leftNav = findViewById(R.id.left_nav);
@@ -69,7 +75,7 @@ public class TutorialActivity extends AppCompatActivity
 			}
 		});
 
-		// Images right navigatin
+		// Images right navigation
 		View rightNav = findViewById(R.id.right_nav);
 		rightNav.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -83,23 +89,7 @@ public class TutorialActivity extends AppCompatActivity
 		back = getIntent().getBooleanExtra("back", false);
 	}
 
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item)
-//	{
-//		// Handle action bar item clicks here. The action bar will
-//		// automatically handle clicks on the Home/Up button, so long
-//		// as you specify a parent activity in AndroidManifest.xml.
-//		int id = item.getItemId();
-//
-//		//noinspection SimplifiableIfStatement
-//		if (id == R.id.action_settings) {
-//			return true;
-//		}
-//
-//		return super.onOptionsItemSelected(item);
-//	}
-
-	/**
+    /**
 	 * A placeholder fragment containing a simple view.
 	 */
 	public static class PlaceholderFragment extends Fragment
@@ -116,60 +106,40 @@ public class TutorialActivity extends AppCompatActivity
 		 * Returns a new instance of this fragment for the given section
 		 * number.
 		 */
-		public static PlaceholderFragment newInstance(int sectionNumber)
+		public static PlaceholderFragment newInstance(int sectionNumber, Serializable locationList, boolean back)
 		{
 			PlaceholderFragment fragment = new PlaceholderFragment();
 			Bundle args = new Bundle();
+
 			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
 			fragment.setArguments(args);
 			return fragment;
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-								 final Bundle savedInstanceState)
+		public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+                                 final Bundle savedInstanceState)
 		{
-			int imgId = R.drawable.ic_chevron_left_black_24dp;
+			int imgId = R.drawable.tutorial_1;
 
 			View rootView = inflater.inflate(R.layout.fragment_tutorial, container, false);
 
-			View startBtn = rootView.findViewById(R.id.startButton);
-			startBtn.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					boolean back = getArguments().getBoolean("back", false);
+			GifImageView imageView = rootView.findViewById(R.id.location_img);
 
-					if (!back) {
-						Intent intent = new Intent(getActivity(), MainActivity.class);
-
-						Serializable locationList = getArguments().getSerializable(Location.INTENT_KEY);
-						intent.putExtra(Location.INTENT_KEY, locationList);
-
-						startActivity(intent);
-					}
-
-					getActivity().finish();
-				}
-			});
-
-			ImageView imageView = rootView.findViewById(R.id.location_img);
-
-			switch (getArguments().getInt(ARG_SECTION_NUMBER))
+			int sectionNum = getArguments().getInt(ARG_SECTION_NUMBER);
+			switch (sectionNum)
 			{
+				case 0:
+					imgId = R.drawable.tutorial_1;
+					break;
 				case 1:
-					startBtn.setVisibility(View.INVISIBLE);
+					imgId = R.drawable.tutorial_2;
 					break;
 				case 2:
-					startBtn.setVisibility(View.INVISIBLE);
-					imgId = R.drawable.ic_home_black_24dp;
-					break;
-				case 3:
-					startBtn.setVisibility(View.VISIBLE);
-					imgId = R.drawable.ic_chevron_right_black_24dp;
+					imgId = R.drawable.tutorial_3;
 					break;
 			}
 			imageView.setImageResource(imgId);
-//			textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 			return rootView;
 		}
 	}
@@ -178,12 +148,42 @@ public class TutorialActivity extends AppCompatActivity
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
 	 */
-	public class SectionsPagerAdapter extends FragmentPagerAdapter
+	public class SectionsPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener
 	{
+	    List<Fragment> fragmentList;
+        View.OnClickListener nextListener;
+        View.OnClickListener tutorialEndListener;
 
 		public SectionsPagerAdapter(FragmentManager fm)
 		{
 			super(fm);
+            fragmentList = new ArrayList<>();
+
+            for (int i=0;i<3;i++)
+                fragmentList.add(PlaceholderFragment.newInstance(i, locationList, back));
+
+            nextListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int tab = mViewPager.getCurrentItem();
+                    tab++;
+                    mViewPager.setCurrentItem(tab);
+                }
+            };
+
+            tutorialEndListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!back) {
+                        Intent intent = new Intent(TutorialActivity.this, MainActivity.class);
+                        intent.putExtra(Location.INTENT_KEY, locationList);
+
+                        startActivity(intent);
+                    }
+
+                    finish();
+                }
+            };
 		}
 
 		@Override
@@ -191,21 +191,14 @@ public class TutorialActivity extends AppCompatActivity
 		{
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a PlaceholderFragment (defined as a static inner class below).
-            Fragment fragment = PlaceholderFragment.newInstance(position + 1);
 
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(Location.INTENT_KEY, locationList);
-            bundle.putBoolean("back", back);
-            fragment.setArguments(bundle);
-
-			return fragment;
+			return fragmentList.get(position);
 		}
 
 		@Override
 		public int getCount()
 		{
-			// Show 3 total pages.
-			return 3;
+			return fragmentList.size();
 		}
 
 		@Override
@@ -221,5 +214,39 @@ public class TutorialActivity extends AppCompatActivity
 			}
 			return null;
 		}
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            Log.d(toString(), "onPageSelected "+position);
+
+            ImageButton leftBtn = findViewById(R.id.left_nav);
+            ImageButton rightBtn = findViewById(R.id.right_nav);
+
+            switch (position)
+            {
+                case 0:
+                    rightBtn.setImageResource(R.drawable.tutorial_next);
+                    rightBtn.setOnClickListener(nextListener);
+                    break;
+                case 1:
+                    rightBtn.setImageResource(R.drawable.tutorial_next);
+                    rightBtn.setOnClickListener(nextListener);
+                    break;
+                case 2:
+                    rightBtn.setImageResource(R.drawable.tutorial_end);
+                    rightBtn.setOnClickListener(tutorialEndListener);
+                    break;
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
 	}
 }

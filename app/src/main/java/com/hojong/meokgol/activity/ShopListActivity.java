@@ -36,6 +36,7 @@ public class ShopListActivity extends MyAppCompatActivity implements IShowablePr
 	private DrawerLayout mDrawerLayout;
 	private Location location;
 	private ShopListAdapter adapter;
+	private MenuItem shopFilterView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -55,6 +56,9 @@ public class ShopListActivity extends MyAppCompatActivity implements IShowablePr
         listView.setOnItemClickListener(this);
 
         mProgressView = findViewById(R.id.progress_bar);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+		navigationView.setItemIconTintList(null);
 
 		initDrawer();
         attemptData(null);
@@ -107,6 +111,7 @@ public class ShopListActivity extends MyAppCompatActivity implements IShowablePr
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_shop_filter, menu);
+		shopFilterView = menu.getItem(0);
 		return true;
 	}
 
@@ -150,16 +155,18 @@ public class ShopListActivity extends MyAppCompatActivity implements IShowablePr
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 		// filter menu select
-		String menu = menuItem.getTitle().toString();
-		Log.d(toString(), menu);
+		String menuTitle = menuItem.getTitle().toString();
+		Log.d(toString(), menuTitle);
 
-		if (menu.equals("모두"))
+		if (menuItem.getItemId() == R.id.nav_filter_all)
 		{
+            shopFilterView.setIcon(R.drawable.ic_shop_filter_off);
 			attemptData(null);
 		}
 		else {
+            shopFilterView.setIcon(R.drawable.ic_shop_filter_on);
 			List<String> menuKindList = new ArrayList<>();
-			menuKindList.add(menu);
+			menuKindList.add(menuTitle);
 
 			attemptData(menuKindList);
 		}

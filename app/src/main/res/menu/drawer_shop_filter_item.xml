@@ -2,24 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_filter0"
-            android:icon="@drawable/ic_chevron_left_black_24dp"
-            android:title="@string/filter0" />
+            android:id="@+id/nav_filter_all"
+            android:icon="@drawable/ic_menu_black_24dp"
+            android:title="@string/filter_all" />
         <item
-            android:id="@+id/nav_filter1"
-            android:icon="@drawable/ic_chevron_left_black_24dp"
-            android:title="@string/filter1" />
+            android:id="@+id/nav_filter_fried"
+            android:icon="@drawable/shop_filter_fried"
+            android:title="@string/filter_fried" />
         <item
-            android:id="@+id/nav_filter2"
-            android:icon="@drawable/ic_chevron_right_black_24dp"
-            android:title="@string/filter2" />
+            android:id="@+id/nav_filter_noodle"
+            android:icon="@drawable/shop_filter_noodle"
+            android:title="@string/filter_noodle" />
         <item
-            android:id="@+id/nav_filter3"
-            android:icon="@drawable/ic_chevron_left_black_24dp"
-            android:title="@string/filter3" />
+            android:id="@+id/nav_filter_rice"
+            android:icon="@drawable/shop_filter_rice"
+            android:title="@string/filter_rice" />
         <item
-            android:id="@+id/nav_filter4"
-            android:icon="@drawable/ic_chevron_right_black_24dp"
-            android:title="@string/filter4" />
+            android:id="@+id/nav_filter_vegetable"
+            android:icon="@drawable/shop_filter_vegetable"
+            android:title="@string/filter_vegetable" />
     </group>
 </menu>

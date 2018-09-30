@@ -164,7 +164,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dev_info_text"
-                app:srcCompat="@drawable/by_sa"/>
+                app:srcCompat="@drawable/cc_by_sa"/>
 
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>

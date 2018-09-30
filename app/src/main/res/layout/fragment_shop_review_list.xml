@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/border">
+    android:background="@drawable/border_bg">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -24,7 +22,7 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border">
+        android:background="@drawable/border_bg">
 
         <ImageButton
             android:id="@+id/review_write_btn"
