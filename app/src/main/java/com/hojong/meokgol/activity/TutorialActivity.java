@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
 public class TutorialActivity extends AppCompatActivity
@@ -124,7 +125,7 @@ public class TutorialActivity extends AppCompatActivity
 
 			View rootView = inflater.inflate(R.layout.fragment_tutorial, container, false);
 
-			GifImageView imageView = rootView.findViewById(R.id.location_img);
+			GifImageView imageView = rootView.findViewById(R.id.tutorial_img);
 
 			int sectionNum = getArguments().getInt(ARG_SECTION_NUMBER);
 			switch (sectionNum)
@@ -223,6 +224,10 @@ public class TutorialActivity extends AppCompatActivity
         @Override
         public void onPageSelected(int position) {
             Log.d(toString(), "onPageSelected "+position);
+
+            GifImageView tutorialView = fragmentList.get(position).getView().findViewById(R.id.tutorial_img);
+            GifDrawable gif = (GifDrawable) tutorialView.getDrawable();
+            gif.reset();
 
             ImageButton leftBtn = findViewById(R.id.left_nav);
             ImageButton rightBtn = findViewById(R.id.right_nav);
