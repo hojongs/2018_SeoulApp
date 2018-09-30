@@ -38,14 +38,19 @@ public class MainActivity extends AppCompatActivity implements OnTabSelectListen
             Log.d(toString(), "NullLocationList");
 		locationListBundle.putSerializable(Location.INTENT_KEY, locationList);
 
+		init_fragment_bottombar();
+	}
+
+	private void init_fragment_bottombar()
+    {
         myPageFragment = new MyPageFragment();
         myPageFragment.appContext = getApplicationContext();
         myPageFragment.attemptData();
 
-		BottomBar bottomBar = findViewById(R.id.bottomBar);
-		bottomBar.setOnTabSelectListener(this);
+        BottomBar bottomBar = findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(this);
         onTabSelected(R.id.nav_locations); // default fragment
-	}
+    }
 
     @Override
     public void onTabSelected(int tabId) {

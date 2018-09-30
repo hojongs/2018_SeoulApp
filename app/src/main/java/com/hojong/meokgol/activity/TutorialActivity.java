@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.droidsonroids.gif.AnimationListener;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -125,9 +126,7 @@ public class TutorialActivity extends AppCompatActivity
 
 			View rootView = inflater.inflate(R.layout.fragment_tutorial, container, false);
 
-			GifImageView imageView = rootView.findViewById(R.id.tutorial_img);
-
-			int sectionNum = getArguments().getInt(ARG_SECTION_NUMBER);
+			final int sectionNum = getArguments().getInt(ARG_SECTION_NUMBER);
 			switch (sectionNum)
 			{
 				case 0:
@@ -140,7 +139,31 @@ public class TutorialActivity extends AppCompatActivity
 					imgId = R.drawable.tutorial_3;
 					break;
 			}
-			imageView.setImageResource(imgId);
+
+            final GifImageView tutorialView = rootView.findViewById(R.id.tutorial_img);
+            tutorialView.setImageResource(imgId);
+            GifDrawable gif = (GifDrawable) tutorialView.getDrawable();
+            gif.setLoopCount(1);
+            gif.reset();
+
+            gif.addAnimationListener(new AnimationListener() {
+                @Override
+                public void onAnimationCompleted(int loopNumber) {
+                    switch (sectionNum)
+                    {
+                        case 0:
+                            tutorialView.setImageResource(R.drawable.tutorial_1_end);
+                            break;
+                        case 1:
+                            tutorialView.setImageResource(R.drawable.tutorial_2_end);
+                            break;
+                        case 2:
+                            tutorialView.setImageResource(R.drawable.tutorial_3_end);
+                            break;
+                    }
+                }
+            });
+
 			return rootView;
 		}
 	}
@@ -192,7 +215,6 @@ public class TutorialActivity extends AppCompatActivity
 		{
 			// getItem is called to instantiate the fragment for the given page.
 			// Return a PlaceholderFragment (defined as a static inner class below).
-
 			return fragmentList.get(position);
 		}
 
@@ -222,12 +244,10 @@ public class TutorialActivity extends AppCompatActivity
         }
 
         @Override
-        public void onPageSelected(int position) {
+        public void onPageSelected(final int position) {
             Log.d(toString(), "onPageSelected "+position);
 
-            GifImageView tutorialView = fragmentList.get(position).getView().findViewById(R.id.tutorial_img);
-            GifDrawable gif = (GifDrawable) tutorialView.getDrawable();
-            gif.reset();
+            final GifImageView tutorialView = fragmentList.get(position).getView().findViewById(R.id.tutorial_img);
 
             ImageButton leftBtn = findViewById(R.id.left_nav);
             ImageButton rightBtn = findViewById(R.id.right_nav);
@@ -235,23 +255,30 @@ public class TutorialActivity extends AppCompatActivity
             switch (position)
             {
                 case 0:
+                    tutorialView.setImageResource(R.drawable.tutorial_1);
                     rightBtn.setImageResource(R.drawable.tutorial_next);
                     rightBtn.setOnClickListener(nextListener);
                     break;
                 case 1:
+                    tutorialView.setImageResource(R.drawable.tutorial_2);
                     rightBtn.setImageResource(R.drawable.tutorial_next);
                     rightBtn.setOnClickListener(nextListener);
                     break;
                 case 2:
+                    tutorialView.setImageResource(R.drawable.tutorial_3);
                     rightBtn.setImageResource(R.drawable.tutorial_end);
                     rightBtn.setOnClickListener(tutorialEndListener);
                     break;
             }
+
+            GifDrawable gif = (GifDrawable) tutorialView.getDrawable();
+            gif.setLoopCount(1);
+            gif.reset();
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
 
         }
-	}
+    }
 }

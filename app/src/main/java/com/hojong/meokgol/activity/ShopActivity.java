@@ -3,12 +3,16 @@ package com.hojong.meokgol.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hojong.meokgol.R;
@@ -24,14 +28,21 @@ public class ShopActivity extends AppCompatActivity implements OnTabSelectListen
 {
     private Bundle bundle;
     private Shop shop;
+    private MenuItem favView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_shop);
+        setContentView(R.layout.activity_shop);
 
         shop = (Shop) getIntent().getSerializableExtra(Shop.INTENT_KEY);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(shop.shop_name);
+        actionBar.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.top_bg));
+
         Log.d(toString(), "shop=" + shop);
         if (shop == null)
             shop = new Shop("");
@@ -76,12 +87,27 @@ public class ShopActivity extends AppCompatActivity implements OnTabSelectListen
 		return false;
 	}
 
+    // 필터 버튼 생성
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_shop_favorite, menu);
+        favView = menu.getItem(0);
+        if (shop.favorite == 1)
+            favView.setIcon(R.drawable.nav_favorites_on);
+        return true;
+    }
+
 	// 뒤로가기, 새로고침 버튼 onClick
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
 				finish();
 				return true;
+            case R.id.shop_favorite:
+                // TODO : shop activity - favorite btn (lazy)
+                Toast.makeText(getApplicationContext(), "즐겨찾기", Toast.LENGTH_SHORT).show();
+//                APIClient.getService().addFavoriteShop()
+                return true;
 			case R.id.refresh:
 				MyFragment fragment = (MyFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 				fragment.attemptData();

@@ -1,5 +1,7 @@
 package com.hojong.meokgol.data_model;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -27,8 +29,12 @@ public class Shop implements Serializable
 
     public void merge(Shop recv_shop)
 	{
-		review_avg = recv_shop.review_avg;
-		review_count = recv_shop.review_count;
+        Shop shop;
+
+	    shop = recv_shop;
+        Log.d("merge()", String.format("%s,%s/%s,%s/%s,%s", shop.review_avg, shop.review_count, shop.menu_list, shop.shop_phone, shop.shop_latitude, shop.shop_longitude));
+        shop = this;
+		Log.d("merge()", String.format("%s,%s/%s,%s/%s,%s", shop.review_avg, shop.review_count, shop.menu_list, shop.shop_phone, shop.shop_latitude, shop.shop_longitude));
 
 		menu_list = recv_shop.menu_list;
 		shop_phone = recv_shop.shop_phone;

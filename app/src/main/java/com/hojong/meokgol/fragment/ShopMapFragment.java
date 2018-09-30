@@ -1,5 +1,8 @@
 package com.hojong.meokgol.fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hojong.meokgol.R;
 import com.hojong.meokgol.data_model.Shop;
@@ -16,11 +20,10 @@ import com.nhn.android.maps.NMapController;
 import com.nhn.android.maps.NMapView;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.nmapmodel.NMapError;
-import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
-import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
-public class ShopMapFragment extends Fragment implements NMapView.OnMapStateChangeListener, NMapView.OnMapViewTouchEventListener
+public class ShopMapFragment extends Fragment implements View.OnClickListener, NMapView.OnMapStateChangeListener, NMapView.OnMapViewTouchEventListener
 {
+    NMapView mapView;
 	private NMapContext mMapContext;
 	private static final String CLIENT_ID = "xU8vQG7PePFCSD0Qr6M6";// 애플리케이션 클라이언트 아이디 값
 	Shop shop;
@@ -30,7 +33,11 @@ public class ShopMapFragment extends Fragment implements NMapView.OnMapStateChan
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_shop_map, null);
+        Context context = container.getContext();
 		shop = (Shop) getArguments().getSerializable(Shop.INTENT_KEY);
+
+		TextView mapBtn = rootView.findViewById(R.id.map_btn);
+		mapBtn.setOnClickListener(this);
 
 		return rootView;
 	}
@@ -46,13 +53,13 @@ public class ShopMapFragment extends Fragment implements NMapView.OnMapStateChan
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		NMapView mapView = (NMapView)getView().findViewById(R.id.mapView);
+		mapView = (NMapView)getView().findViewById(R.id.mapView);
 		Log.d(toString(), "mapView=" + mapView);
 		if (mapView == null)
 			return;
 
 		mapView.setClientId(CLIENT_ID);// 클라이언트 아이디 설정
-		mapView.setClickable(true);
+//		mapView.setClickable(true);
 
 		mMapContext.setupMapView(mapView);
 
@@ -61,9 +68,6 @@ public class ShopMapFragment extends Fragment implements NMapView.OnMapStateChan
 
 		mapView.setOnMapStateChangeListener(this);
 		mapView.setOnMapViewTouchEventListener(this);
-
-		// TODO : overlay point on the map
-		// https://github.com/navermaps/maps.android/blob/master/app/src/main/java/com/nhn/android/mapviewer/NMapPOIflagType.java
 	}
 
 	@Override
@@ -172,4 +176,13 @@ public class ShopMapFragment extends Fragment implements NMapView.OnMapStateChan
 	{
 
 	}
+
+    @Override
+    public void onClick(View view) {
+        // map btn click
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+        String url = String.format("geo:%s,%s?q=%s", shop.shop_latitude, shop.shop_longitude, shop.shop_name);
+        sendIntent.setData(Uri.parse(url));
+        startActivity(sendIntent);
+    }
 }

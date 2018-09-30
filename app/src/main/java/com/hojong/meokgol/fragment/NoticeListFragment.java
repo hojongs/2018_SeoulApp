@@ -43,7 +43,7 @@ public class NoticeListFragment extends MyFragment
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(adapter);
 
-		contentView = rootView.findViewById(R.id.content_view);
+		contentView = rootView.findViewById(R.id.notice_list);
 
 		attemptData();
 

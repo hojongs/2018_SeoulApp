@@ -6,7 +6,7 @@
     android:layout_height="400dp"
     tools:context=".activity.ShopReviewWriteActivity">
 
-    <ProgressBar
+    <ProgressBar android:elevation="4dp"
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"

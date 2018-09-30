@@ -43,12 +43,12 @@ public class LogoActivity extends MyAppCompatActivity implements IShowableProgre
         final GifImageView logoView = findViewById(R.id.logo_view);
         GifDrawable logoDrawable = (GifDrawable) logoView.getDrawable();
         logoDrawable.addAnimationListener(this);
-
+        logoDrawable.setLoopCount(1);
 
         // is first check, init intent
         SharedPreferences pref = getSharedPreferences("isFirst", Activity.MODE_PRIVATE);
         boolean isFirst = pref.getBoolean("isFirst", false);
-        isFirst = false; // TODO : 마지막 구현완료 후 (lazy)
+        isFirst = false; // TODO : last
 
         if(isFirst)
         {

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hojong.meokgol.APIClient;
@@ -23,6 +24,7 @@ import com.hojong.meokgol.data_model.Shop;
 import com.hojong.meokgol.data_model.ShopReview;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,31 +33,46 @@ import retrofit2.Response;
 import static android.app.Activity.RESULT_OK;
 
 public class ShopReviewListFragment extends MyFragment {
-    ListView listView;
-    ShopReviewListAdapter adapter;
     Shop shop;
+    ShopReviewListAdapter adapter;
+    TextView scoreView;
+    TextView cntView;
+    ListView listView;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(false); // refresh button disable
+    }
 
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_shop_review_list, null);
 
-        mProgressView = rootView.findViewById(R.id.progress_bar);
-		listView = rootView.findViewById(R.id.shop_review_list);
-		adapter = new ShopReviewListAdapter();
-		listView.setAdapter(adapter);
-
-		ImageButton reviewWriteBtn = rootView.findViewById(R.id.review_write_btn);
-		reviewWriteBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent intent = new Intent(getContext(), ShopReviewWriteActivity.class);
-				intent.putExtra(Shop.INTENT_KEY, shop);
-				startActivityForResult(intent, RESULT_OK);
-			}
-		});
-
         shop = (Shop) getArguments().getSerializable(Shop.INTENT_KEY);
+
+        mProgressView = rootView.findViewById(R.id.progress_bar);
+
+        ImageButton reviewWriteBtn = rootView.findViewById(R.id.review_write_btn);
+        reviewWriteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ShopReviewWriteActivity.class);
+                intent.putExtra(Shop.INTENT_KEY, shop);
+                startActivityForResult(intent, RESULT_OK);
+            }
+        });
+
+        scoreView = rootView.findViewById(R.id.review_score_view);
+        scoreView.setText(String.format(Locale.KOREA, "별점 : %.2f", shop.review_avg));
+
+        cntView = rootView.findViewById(R.id.review_cnt_view);
+        cntView.setText("후기 수 : " + shop.review_count  + "개");
+
+        adapter = new ShopReviewListAdapter();
+		listView = rootView.findViewById(R.id.shop_review_list);
+		listView.setAdapter(adapter);
 
         attemptData();
 

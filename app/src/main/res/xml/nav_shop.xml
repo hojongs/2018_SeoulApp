@@ -2,17 +2,14 @@
 <tabs>
     <tab
         id="@+id/nav_shop_info"
-        barColorWhenSelected="@color/white"
-        icon="@drawable/ic_home_black_24dp" />
+        icon="@drawable/nav_selector_shop_info" />
         <!--title="@string/shop_info"/>-->
     <tab
         id="@+id/nav_shop_position"
-        barColorWhenSelected="@color/white"
-        icon="@drawable/ic_dashboard_black_24dp" />
+        icon="@drawable/nav_selector_shop_map" />
         <!--title="@string/shop_position" />-->
     <tab
         id="@+id/nav_shop_review_list"
-        barColorWhenSelected="@color/white"
-        icon="@drawable/ic_notifications_black_24dp" />
+        icon="@drawable/nav_selector_shop_review" />
         <!--title="@string/shop_review_list"/>-->
 </tabs>
