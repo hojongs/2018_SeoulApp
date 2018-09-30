@@ -3,11 +3,9 @@ package com.hojong.meokgol.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ShopReviewWriteActivity extends AppCompatActivity {
+    EditText scoreView;
     EditText titleView;
     EditText contentsView;
     View writeView;
@@ -35,11 +34,13 @@ public class ShopReviewWriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_review_write);
-        
+
+        scoreView = findViewById(R.id.edit_review_score);
         titleView = findViewById(R.id.review_title);
         contentsView = findViewById(R.id.review_contents);
         writeView = findViewById(R.id.write_form);
         mProgressView = findViewById(R.id.progress_bar);
+
 
         // set visible back arrow button
 //        ActionBar actionbar = getSupportActionBar();
@@ -129,7 +130,14 @@ public class ShopReviewWriteActivity extends AppCompatActivity {
             return;
         }
 
-        ShopReview review = new ShopReview(titleView.getText().toString(), contentsView.getText().toString(), 5, LoginSharedPreference.getUserIdx(getApplicationContext()), shop.shop_idx);
+        String title = titleView.getText().toString();
+        String content = contentsView.getText().toString();
+        int star = Integer.parseInt(scoreView.getText().toString());
+        if (star < 1) star = 1;
+        else if (star > 5) star = 5;
+        int userIdx = LoginSharedPreference.getUserIdx(getApplicationContext());
+
+        ShopReview review = new ShopReview(title, content, star, userIdx, shop.shop_idx);
 
         showProgress(true);
         APIClient.getService().writeReview(review).enqueue(callbackWriteReview());

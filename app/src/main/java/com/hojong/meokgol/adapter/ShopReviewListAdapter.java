@@ -37,7 +37,7 @@ public class ShopReviewListAdapter extends BaseAdapter
         titleView.setText(review.review_title);
 
 		TextView writerView = itemView.findViewById(R.id.textview_writer);
-		writerView.setText(""+review.user_name);
+		writerView.setText(review.user_name);
 
         TextView scoreView = itemView.findViewById(R.id.textview_score);
         scoreView.setText("별점 : "+review.review_star);
